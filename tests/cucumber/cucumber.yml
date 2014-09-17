@@ -1,0 +1,2 @@
+#default: --no-source --color --format pretty --tags ~@wip
+default: --no-source --color --format pretty --format PrettyFace::Formatter::Html --out results/index.html --tags ~@wip
