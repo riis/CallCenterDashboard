@@ -37,7 +37,7 @@ public class BroadsoftGatewayTest
 //            gateway.setUserName("gnolanUser1@xdp.broadsoft.com");
 //            gateway.setPassword("welcome1");            
             gateway.setHostName("xsp.sip.voip.telnetww.com");
-            gateway.setUserName("mailto:admin_017279@asmain.voip.telnetww.com");
+            gateway.setUserName("admin_017279@asmain.voip.telnetww.com");
             gateway.setPassword("xy7@g42!");            
             String response = gateway.makeRequest("profile");
             assertNull(response);           
@@ -56,10 +56,10 @@ public class BroadsoftGatewayTest
         {
             BroadsoftGateway gateway = new BroadsoftGateway();
             gateway.setProtocol("http");
-            gateway.setHostName("xsp2.xdp.broadsoft.com");
+            gateway.setHostName("xsp.sip.voip.telnetww.com");
             gateway.setActionPath("com.broadsoft.xsi-actions/v2.0/user");
-            gateway.setUserName("gnolanUser1@xdp.broadsoft.com");
-            gateway.setPassword("Welcome1"); 
+            gateway.setUserName("admin_017279@asmain.voip.telnetww.com");
+            gateway.setPassword("xy7@g42!"); 
             String response = gateway.makeRequest("profile");
             assertNotNull(response);
             System.out.println(response);

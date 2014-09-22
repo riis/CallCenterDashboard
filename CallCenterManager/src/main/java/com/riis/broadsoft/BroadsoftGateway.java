@@ -163,14 +163,15 @@ public class BroadsoftGateway
             return;
         }
         // create the password for authentication
-        StringBuilder password = new StringBuilder();
-        password.append(userName);
-        password.append(AUTH_TOKEN_SEPARATOR);
-        password.append(password);
+        StringBuilder pwd = new StringBuilder();
+        pwd.append(userName);
+        pwd.append(AUTH_TOKEN_SEPARATOR);
+        pwd.append(password);
         
         StringBuilder authentication = new StringBuilder();
         authentication.append(AUTH_PREFIX_BASIC);
-        authentication.append( DatatypeConverter.printBase64Binary(password.toString().getBytes()));
+        authentication.append( DatatypeConverter.printBase64Binary(pwd.toString().getBytes()));
+//        authentication.append( password.toString());
         urlConnection.setRequestProperty(PROPERTY_AUTHORIZATION, authentication.toString());
         System.out.println("Set " + PROPERTY_AUTHORIZATION + "=" + authentication.toString() );
     }
