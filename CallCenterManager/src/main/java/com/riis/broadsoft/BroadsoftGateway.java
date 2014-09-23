@@ -8,8 +8,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 
 import javax.xml.bind.DatatypeConverter;
+
+import com.riis.model.CallCenter;
 
 public class BroadsoftGateway
 {
@@ -23,8 +26,9 @@ public class BroadsoftGateway
     private String protocol;
     private String actionPath;
     private String hostName;
-    private String userName;
+    private String authenticationUsername;
     private String password;
+    private String userName;
     private String sessionCookie;
     
     public String getProtocol()
@@ -63,18 +67,18 @@ public class BroadsoftGateway
     }
 
     
-    public String getUserName()
+    public String getAuthenticationUsername()
     {
-        return userName;
+        return authenticationUsername;
     }
 
-    
-    public void setUserName(String userName)
+
+    public void setAuthenticationUsername(String authenticationUsername)
     {
-        this.userName = userName;
+        this.authenticationUsername = authenticationUsername;
     }
 
-    
+
     public String getPassword()
     {
         return password;
@@ -84,6 +88,18 @@ public class BroadsoftGateway
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    
+    public void setUserName(String userName)
+    {
+        this.userName = userName;
     }
 
     
@@ -99,26 +115,9 @@ public class BroadsoftGateway
         for (int i=1; (headerName = urlConnection.getHeaderFieldKey(i)) != null; i++)
         {
             if (headerName.equals("Set-Cookie"))
-            {
-                
-                String headerValue = urlConnection.getHeaderField(i);
-                System.out.println(headerValue);
-                sessionCookie = headerValue;
-//                String[] fields = headerValue.split(";\r*");
-//                sessionCookie = fields[0];
-//                String expires = null;
-//                For (int j=1; j<fields.length; j++)
-//                {
-//                    if (fields[j].indexOf('=') > 0)
-//                    {
-//                        String[] f = fields[j].split("=");
-//                        if ("expires".equalsIgnoreCase(f[0]))
-//                        {
-//                            expires = f[1];
-//                            System.out.println("Found expires: " + expires);
-//                        }
-//                    }
-//                }
+            {               
+                String sessionCookie = urlConnection.getHeaderField(i);
+                System.out.println(sessionCookie);
             }
         }
     }
@@ -146,10 +145,18 @@ public class BroadsoftGateway
         return responseXML;
     }
     
-    boolean checkConfiguration()
+    public List<CallCenter> getAllCallCenters() throws IOException
+    {
+        String CallCenterXML =  makeRequest("/directories/CallCenters?user=Supervisor");
+        List<CallCenter> allCallCenters = new CallCenter().createListFromXMLString(CallCenterXML);
+        return allCallCenters;
+    }
+    
+    private boolean checkConfiguration()
     {
         if (protocol == null || actionPath == null || hostName == null 
-                || userName == null || password == null)
+                || authenticationUsername == null || password == null
+                || userName==null)
         {
             return false;
         }
@@ -164,14 +171,13 @@ public class BroadsoftGateway
         }
         // create the password for authentication
         StringBuilder pwd = new StringBuilder();
-        pwd.append(userName);
+        pwd.append(authenticationUsername);
         pwd.append(AUTH_TOKEN_SEPARATOR);
         pwd.append(password);
         
         StringBuilder authentication = new StringBuilder();
         authentication.append(AUTH_PREFIX_BASIC);
         authentication.append( DatatypeConverter.printBase64Binary(pwd.toString().getBytes()));
-//        authentication.append( password.toString());
         urlConnection.setRequestProperty(PROPERTY_AUTHORIZATION, authentication.toString());
         System.out.println("Set " + PROPERTY_AUTHORIZATION + "=" + authentication.toString() );
     }
