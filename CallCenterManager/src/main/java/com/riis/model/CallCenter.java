@@ -70,9 +70,6 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract
     public List<CallCenter> createListFromXMLString(String broadsoftXML)
     {
         List<CallCenter> callCenters = new ArrayList<CallCenter>();
-//        <?xml version="1.0" encoding="ISO-8859-1"?>
-//        <CallCenters xmlns="http://schema.broadsoft.com/xsiÓ>    <serviceUserID>Premium@172.16.25.102</serviceUserID>    <serviceUserID>PremiumTwo@172.16.25.102</serviceUserID>
-//        </CallCenters>
         try
         {
             doc = docBuilder.parse(new InputSource(new StringReader(broadsoftXML)));
