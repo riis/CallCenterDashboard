@@ -1,12 +1,10 @@
 @wip
-Feature: Calculate Your Property Tax Savings Form
-   As a customer I want to calculate how much I could potentially save
-   off of my property taxes.  The scenarios will include submitting an empty form,
-   Submitting a form for each field that can be left blank (a total of 10), and
-   submitting a completed form.
+Feature: Incoming callcenter calls
+   As a user I want the call center dashboard to function
+   with multiple incoming calls, for obvious reasons
 
-
-Scenario: I submit an empty form
-  Given I am about to complete the form
-    When I submit the form for calculation
-    Then I will see a message indicating the required fields need to be entered
+Scenario: I create six incoming calls to the callcenter
+  	Given I am on the dashboard page
+    When I create six incoming calls to "6165940021"
+    Then I will see the dashboard refresh
+    And There will be six agents on a call
