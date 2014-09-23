@@ -33,13 +33,10 @@ public class BroadsoftGatewayTest
         try
         {
             BroadsoftGateway gateway = new BroadsoftGateway();
-//            gateway.setHostName("xsp2.xdp.broadsoft.com");
-//            gateway.setUserName("gnolanUser1@xdp.broadsoft.com");
-//            gateway.setPassword("welcome1");            
-            gateway.setHostName("xsp.sip.voip.telnetww.com");
-            gateway.setUserName("admin_017279@asmain.voip.telnetww.com");
-            gateway.setPassword("xy7@g42!");            
-            String response = gateway.makeRequest("profile");
+            gateway.setHostName("xsp2.xdp.broadsoft.com");
+            gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
+            gateway.setPassword("welcome1");            
+            String response = gateway.makeRequest("directories/Agents");
             assertNull(response);           
         }
         catch (IOException e)
@@ -56,11 +53,12 @@ public class BroadsoftGatewayTest
         {
             BroadsoftGateway gateway = new BroadsoftGateway();
             gateway.setProtocol("http");
-            gateway.setHostName("xsp.sip.voip.telnetww.com");
+            gateway.setHostName("xsp2.xdp.broadsoft.com");
             gateway.setActionPath("com.broadsoft.xsi-actions/v2.0/user");
-            gateway.setUserName("admin_017279@asmain.voip.telnetww.com");
-            gateway.setPassword("xy7@g42!"); 
-            String response = gateway.makeRequest("profile");
+            gateway.setUserName("gnolanUser1@xdp.broadsoft.com");
+            gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
+            gateway.setPassword("welcome1"); 
+            String response = gateway.makeRequest("directories/CallCenters?user=Supervisor");
             assertNotNull(response);
             System.out.println(response);
         }
