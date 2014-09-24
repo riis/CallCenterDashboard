@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.InputSource;
 
 public class CallCenter extends AbstractXMLParser implements XMLParserContract
 {
+    private static String NODE_NAME = "serviceUserID";
     private String callCenterId;
     private String callCenterName;
     private int queueLength;
@@ -57,8 +58,10 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract
     {
         try
         {
-            Element eElement = (Element) element;
-            callCenterId = readFromNodeWithPath(eElement, "serviceUserId");            
+            if (NODE_NAME.equals(element.getNodeName()))
+            {
+                callCenterId = element.getTextContent();                           
+            }
         }
         catch (Exception e)
         {
@@ -67,12 +70,14 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract
         }
         
     }
+    
+    
     public List<CallCenter> createListFromXMLString(String broadsoftXML)
     {
         List<CallCenter> callCenters = new ArrayList<CallCenter>();
         try
         {
-            doc = docBuilder.parse(new InputSource(new StringReader(broadsoftXML)));
+            Document doc = docBuilder.parse(new InputSource(new StringReader(broadsoftXML)));
             doc.getDocumentElement().normalize();
             if (doc.getDocumentElement().getNodeName() != "CallCenters")
             {
