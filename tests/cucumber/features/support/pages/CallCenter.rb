@@ -23,4 +23,8 @@ def create_calls(num)
 	end
 end
 
+def check_agents()
+	@browser.divs(:class => "tech_oncall").length.should == 6
+end
+
 end
