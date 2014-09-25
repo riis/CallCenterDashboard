@@ -39,4 +39,11 @@ public abstract class AbstractXMLParser implements XMLParserContract
         return result;
     }
 
+    protected String getNodeValueWithPath(String path) throws Exception
+    {
+        XPathExpression xPathExpression = xPath.compile(path);
+        String result = xPathExpression.evaluate(doc);
+        return result;
+    }
+
 }

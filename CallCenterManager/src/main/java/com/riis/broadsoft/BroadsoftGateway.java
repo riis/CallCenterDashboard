@@ -28,7 +28,6 @@ public class BroadsoftGateway
     private String hostName;
     private String authenticationUsername;
     private String password;
-    private String userName;
     private String sessionCookie;
     
     public String getProtocol()
@@ -91,18 +90,6 @@ public class BroadsoftGateway
     }
 
     
-    public String getUserName()
-    {
-        return userName;
-    }
-
-    
-    public void setUserName(String userName)
-    {
-        this.userName = userName;
-    }
-
-    
     public String getSessionCookie()
     {
         return sessionCookie;
@@ -117,7 +104,6 @@ public class BroadsoftGateway
             if (headerName.equals("Set-Cookie"))
             {               
                 String sessionCookie = urlConnection.getHeaderField(i);
-                System.out.println(sessionCookie);
             }
         }
     }
@@ -130,7 +116,6 @@ public class BroadsoftGateway
             URL url = new URL(protocol + PROTOCOL_SEPARATOR 
                     + hostName + PATH_SEPARATOR 
                     + actionPath + PATH_SEPARATOR 
-                    + userName + PATH_SEPARATOR
                     + action );
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(REQUEST_METHOD);
@@ -147,16 +132,22 @@ public class BroadsoftGateway
     
     public List<CallCenter> getAllCallCenters() throws IOException
     {
-        String CallCenterXML =  makeRequest("/directories/CallCenters?user=Supervisor");
+        String CallCenterXML =  makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/CallCenters?user=Supervisor");
         List<CallCenter> allCallCenters = new CallCenter().createListFromXMLString(CallCenterXML);
+        for(CallCenter callCenter : allCallCenters)
+        {
+            String callCenterProfile = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/profile");            
+            callCenter.readNameFromXMLString(callCenterProfile);
+            String callCenterCalls = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/calls"); 
+            callCenter.readQueueLengthFromXMLString(callCenterCalls);
+        }
         return allCallCenters;
     }
     
     private boolean checkConfiguration()
     {
         if (protocol == null || actionPath == null || hostName == null 
-                || authenticationUsername == null || password == null
-                || userName==null)
+                || authenticationUsername == null || password == null)
         {
             return false;
         }
@@ -165,7 +156,7 @@ public class BroadsoftGateway
     
     private void  setAuthorization(HttpURLConnection urlConnection)
     {
-        if (userName == null || password == null || urlConnection == null)
+        if (authenticationUsername == null || password == null || urlConnection == null)
         {
             return;
         }
@@ -179,7 +170,6 @@ public class BroadsoftGateway
         authentication.append(AUTH_PREFIX_BASIC);
         authentication.append( DatatypeConverter.printBase64Binary(pwd.toString().getBytes()));
         urlConnection.setRequestProperty(PROPERTY_AUTHORIZATION, authentication.toString());
-        System.out.println("Set " + PROPERTY_AUTHORIZATION + "=" + authentication.toString() );
     }
 
     
