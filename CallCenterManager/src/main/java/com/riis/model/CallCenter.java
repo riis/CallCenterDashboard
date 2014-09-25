@@ -1,5 +1,6 @@
 package com.riis.model;
 
+import java.io.Serializable;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +12,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-public class CallCenter extends AbstractXMLParser implements XMLParserContract
+public class CallCenter extends AbstractXMLParser implements XMLParserContract, Serializable
 {
+    private static final long serialVersionUID = -7087245582724123433L;
     private static String NODE_NAME = "serviceUserID";
     private String callCenterId;
     private String callCenterName;
