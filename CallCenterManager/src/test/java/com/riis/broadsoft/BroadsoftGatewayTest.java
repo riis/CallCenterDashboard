@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.riis.broadsoft.BroadsoftGateway;
+import com.riis.model.Agent;
 import com.riis.model.CallCenter;
 
 import static junit.framework.Assert.assertNull;
@@ -133,4 +134,27 @@ public class BroadsoftGatewayTest
             System.err.print("Exception Thrown in BroadsoftGateWayTest: " + e.getMessage());
         }
     }
+
+
+    @Test
+    public void testGetAllAgents()
+    {
+        try
+        {
+            // Need to eventually inject this test with Mock Objects
+            BroadsoftGateway gateway = new BroadsoftGateway();
+            gateway.setProtocol("http");
+            gateway.setHostName("xsp2.xdp.broadsoft.com");
+            gateway.setActionPath("com.broadsoft.xsi-actions/v2.0");
+            gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
+            gateway.setPassword("welcome1"); 
+            List<Agent> allAgents = gateway.getAllAgents();
+            assertNotNull(allAgents);
+        }
+        catch (IOException e)
+        {
+            System.err.print("Exception Thrown in BroadsoftGateWayTest: " + e.getMessage());
+        }
+    }
+
 }

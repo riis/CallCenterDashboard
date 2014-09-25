@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.xml.bind.DatatypeConverter;
 
+import com.riis.model.Agent;
 import com.riis.model.CallCenter;
 
 public class BroadsoftGateway
@@ -142,6 +143,21 @@ public class BroadsoftGateway
             callCenter.readQueueLengthFromXMLString(callCenterCalls);
         }
         return allCallCenters;
+    }
+    
+    public List<Agent> getAllAgents() throws IOException
+    {
+        String agentXML =  makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/Agents");
+        System.out.println("AgentXML = " + agentXML);
+        List<Agent> allAgents = new Agent().createListFromXMLString(agentXML);
+        for(Agent agent : allAgents)
+        {
+//            String callCenterProfile = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/profile");            
+//            callCenter.readNameFromXMLString(callCenterProfile);
+//            String callCenterCalls = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/calls"); 
+//            callCenter.readQueueLengthFromXMLString(callCenterCalls);
+        }
+        return allAgents;
     }
     
     private boolean checkConfiguration()
