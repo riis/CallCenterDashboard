@@ -103,7 +103,7 @@ public class AgentTest
             fail("No Nodes found in list");
         }
         
-        assertEquals("gnolanUser2@xdp.broadsoft.com",agent.getUserId());
+        assertEquals("gnolanUser2@xdp.broadsoft.com",agent.getAgentId());
         assertEquals("gnolan User2",agent.getName());
         assertEquals("+1-2401003211",agent.getPhoneNumber());
         assertEquals("3211",agent.getExtension());        
@@ -116,19 +116,19 @@ public class AgentTest
         List<Agent> result = agent.createListFromXMLString(AGENT_LIST_XML_RESULT);   
         assertEquals(3, result.size());
         
-        assertEquals("gnolanUser2@xdp.broadsoft.com",result.get(0).getUserId());
+        assertEquals("gnolanUser2@xdp.broadsoft.com",result.get(0).getAgentId());
         assertEquals("gnolan User2",result.get(0).getName());
         assertEquals("+1-2401003211",result.get(0).getPhoneNumber());
         assertEquals("3211",result.get(0).getExtension());        
         assertEquals("CallCenterPrem@xdp.broadsoft.com",result.get(0).getCallCenterId());
         
-        assertEquals("gnolanUser3@xdp.broadsoft.com",result.get(1).getUserId());
+        assertEquals("gnolanUser3@xdp.broadsoft.com",result.get(1).getAgentId());
         assertEquals("gnolan User3",result.get(1).getName());
         assertEquals("+1-2401003212",result.get(1).getPhoneNumber());
         assertEquals("3212",result.get(1).getExtension());        
         assertEquals("CallCenterPrem@xdp.broadsoft.com",result.get(1).getCallCenterId());
 
-        assertEquals("gnolanUser2@xdp.broadsoft.com",result.get(2).getUserId());
+        assertEquals("gnolanUser2@xdp.broadsoft.com",result.get(2).getAgentId());
         assertEquals("gnolan User2",result.get(2).getName());
         assertEquals("+1-2401003211",result.get(2).getPhoneNumber());
         assertEquals("3211",result.get(2).getExtension());        

@@ -13,8 +13,9 @@ import org.xml.sax.InputSource;
 
 public class Agent extends AbstractXMLParser implements XMLParserContract, Serializable
 {
+    private static final long serialVersionUID = 2243830860628688482L;
     private static String NODE_NAME = "userDetails";
-    private String userId;
+    private String agentId;
     private String name;
     private String phoneNumber;
     private String extension;
@@ -22,15 +23,15 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
     private String callCenterId;
     private Date statusChangedTimestamp;
     
-    public String getUserId()
+    public String getAgentId()
     {
-        return userId;
+        return agentId;
     }
     
     
-    public void setUserId(String userId)
+    public void setAgentId(String agentId)
     {
-        this.userId = userId;
+        this.agentId = agentId;
     }
     
     
@@ -112,7 +113,7 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
         {
             if (NODE_NAME.equals(element.getNodeName()))
             {
-                userId = readFromNodeWithPath(element, "userId");
+                agentId = readFromNodeWithPath(element, "userId");
                 name = readFromNodeWithPath(element, "firstName") + " " + readFromNodeWithPath(element, "lastName");
                 phoneNumber = readFromNodeWithPath(element, "number");
                 extension = readFromNodeWithPath(element, "extension");

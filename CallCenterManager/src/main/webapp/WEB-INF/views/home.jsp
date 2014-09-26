@@ -13,7 +13,11 @@
         <p>This is the homepage!</p>
         <h3>CallCenters</h3>
         <c:forEach items="${model.callcenters}" var="callCenter">
-            Call Center Id = <c:out value="${callCenter.callCenterId}"/> Call Center Name = <c:out value="${callCenter.callCenterName}"/> Calls In Queue  = <C:out value="${callCenter.queueLength}"/><br><br>
+            Call Center Id = <i><c:out value="${callCenter.callCenterId}"/></i>, Call Center Name = <i><c:out value="${callCenter.callCenterName}"/></i>, Calls In Queue  = <i><C:out value="${callCenter.queueLength}"/></i><br><br>
+        </c:forEach>
+        <h3>Agents</h3>
+        <c:forEach items="${model.agents}" var="agent">
+            Extension = <i><c:out value="${agent.extension}"/></i>, AgentId = <i><c:out value="${agent.agentId}"/></i>, Call Center Id = <i><c:out value="${agent.callCenterId}"/></i><br><br>
         </c:forEach>
         <p>Page Last Refreshed <c:out value="${model.now}"/></p>
     </body>

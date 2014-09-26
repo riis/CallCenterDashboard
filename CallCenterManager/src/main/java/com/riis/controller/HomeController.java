@@ -3,6 +3,7 @@ package com.riis.controller;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.riis.broadsoft.BroadsoftGateway;
+import com.riis.model.Agent;
 
 @Controller
 public class HomeController 
@@ -32,6 +34,9 @@ public class HomeController
         gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
         gateway.setPassword("welcome1"); 
 	    myModel.put("callcenters", gateway.getAllCallCenters());
+	    List<Agent> agents = gateway.getAllAgents();
+	    System.out.println("XXXX AgentId = " + agents.get(0).getAgentId());
+	    myModel.put("agents", gateway.getAllAgents());
 
         return new ModelAndView("home", "model", myModel);
 	}

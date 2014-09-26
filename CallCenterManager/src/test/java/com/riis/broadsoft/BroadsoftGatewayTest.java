@@ -149,6 +149,14 @@ public class BroadsoftGatewayTest
             gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
             gateway.setPassword("welcome1"); 
             List<Agent> allAgents = gateway.getAllAgents();
+            assertEquals(3, allAgents.size());
+            Agent gnolanUser2 = allAgents.get(0);
+            assertEquals("gnolanUser2@xdp.broadsoft.com",gnolanUser2.getAgentId());
+            assertEquals("gnolan User2",gnolanUser2.getName());
+            assertEquals("+1-2401003211",gnolanUser2.getPhoneNumber());
+            assertEquals("3211",gnolanUser2.getExtension());        
+            assertEquals("CallCenterPrem@xdp.broadsoft.com",gnolanUser2.getCallCenterId());
+
             assertNotNull(allAgents);
         }
         catch (IOException e)
