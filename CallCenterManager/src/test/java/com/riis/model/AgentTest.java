@@ -69,6 +69,35 @@ public class AgentTest
     		"     </callCenter>" +
     		"</CallCenterAgents>";
     
+    private static String AGENT_REFRESH_XML = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+    		"<CallCenter xmlns=\"http://schema.broadsoft.com/xsi\">" +
+    		"     <agentACDState>Available</agentACDState>" +
+    		"     <useDefaultGuardTimer>true</useDefaultGuardTimer>" +
+    		"     <enableGuardTimer>false</enableGuardTimer>" +
+    		"     <guardTimerSeconds>5</guardTimerSeconds>" +
+    		"     <useSystemDefaultUnavailableSettings>true</useSystemDefaultUnavailableSettings>" +
+    		"     <forceAgentUnavailableOnDNDActivation>false</forceAgentUnavailableOnDNDActivation>" +
+    		"     <forceUnavailableOnPersonalCalls>false</forceUnavailableOnPersonalCalls>" +
+    		"     <forceAgentUnavailableOnBouncedCallLimit>false</forceAgentUnavailableOnBouncedCallLimit>" +
+    		"     <numberConsecutiveBouncedCallsToForceAgentUnavailable>3</numberConsecutiveBouncedCallsToForceAgentUnavailable>" +
+    		"     <makeOutgoingCallsAsCallCenter>false</makeOutgoingCallsAsCallCenter>" +
+    		"     <callCenterList>" +
+    		"         <callCenterDetails>" +
+    		"             <serviceUserId>CallCenterPrem@xdp.broadsoft.com</serviceUserId>" +
+    		"             <available>false</available>" +
+    		"             <phoneNumber>2401003214</phoneNumber>" +
+    		"             <extension>3214</extension>" +
+    		"             <isLogOffAllowed>true</isLogOffAllowed>" +
+    		"         </callCenterDetails>" +
+    		"         <callCenterDetails>" +
+    		"             <serviceUserId>call_std2@xdp.broadsoft.com</serviceUserId>" +
+    		"             <available>false</available>" +
+    		"             <phoneNumber>2401003213</phoneNumber>" +
+    		"             <extension>3213</extension>" +
+    		"             <isLogOffAllowed>true</isLogOffAllowed>" +
+    		"         </callCenterDetails>" +
+    		"     </callCenterList>" +
+    		"</CallCenter>";
     private Agent agent;
 
     @Before
@@ -101,8 +130,7 @@ public class AgentTest
         else
         {
             fail("No Nodes found in list");
-        }
-        
+        }        
         assertEquals("gnolanUser2@xdp.broadsoft.com",agent.getAgentId());
         assertEquals("gnolan User2",agent.getName());
         assertEquals("+1-2401003211",agent.getPhoneNumber());
@@ -133,6 +161,13 @@ public class AgentTest
         assertEquals("+1-2401003211",result.get(2).getPhoneNumber());
         assertEquals("3211",result.get(2).getExtension());        
         assertEquals("call_std2@xdp.broadsoft.com",result.get(2).getCallCenterId());
+    }    
 
+
+    @Test
+    public void testReadStatusXMLString() throws Exception
+    {      
+        agent.readStatusFromXMLString(AGENT_REFRESH_XML);   
+        assertEquals("Available", agent.getStatus());
     }    
 }

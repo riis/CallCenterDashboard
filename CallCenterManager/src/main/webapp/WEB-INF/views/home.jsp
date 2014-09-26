@@ -17,7 +17,7 @@
         </c:forEach>
         <h3>Agents</h3>
         <c:forEach items="${model.agents}" var="agent">
-            Extension = <i><c:out value="${agent.extension}"/></i>, AgentId = <i><c:out value="${agent.agentId}"/></i>, Call Center Id = <i><c:out value="${agent.callCenterId}"/></i><br><br>
+            Extension = <i><c:out value="${agent.extension}"/></i>, Agent Status = <i><c:out value="${agent.status}"/></i>, AgentId = <i><c:out value="${agent.agentId}"/></i>, Call Center Id = <i><c:out value="${agent.callCenterId}"/></i><br><br>
         </c:forEach>
         <p>Page Last Refreshed <c:out value="${model.now}"/></p>
     </body>

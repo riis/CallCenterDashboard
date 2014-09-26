@@ -35,7 +35,7 @@ public class HomeController
         gateway.setPassword("welcome1"); 
 	    myModel.put("callcenters", gateway.getAllCallCenters());
 	    List<Agent> agents = gateway.getAllAgents();
-	    System.out.println("XXXX AgentId = " + agents.get(0).getAgentId());
+	    System.out.println("XXXX AgentId = " + agents.get(0).getAgentId() + " Agent Status = " + agents.get(0).getStatus());
 	    myModel.put("agents", gateway.getAllAgents());
 
         return new ModelAndView("home", "model", myModel);

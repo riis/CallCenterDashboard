@@ -148,7 +148,7 @@ public class BroadsoftGateway
     public List<Agent> getAllAgents() throws IOException
     {
         String agentXML =  makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/Agents");
-        System.out.println("AgentXML = " + agentXML);
+//        System.out.println("AgentXML = " + agentXML);
         List<Agent> allAgents = new Agent().createListFromXMLString(agentXML);
         for(Agent agent : allAgents)
         {
@@ -156,8 +156,16 @@ public class BroadsoftGateway
 //            callCenter.readNameFromXMLString(callCenterProfile);
 //            String callCenterCalls = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/calls"); 
 //            callCenter.readQueueLengthFromXMLString(callCenterCalls);
+            refreshAgentStatus(agent);
         }
         return allAgents;
+    }
+    
+    public void refreshAgentStatus(Agent agent) throws IOException
+    {
+        String refreshXML =  makeRequest("user/" + agent.getAgentId() + "/services/CallCenter");
+ //       System.out.println("AgentRefresh XML = " + refreshXML);
+        agent.readStatusFromXMLString(refreshXML);
     }
     
     private boolean checkConfiguration()
