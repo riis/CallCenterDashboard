@@ -1,4 +1,4 @@
-@wip
+
 Feature: Incoming callcenter calls
    As a user I want the call center dashboard to function
    with multiple incoming calls, for obvious reasons
