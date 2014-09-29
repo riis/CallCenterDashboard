@@ -4,5 +4,5 @@ import org.w3c.dom.Node;
 
 public interface XMLParserContract
 {
-    public void readFromXMLNode(Node element);
+    public void readIdFromXMLNode(Node element);
 }

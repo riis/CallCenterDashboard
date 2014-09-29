@@ -1,5 +1,6 @@
 package com.riis.model;
 
+import java.io.Serializable;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +12,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-public class CallCenter extends AbstractXMLParser implements XMLParserContract
+public class CallCenter extends AbstractXMLParser implements XMLParserContract, Serializable
 {
+    private static final long serialVersionUID = -7087245582724123433L;
     private static String NODE_NAME = "serviceUserID";
     private String callCenterId;
     private String callCenterName;
@@ -54,7 +56,7 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract
     }
     
     
-    public void readFromXMLNode(Node element)
+    public void readIdFromXMLNode(Node element)
     {
         try
         {
@@ -72,6 +74,43 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract
     }
     
     
+    public void readNameFromXMLString(String callCenterProfile)
+    {
+        try
+        {
+            doc = docBuilder.parse(new InputSource(new StringReader(callCenterProfile)));
+            doc.getDocumentElement().normalize();
+            if (doc.getDocumentElement().getNodeName() != "ACDProfile")
+            {
+                throw new Exception("Wrong Root Node: Expected ACDProfile, received " + doc.getDocumentElement().getNodeName());
+            }
+            callCenterName = getNodeValueWithPath("/ACDProfile/serviceInstanceProfile/name");
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error parsing XML from string! :" + e.getMessage());
+            e.printStackTrace();                       
+        }
+        
+    }
+
+    public void readQueueLengthFromXMLString(String callCenterCalls)
+    {
+        try
+        {
+            doc = docBuilder.parse(new InputSource(new StringReader(callCenterCalls)));
+            doc.getDocumentElement().normalize();
+            NodeList nodes = doc.getDocumentElement().getElementsByTagName("queueEntry");   
+            queueLength = nodes.getLength();
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error parsing XML from string! :" + e.getMessage());
+            e.printStackTrace();                       
+        }
+    }
+
+   
     public List<CallCenter> createListFromXMLString(String broadsoftXML)
     {
         List<CallCenter> callCenters = new ArrayList<CallCenter>();
@@ -89,7 +128,7 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract
             {
                 Element element = (Element)nodes.item(i);
                 CallCenter callCenterToAdd = new CallCenter();
-                callCenterToAdd.readFromXMLNode(element);
+                callCenterToAdd.readIdFromXMLNode(element);
                 callCenters.add(callCenterToAdd);                 
             }
         }
