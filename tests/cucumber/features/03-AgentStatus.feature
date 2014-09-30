@@ -5,7 +5,7 @@ Feature: Call Center Agent Status List
 
 Scenario: I look at the list of agents
   	Given I am on the dashboard page
-    When The page contains the text "Agent Status"
+    When The page contains the text "Agents"
     Then I will see "3210"
     And I will see "3211"
     And I will see "3212"
