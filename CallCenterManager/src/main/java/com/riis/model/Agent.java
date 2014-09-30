@@ -13,6 +13,11 @@ import org.xml.sax.InputSource;
 
 public class Agent extends AbstractXMLParser implements XMLParserContract, Serializable
 {
+    public static final String AGENT_UNAVAILABLE_STATUS = "Unavailable";
+    public static final String AGENT_AVAILABLE_STATUS = "Available";
+    public static final String AGENT_ONCALL_STATUS = "On-Call";
+    public static final String AGENT_SIGNOUT_STATUS = "Sign-Out";
+    
     private static final long serialVersionUID = 2243830860628688482L;
     private static String NODE_NAME = "userDetails";
     private String agentId;
