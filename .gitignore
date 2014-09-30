@@ -8,6 +8,9 @@
 *.war
 *.ear
 
+# MVN
+target/
+
 # OS-X specific files
 .DS_Store
 
