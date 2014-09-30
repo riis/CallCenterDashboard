@@ -149,7 +149,7 @@ public class BroadsoftGatewayTest
             gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
             gateway.setPassword("welcome1"); 
             List<Agent> allAgents = gateway.getAllAgents();
-            assertEquals(3, allAgents.size());
+            assertEquals(2, allAgents.size());
             Agent gnolanUser2 = allAgents.get(0);
             assertEquals("gnolanUser2@xdp.broadsoft.com",gnolanUser2.getAgentId());
             assertEquals("Available",gnolanUser2.getStatus());            
