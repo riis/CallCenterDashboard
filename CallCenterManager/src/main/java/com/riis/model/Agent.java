@@ -6,11 +6,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+@XmlRootElement(name="agent")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Agent extends AbstractXMLParser implements XMLParserContract, Serializable
 {
     public static final String AGENT_UNAVAILABLE_STATUS = "Unavailable";
@@ -20,12 +27,19 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
     
     private static final long serialVersionUID = 2243830860628688482L;
     private static String NODE_NAME = "userDetails";
+    @XmlElement(required=false)
     private String agentId;
+    @XmlElement(required=false)
     private String name;
+    @XmlElement(required=false)
     private String phoneNumber;
+    @XmlElement(required=false)
     private String extension;
+    @XmlElement(required=false)
     private String status;      // "Unavailable", "Available", "On-Call", "Sign-Out"
+    @XmlElement(required=false)
     private String callCenterId;
+    @XmlElement(required=false)
     private Date statusChangedTimestamp;
     
     public String getAgentId()
