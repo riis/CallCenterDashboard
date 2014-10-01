@@ -13,7 +13,8 @@ var roadrunnerapp = angular.module('roadrunnerapp', [
     'roadrunnerapp.factories',
     'roadrunnerapp.services',
     'roadrunnerapp.filters',
-    'ui.router'
+    'ui.router',
+    'doowb.angular-pusher'
 ], function ($httpProvider) {
     // Use x-www-form-urlencoded Content-Type
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -61,18 +62,23 @@ var roadrunnerapp = angular.module('roadrunnerapp', [
     };
 })
 
-.config(function myAppConfig($stateProvider, $urlRouterProvider, $httpProvider) {
-    $httpProvider.defaults.withCredentials = true;
-    $httpProvider.defaults.useXDomain = true;
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+.config(['PusherServiceProvider',
+	function(PusherServiceProvider) {
+		PusherServiceProvider.setToken('da81ce797d453db253d1').setOptions({
+			
+		});
+	}
+	],
+	function myAppConfig($stateProvider, $urlRouterProvider, $httpProvider) {
+    	$httpProvider.defaults.withCredentials = true;
+		$httpProvider.defaults.useXDomain = true;
+		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
-    $urlRouterProvider.otherwise('/dashboard');
-})
-
-    .run(function run() {})
-    
-    .controller('AppCtrl', function AppCtrl($rootScope, $scope, $location) {
-    });
+		$urlRouterProvider.otherwise('/dashboard');
+	}
+)
+.run(function run() {})
+.controller('AppCtrl', function AppCtrl($rootScope, $scope, $location) {});
 
 
 angular.element(document).ready(function () {

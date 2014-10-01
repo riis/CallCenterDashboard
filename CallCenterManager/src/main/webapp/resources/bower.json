@@ -15,6 +15,7 @@
     "angular-ui-date": "latest",
     "animate.css": "latest",
     "angular-bootstrap": "~0.10.0",
-    "angular-ui-router": "~0.2"
+    "angular-ui-router": "~0.2",
+    "angular-pusher": "~0.0.13"
   }
 }

@@ -11,6 +11,7 @@
         <script src="<%=request.getContextPath()%>/resources/bower_components/angular/angular.js"></script>
         <script src="<%=request.getContextPath()%>/resources/bower_components/angular-route/angular-route.js"></script>
         <script src="<%=request.getContextPath()%>/resources/bower_components/angular-resource/angular-resource.js"></script>
+        <script src="<%=request.getContextPath()%>/resources/bower_components/angular-pusher/angular-pusher.min.js"></script>
         <script src="<%=request.getContextPath()%>/resources/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="<%=request.getContextPath()%>/resources/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

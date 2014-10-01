@@ -28,7 +28,7 @@ angular.module('roadrunner.dashboard', [
  * And of course we define a controller for our route.
  */
 .controller('DashboardCtrl',
-	function DashboardController($rootScope, $scope, $location, $routeParams, agentsService) {
+	function DashboardController($rootScope, $scope, $location, $routeParams, agentsService, Pusher) {
 		$scope.pageTitle = 'Dashboard';
 		
 		// Start Loader...
@@ -59,6 +59,26 @@ angular.module('roadrunner.dashboard', [
 			endLoader('#agentSummary .panel-body');
 		}, function () {
 			// Error...
+		});
+		
+		
+		$scope.testItems = [{id: 4, name: 'test'},{id: 5, name: 'test5'},{id: 6, name: 'test6'}];
+		console.dir($scope.testItems);
+		
+		Pusher.subscribe('channel-one', 'test_event', function (item) {
+			console.log('recieved a new event...');
+			console.dir(item);
+			
+			$('body').append('<p>Received a new event...</p>');
+			// an item was updated. find it in our list and update it.
+			for (var i = 0; i < $scope.testItems.length; i++) {
+				if ($scope.testItems[i].id === item.id) {
+					$scope.testItems[i] = item;
+					break;
+				}
+			}
+			
+			console.dir($scope.testItems);
 		});
 		
 		
