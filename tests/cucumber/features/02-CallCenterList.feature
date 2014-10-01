@@ -1,4 +1,4 @@
-@wip
+
 Feature: Call Center Listing
    As a user I want to see a list of call centers displayed
    on the dashboard
