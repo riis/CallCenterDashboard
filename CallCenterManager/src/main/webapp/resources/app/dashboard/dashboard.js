@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('roadrunner.home', [
+angular.module('roadrunner.dashboard', [
     'ui.router'
 ])
 
@@ -10,12 +10,12 @@ angular.module('roadrunner.home', [
  * this way makes each module more "self-contained".
  */
 .config(function config($stateProvider) {
-    $stateProvider.state('home', {
+    $stateProvider.state('dashboard', {
         url: '/dashboard',
         views: {
             "main": {
-                controller: 'HomeCtrl',
-                templateUrl: 'resources/views/home/home.tpl.html'
+                controller: 'DashboardCtrl',
+                templateUrl: 'resources/app/dashboard/dashboard.tpl.html'
             }
         },
         data: {
@@ -27,8 +27,15 @@ angular.module('roadrunner.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller('HomeCtrl',
-	function HomeController($rootScope, $scope, $location, $routeParams) {
+.controller('DashboardCtrl',
+	function DashboardController($rootScope, $scope, $location, $routeParams, agentsService) {
 		$scope.pageTitle = 'Dashboard';
+		
+		// Get the agents from the Web Service
+		var agents = agentsService.getAgents();
+		console.dir(agents);
+		
+		// Bind the agents to the view
+		$scope.agents = agents;
 	}
 );

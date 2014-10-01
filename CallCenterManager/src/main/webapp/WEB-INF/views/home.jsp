@@ -7,17 +7,26 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
         
-        <!-- Javascript Files -->
+        <!-- 3rd party / vendor Javascript Files -->
         <script src="<%=request.getContextPath()%>/resources/bower_components/angular/angular.js"></script>
         <script src="<%=request.getContextPath()%>/resources/bower_components/angular-route/angular-route.js"></script>
         <script src="<%=request.getContextPath()%>/resources/bower_components/angular-resource/angular-resource.js"></script>
         <script src="<%=request.getContextPath()%>/resources/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-        
         <script src="<%=request.getContextPath()%>/resources/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         
-        <script src="<%=request.getContextPath()%>/resources/js/app.js"></script>
-        <script src="<%=request.getContextPath()%>/resources/js/controllers/home.js"></script>
+        <!-- App Javascript Files -->
+        <script src="<%=request.getContextPath()%>/resources/app/app.js"></script>
+        <script src="<%=request.getContextPath()%>/resources/app/dashboard/dashboard.js"></script>
+
+        <!-- Services -->
+        <script src="<%=request.getContextPath()%>/resources/common/service/agents/agentsService.js"></script>
+        
+        <!-- Factories -->
+        <script src="<%=request.getContextPath()%>/resources/common/factory/agents/agentsFactory.js"></script>
+        
+        <!-- Filters -->
+        <script src="<%=request.getContextPath()%>/resources/common/filter/partition/partitionFilter.js"></script>
         
         
         <!-- CSS Files -->
@@ -30,29 +39,28 @@
     </head>
     <body ng-controller="AppCtrl">
     
-	    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	      <div class="container-fluid">
-	        <div class="navbar-header">
-	          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-	            <span class="sr-only">Toggle navigation</span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	          </button>
-	          <a class="navbar-brand" href="#">RoadRunner Call Center</a>
-	        </div>
-	      </div>
-	    </div>
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Call Center Activity</a>
+				</div>
+
+				<div class="pull-right date-time">
+					
+					<div class="date-container">
+						<div class="day">Monday</div>
+						<div class="date">10 <span class="month">Feb</span></div>
+					</div>
+					
+					<div class="time-container">
+						<div class="am-pm">PM</div>
+						<div class="time">03:25</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	    
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-3 col-md-2 sidebar">
-					<ul class="nav nav-sidebar">
-						<li class="active"><a href="#">Dashboard</a></li>
-					</ul>
-				</div>
-				
-
 				<div ui-view="main" class="view-frame"></div>
 			</div>
 		</div>

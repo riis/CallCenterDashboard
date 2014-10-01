@@ -23,6 +23,49 @@ body {
  */
 .navbar-fixed-top {
   border: 0;
+  color: white;
+  background-color: #153F5F;
+  background-image: none;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-size: 1.8em;
+}
+
+.navbar .date-time {
+	float: right;
+}
+.navbar .date-time > div {
+	padding: 5px 10px;
+}
+
+.navbar .date-time .date-container {
+	float: left;
+}
+
+.navbar .date-time .time-container {
+	float: right;
+}
+
+.navbar .date-time .day {
+    font-size: .8em;
+}
+
+.navbar .date-time .date {
+    font-size: 1.4em;
+}
+
+.navbar .date-time .month {
+    font-size: 0.5em;
+}
+
+.navbar .date-time .am-pm {
+    font-size: 0.8em;
+    text-align: right;
+}
+.navbar .date-time .time {
+    font-size: 1.4em;
 }
 
 /*
@@ -49,35 +92,13 @@ body {
   }
 }
 
-/* Sidebar navigation */
-.nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
-  margin-left: -20px;
-}
-.nav-sidebar > li > a {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
-  color: #fff;
-  background-color: #428bca;
-}
-
-
 /*
  * Main content
  */
 
-.main {
-  padding: 20px;
-}
 @media (min-width: 768px) {
   .main {
-    padding-right: 40px;
-    padding-left: 40px;
+
   }
 }
 .main .page-header {
@@ -102,4 +123,22 @@ body {
 .placeholder img {
   display: inline-block;
   border-radius: 50%;
+}
+
+.panel-default .panel-body .table-bordered,
+.panel-default .panel-body .table-bordered td {
+	border-left: none !important;
+}
+.panel-default .panel-heading {
+	background-color: #153f5f;
+	color: white;
+	background-image: none;
+}
+
+.panel-default .panel-body table th {
+	background-color: #B5DC8C;
+}
+
+.panel-default .panel-body table {
+    font-size: 0.8em;
 }

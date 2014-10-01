@@ -1,10 +1,18 @@
 /*global angular, $, document, window*/
 
 'use strict';
+
+var Factories = angular.module('roadrunnerapp.factories', []);
+var Services = angular.module('roadrunnerapp.services', []);
+var Filters = angular.module('roadrunnerapp.filters', []);
+
 var roadrunnerapp = angular.module('roadrunnerapp', [
     'ngRoute',
     'ngResource',
-    'roadrunner.home',
+    'roadrunner.dashboard',
+    'roadrunnerapp.factories',
+    'roadrunnerapp.services',
+    'roadrunnerapp.filters',
     'ui.router'
 ], function ($httpProvider) {
     // Use x-www-form-urlencoded Content-Type
