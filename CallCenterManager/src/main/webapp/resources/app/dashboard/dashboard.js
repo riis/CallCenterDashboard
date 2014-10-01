@@ -31,11 +31,36 @@ angular.module('roadrunner.dashboard', [
 	function DashboardController($rootScope, $scope, $location, $routeParams, agentsService) {
 		$scope.pageTitle = 'Dashboard';
 		
-		// Get the agents from the Web Service
-		var agents = agentsService.getAgents();
-		console.dir(agents);
+		// Start Loader...
+		startLoader('#agents .panel-body');
 		
-		// Bind the agents to the view
-		$scope.agents = agents;
+		//---------------------------------------------------------------------------
+		// Get the agents from the Web Service
+		//---------------------------------------------------------------------------
+		var agents = agentsService.getAgents(function (response) {
+			// Success...
+			$scope.agents = response;
+
+			endLoader('#agents .panel-body');
+		}, function () {
+			// Error...
+		});
+		
+		
+		// Start Loader...
+		startLoader('#agentSummary .panel-body');
+		//---------------------------------------------------------------------------
+		// Agent Summary
+		//---------------------------------------------------------------------------
+		var agents = agentsService.getAgentSummary(function (response) {
+			// Success...
+			$scope.callCenterAgentSummary = response;
+
+			endLoader('#agentSummary .panel-body');
+		}, function () {
+			// Error...
+		});
+		
+		
 	}
 );

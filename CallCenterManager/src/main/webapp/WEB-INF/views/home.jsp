@@ -15,6 +15,9 @@
         <script src="<%=request.getContextPath()%>/resources/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         
+        <!-- Functions -->
+        <script src="<%=request.getContextPath()%>/resources/common/functions.js"></script>
+        
         <!-- App Javascript Files -->
         <script src="<%=request.getContextPath()%>/resources/app/app.js"></script>
         <script src="<%=request.getContextPath()%>/resources/app/dashboard/dashboard.js"></script>
@@ -27,7 +30,7 @@
         
         <!-- Filters -->
         <script src="<%=request.getContextPath()%>/resources/common/filter/partition/partitionFilter.js"></script>
-        
+
         
         <!-- CSS Files -->
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/css/bootstrap.css" />

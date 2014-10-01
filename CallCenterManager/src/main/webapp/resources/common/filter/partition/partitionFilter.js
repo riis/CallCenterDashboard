@@ -12,10 +12,6 @@ Filters.filter('partition', function() {
       return fromCache;
     }
     cache[arrString+size] = newArr;
-    
-  
-  console.log('newArr...');
-  console.dir(newArr);
     return newArr;
   };
   return filter;

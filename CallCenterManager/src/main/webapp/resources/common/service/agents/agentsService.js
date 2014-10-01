@@ -1,143 +1,22 @@
-Services.service('agentsService', function (agentsFactory) {
+Services.service('agentsService', function ($http, agentsFactory) {
 	var service = {};
 	
 	
 	/**
 	 * Get Agents..
 	 */
-	service.getAgents = function () {
-
-		// TODO: Make web service call
-		var agents = [];
-		agents.push({
-			extension: '123',
-			agentId: '555222',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '122',
-			agentId: '555221',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		agents.push({
-			extension: '124',
-			agentId: '555223',
-			callCenterId: '33'
-		});
-		
-		console.log('about to call the agent factory..');
-		return agentsFactory.getAgents(agents);
+	service.getAgents = function (successCallback, errorCallback) {
+		// Get the agents from the web service
+		$http.get('/CallCenterManager/webservices/agentList').success(successCallback).error(errorCallback);
 	}
 	
+	
+	/**
+	 * Get the agent summary
+	 */
+	service.getAgentSummary = function (successCallback, errorCallback) {
+		// Get the agents from the web service
+		$http.get('/CallCenterManager/webservices/callCenterAgentSummary').success(successCallback).error(errorCallback);
+	}
 	return service;
 });

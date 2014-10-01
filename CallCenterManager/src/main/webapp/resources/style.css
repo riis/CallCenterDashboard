@@ -142,3 +142,9 @@ body {
 .panel-default .panel-body table {
     font-size: 0.8em;
 }
+
+.panel-default .panel-body .fa-spin {
+    font-size: 1.8em;
+    margin-left: 20px;
+    margin-top: 15px;
+}

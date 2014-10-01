@@ -10,6 +10,39 @@
 	#agents .panel-body {
 	    padding: 8px 0;
 	}
+	
+	#agentSummary .title {
+		font-size: .8em;
+	}
+	#agentSummary .badge {
+		font-size: 1.8em;
+		margin-top: 10px;
+	}
+	
+	#agentSummary .agentSummaryContainer .row-fluid {
+		text-align: center;
+	}
+	
+	#agentSummary .agentSummaryContainer .onCall .badge {
+		background-color: #1C3F60;
+	}
+	
+	#agentSummary .agentSummaryContainer .available .badge {
+		background-color: #B7DE82;
+	}
+	
+	#agentSummary .agentSummaryContainer .away .badge {
+		background-color: #F00413;
+	}
+	
+	#agentSummary .agentSummaryContainer .signedOut .badge {
+		background-color: #B4B4B4;
+	}
+	
+	#agentSummary .callCenterName {
+		background-color: #B7DE82;
+		padding: 5px;
+	}
 </style>
 
 <!-- Agents -->
@@ -28,13 +61,13 @@
 						<tr>
 							<th>Extension</th>
 							<th>Status</th>
-							<th>Time</th>
+							<th>Name</th>
 						</tr>
 						
 						<tr ng-repeat="agent in agentGroups">
 							<td>{{agent.extension}}</td>
 							<td>{{agent.status}}</td>
-							<td>{{agent.time}}</td>
+							<td>{{agent.name}}</td>
 						</tr>
 					</table>
 				</div>
@@ -65,7 +98,28 @@
 			Agent Summary
 		</div>
 		<div class="panel-body">
-			Agent Summary here
+		
+			<div class="agentSummaryContainer" ng-repeat="data in callCenterAgentSummary">
+				<div class="callCenterName">{{data.callCenterName}}</div>
+				<div class="row-fluid">
+					<div class="col-sm-3 onCall">
+						<div class="title">AGENTS ON CALL</div>
+						<span class="badge badge-primary">{{data.agentsOnCallCount}}</span>
+					</div>
+					<div class="col-sm-3 available">
+						<div class="title">AGENTS AVAILABLE</div>
+						<span class="badge badge-primary">{{data.agentsAvailableCount}}</span>
+					</div>
+					<div class="col-sm-3 away">
+						<div class="title">AGENTS AWAY</div>
+						<span class="badge badge-primary">{{data.agentsAwayCount}}</span>
+					</div>
+					<div class="col-sm-3 signedOut">
+						<div class="title">AGENTS SIGNED OUT</div>
+						<span class="badge badge-primary">{{data.agentsSignedOutCount}}</span>
+					</div>
+				</div>
+			</div> <!-- .agentSummaryContainer -->
 		</div>
 	</div>
 </div>
