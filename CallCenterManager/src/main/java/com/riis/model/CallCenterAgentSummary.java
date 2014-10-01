@@ -3,13 +3,26 @@ package com.riis.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="callcenteragentsummary")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CallCenterAgentSummary
 {
+    @XmlElement(required=false)
     String callCenterName;
+    @XmlElement(required=false)
     String callCenterId;
+    @XmlElement(required=false)
     int agentsOnCallCount;
+    @XmlElement(required=false)
     int agentsAvailableCount;
+    @XmlElement(required=false)
     int agentsAwayCount;
+    @XmlElement(required=false)
     int agentsSignedOutCount;
 
     
