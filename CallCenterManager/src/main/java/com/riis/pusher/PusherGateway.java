@@ -50,6 +50,6 @@ public class PusherGateway
     public void pushTestNotification()
     {
         Pusher pusher = new Pusher(appId, apiKey, apiSecret);
-        pusher.trigger("channel-one", "test_event", Collections.singletonMap("message", "hello world"));
+        pusher.trigger("channel-one", "test_event", Collections.singletonMap("pushTestNotification", "hello test world"));
     }
 }
