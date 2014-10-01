@@ -13,6 +13,7 @@ import com.riis.broadsoft.BroadsoftGateway;
 import com.riis.model.Agent;
 import com.riis.model.CallCenter;
 import com.riis.model.CallCenterAgentSummary;
+import com.riis.pusher.PusherGateway;
 
 @Controller
 public class WebserviceController
@@ -23,6 +24,8 @@ public class WebserviceController
     @ResponseBody
     public String getMessage()
     {
+        PusherGateway pusher = new PusherGateway();
+        pusher.pushTestNotification();
         return "{'test':'HelloWorld}";
     }
 
