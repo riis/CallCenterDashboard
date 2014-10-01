@@ -1,0 +1,71 @@
+<style type="text/css">
+	#agents {
+		margin-top: 15px;
+	}
+	#agents .agentGroups {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	
+	#agents .panel-body {
+	    padding: 8px 0;
+	}
+</style>
+
+<!-- Agents -->
+<div class="col-sm-12 col-md-12 main">
+	<div class="panel panel-default" id="agents">
+		<div class="panel-heading">
+			Agents
+		</div>
+		<div class="panel-body">
+			
+			<div class="row-fluid">
+			
+				<!-- First Column of Agents -->
+				<div class="col-md-3 agentGroups" ng-repeat="agentGroups in agents | partition:15">
+					<table class="table table-responsive table-condensed table-bordered">
+						<tr>
+							<th>Extension</th>
+							<th>Status</th>
+							<th>Time</th>
+						</tr>
+						
+						<tr ng-repeat="agent in agentGroups">
+							<td>{{agent.extension}}</td>
+							<td>{{agent.status}}</td>
+							<td>{{agent.time}}</td>
+						</tr>
+					</table>
+				</div>
+			</div> <!-- end .row -->
+			
+		</div>
+	</div>
+</div>
+
+
+<!-- Calls In Queue -->
+<div class="col-sm-6 col-md-6 main">
+	<div class="panel panel-default" id="callsInQueue">
+		<div class="panel-heading">
+			Calls In Queue
+		</div>
+		<div class="panel-body">
+			Queue detail here
+		</div>
+	</div>
+</div>
+
+
+<!-- Calls In Queue -->
+<div class="col-sm-6 col-md-6 main">
+	<div class="panel panel-default" id="agentSummary">
+		<div class="panel-heading">
+			Agent Summary
+		</div>
+		<div class="panel-body">
+			Agent Summary here
+		</div>
+	</div>
+</div>

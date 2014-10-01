@@ -5,6 +5,11 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -12,12 +17,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+@XmlRootElement(name="callcenter")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CallCenter extends AbstractXMLParser implements XMLParserContract, Serializable
 {
     private static final long serialVersionUID = -7087245582724123433L;
     private static String NODE_NAME = "serviceUserID";
+    @XmlElement(required=false)
     private String callCenterId;
+    @XmlElement(required=false)
     private String callCenterName;
+    @XmlElement(required=false)
     private int queueLength;
     
     public String getCallCenterId()

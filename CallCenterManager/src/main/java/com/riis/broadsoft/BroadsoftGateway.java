@@ -14,6 +14,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import com.riis.model.Agent;
 import com.riis.model.CallCenter;
+import com.riis.model.CallCenterAgentSummary;
 
 public class BroadsoftGateway
 {
@@ -160,6 +161,17 @@ public class BroadsoftGateway
         }
         return allAgents;
     }
+    
+    
+    public List<CallCenterAgentSummary> getAllCallCenterAgentSummary() throws IOException
+    {
+        List<Agent> allAgents = getAllAgents();
+        List<CallCenter> allCallCenters = getAllCallCenters();
+        CallCenterAgentSummary summary = new CallCenterAgentSummary();
+        List<CallCenterAgentSummary> summaryList = summary.countAllAgents(allAgents, allCallCenters);
+        return summaryList;
+    }
+
     
     public void refreshAgentStatus(Agent agent) throws IOException
     {
