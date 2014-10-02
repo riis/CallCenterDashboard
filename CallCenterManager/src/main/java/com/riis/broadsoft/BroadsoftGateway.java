@@ -137,8 +137,15 @@ public class BroadsoftGateway
 
             if (body != null)
             {
+                urlConnection.setRequestProperty("Content-Type", "application/xml");                
                 urlConnection.setRequestProperty("Content-Length", "" + 
                         Integer.toString(body.getBytes().length));       
+                urlConnection.setRequestProperty("Content-Language", "en-US");  
+                    
+                urlConnection.setUseCaches (false);
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                
                //Send request
                DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream ());
                wr.writeBytes (body);
