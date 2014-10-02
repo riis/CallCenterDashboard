@@ -155,7 +155,7 @@ public class BroadsoftGateway
     
     public List<CallCenter> getAllCallCenters() throws IOException
     {
-        if (model.getCallCenters() == null)
+        if (model.getCallCenters() == null || model.getCallCenters().isEmpty())
         {
             String CallCenterXML =  makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/CallCenters?user=Supervisor", 
                     REQUEST_METHOD_GET, null);
