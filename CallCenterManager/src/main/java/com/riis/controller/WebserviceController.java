@@ -82,4 +82,24 @@ public class WebserviceController
         List<CallCenterAgentSummary> callCenterAgentSummaryList = gateway.getAllCallCenterAgentSummary();
         return callCenterAgentSummaryList;
     }
+    
+
+    @RequestMapping(value = "webservices/callCenterSubscriptionCallback", method = RequestMethod.POST)
+    public void recieveCallCenterSubscriptionResponse(String XML) throws IOException
+    {
+        System.out.println("RecievedResponseString: "+ XML);
+    }
+    
+    
+    @RequestMapping(value = "/webservices/subscribeAllCallCenters", method = RequestMethod.GET)
+    public String subscribeAllCallCenters() throws IOException
+    {
+        if (gateway == null)
+        {
+            gateway = new BroadsoftGateway();
+            
+        }
+        gateway.subscribeAllCallCenters();
+        return "{'test':'HelloWorld}";
+    }
 }

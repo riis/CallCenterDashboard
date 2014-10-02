@@ -1,6 +1,7 @@
 package com.riis.broadsoft;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,15 +16,20 @@ import javax.xml.bind.DatatypeConverter;
 import com.riis.model.Agent;
 import com.riis.model.CallCenter;
 import com.riis.model.CallCenterAgentSummary;
+import com.riis.model.Model;
 
 public class BroadsoftGateway
 {
+    public static final String REQUEST_METHOD_GET = "GET";
+    public static final String REQUEST_METHOD_POST = "POST";
     private static final String PROTOCOL_SEPARATOR = "://";
     private static final String PATH_SEPARATOR = "/";
-    private static final String REQUEST_METHOD = "GET";
     private static final String AUTH_TOKEN_SEPARATOR = ":";
     private static final String AUTH_PREFIX_BASIC = "Basic ";
     private static final String PROPERTY_AUTHORIZATION = "Authorization";
+    private static final String CALLBACK_ADDRESS = "ec2-54-205-41-129.compute-1.amazonaws.com:8080/" +
+    		"CallCenterManager/webservices/callcentersubscriptioncallback";
+    
 
     private String protocol;
     private String actionPath;
@@ -31,6 +37,8 @@ public class BroadsoftGateway
     private String authenticationUsername;
     private String password;
     private String sessionCookie;
+    
+    private Model model = Model.getInstance();
     
     public String getProtocol()
     {
@@ -105,12 +113,12 @@ public class BroadsoftGateway
         {
             if (headerName.equals("Set-Cookie"))
             {               
-                String sessionCookie = urlConnection.getHeaderField(i);
+                sessionCookie = urlConnection.getHeaderField(i);
             }
         }
     }
     
-    public String makeRequest(String action) throws IOException
+    public String makeRequest(String action, String requestMethod, String body) throws IOException
     {
         String responseXML = null;
         if (checkConfiguration())
@@ -119,14 +127,28 @@ public class BroadsoftGateway
                     + hostName + PATH_SEPARATOR 
                     + actionPath + PATH_SEPARATOR 
                     + action );
+            
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod(REQUEST_METHOD);
+            urlConnection.setRequestMethod(requestMethod);
             setAuthorization(urlConnection);
             if (getSessionCookie() != null)
             {
                 urlConnection.setRequestProperty("Cookie", sessionCookie);
             }
             setSessionCookie(urlConnection);
+            
+            //FIXME: added code to pass XML body - need to test
+            if (body != null)
+            {
+                urlConnection.setRequestProperty("Content-Length", "" + 
+                        Integer.toString(body.getBytes().length));       
+               //Send request
+               DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream ());
+               wr.writeBytes (body);
+               wr.flush ();
+               wr.close ();
+            }
+            
             responseXML = getResponseXML(urlConnection);
         }
         return responseXML;
@@ -134,32 +156,43 @@ public class BroadsoftGateway
     
     public List<CallCenter> getAllCallCenters() throws IOException
     {
-        String CallCenterXML =  makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/CallCenters?user=Supervisor");
-        List<CallCenter> allCallCenters = new CallCenter().createListFromXMLString(CallCenterXML);
-        for(CallCenter callCenter : allCallCenters)
+        if (model.getCallCenters() == null)
         {
-            String callCenterProfile = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/profile");            
-            callCenter.readNameFromXMLString(callCenterProfile);
-            String callCenterCalls = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/calls"); 
-            callCenter.readQueueLengthFromXMLString(callCenterCalls);
+            String CallCenterXML =  makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/CallCenters?user=Supervisor", 
+                    REQUEST_METHOD_GET, null);
+            List<CallCenter> allCallCenters = new CallCenter().createListFromXMLString(CallCenterXML);
+            for(CallCenter callCenter : allCallCenters)
+            {
+                String callCenterProfile = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/profile",
+                        REQUEST_METHOD_GET, null);            
+                callCenter.readNameFromXMLString(callCenterProfile);
+                String callCenterCalls = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/calls",
+                        REQUEST_METHOD_GET, null); 
+                callCenter.readQueueLengthFromXMLString(callCenterCalls);
+            } 
+            model.setCallCenters(allCallCenters);
         }
-        return allCallCenters;
+        return model.getCallCenters();
     }
     
     public List<Agent> getAllAgents() throws IOException
     {
-        String agentXML =  makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/Agents");
-//        System.out.println("AgentXML = " + agentXML);
-        List<Agent> allAgents = new Agent().createListFromXMLString(agentXML);
-        for(Agent agent : allAgents)
+        if (model.getAgents() == null)
         {
-//            String callCenterProfile = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/profile");            
-//            callCenter.readNameFromXMLString(callCenterProfile);
-//            String callCenterCalls = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/calls"); 
-//            callCenter.readQueueLengthFromXMLString(callCenterCalls);
-            refreshAgentStatus(agent);
+            String agentXML =  makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/Agents",
+                    REQUEST_METHOD_GET, null);
+            List<Agent> allAgents = new Agent().createListFromXMLString(agentXML);
+            for(Agent agent : allAgents)
+            {
+//                String callCenterProfile = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/profile");            
+//                callCenter.readNameFromXMLString(callCenterProfile);
+//                String callCenterCalls = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/calls"); 
+//                callCenter.readQueueLengthFromXMLString(callCenterCalls);
+                refreshAgentStatus(agent);
+            }
+            model.setAgents(allAgents);
         }
-        return allAgents;
+        return model.getAgents();
     }
     
     
@@ -175,9 +208,41 @@ public class BroadsoftGateway
     
     public void refreshAgentStatus(Agent agent) throws IOException
     {
-        String refreshXML =  makeRequest("user/" + agent.getAgentId() + "/services/CallCenter");
+        String refreshXML =  makeRequest("user/" + agent.getAgentId() + "/services/CallCenter",
+                REQUEST_METHOD_GET, null);
  //       System.out.println("AgentRefresh XML = " + refreshXML);
         agent.readStatusFromXMLString(refreshXML);
+    }
+    
+    
+    public void subscribeAllCallCenters() throws IOException
+    {
+        List<CallCenter> allCallCenters = getAllCallCenters();
+        for (CallCenter callCenter : allCallCenters)
+        {
+            subscribeCallCenter(callCenter);
+        }
+    }
+    
+    public void subscribeCallCenter(CallCenter callCenter) throws IOException
+    {
+        String callCenterId = callCenter.getCallCenterId();
+        String body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+        		"<Subscription xmlns=\"http://schema.broadsoft.com/xsi\">" +
+        		    "<subscriberId>" + authenticationUsername + "</subscriberId>" +
+        		    "<targetIdType>User</targetIdType>" +
+        		    "<targetId>" + callCenterId + "</targetId>" +
+        		    "<event>Call Center Monitoring</event>" +
+        		    "<httpContact> " +
+        		        "<uri>" + CALLBACK_ADDRESS + "</uri>" +
+        		    "</httpContact>" +
+        		    "<applicationId>CallCenterDashboard</applicationId>" +
+        		"</Subscription>";
+        
+        String requestString = "user/" + callCenterId;
+        String CallCenterSubscriptionXML =  makeRequest(requestString, 
+                REQUEST_METHOD_POST, null);
+        System.out.println("CallCenterSubscription XML = " + CallCenterSubscriptionXML);
     }
     
     private boolean checkConfiguration()

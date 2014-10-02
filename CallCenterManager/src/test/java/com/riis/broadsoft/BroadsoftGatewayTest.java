@@ -21,7 +21,7 @@ public class BroadsoftGatewayTest
         try
         {
             BroadsoftGateway gateway = new BroadsoftGateway();
-            String response = gateway.makeRequest("profile");
+            String response = gateway.makeRequest("profile", BroadsoftGateway.REQUEST_METHOD_GET, null);
             assertNull(response);           
         }
         catch (IOException e)
@@ -40,7 +40,7 @@ public class BroadsoftGatewayTest
             gateway.setHostName("xsp2.xdp.broadsoft.com");
             gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
             gateway.setPassword("welcome1");            
-            String response = gateway.makeRequest("directories/Agents");
+            String response = gateway.makeRequest("directories/Agents", BroadsoftGateway.REQUEST_METHOD_GET, null);
             assertNull(response);           
         }
         catch (IOException e)
@@ -61,7 +61,8 @@ public class BroadsoftGatewayTest
             gateway.setActionPath("com.broadsoft.xsi-actions/v2.0");
             gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
             gateway.setPassword("welcome1"); 
-            String response = gateway.makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/CallCenters?user=Supervisor");
+            String response = gateway.makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/CallCenters?user=Supervisor", 
+                    BroadsoftGateway.REQUEST_METHOD_GET, null);
             assertNotNull(response);
         }
         catch (IOException e)
@@ -81,7 +82,8 @@ public class BroadsoftGatewayTest
             gateway.setActionPath("com.broadsoft.xsi-actions/v2.0");
             gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
             gateway.setPassword("welcome1"); 
-            String callCenterProfile = gateway.makeRequest("callcenter/CallCenterPrem@xdp.broadsoft.com/profile");            
+            String callCenterProfile = gateway.makeRequest("callcenter/CallCenterPrem@xdp.broadsoft.com/profile",
+                    BroadsoftGateway.REQUEST_METHOD_GET, null);            
             assertNotNull(callCenterProfile);
         }
         catch (IOException e)
@@ -101,7 +103,8 @@ public class BroadsoftGatewayTest
             gateway.setActionPath("com.broadsoft.xsi-actions/v2.0");
             gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
             gateway.setPassword("welcome1"); 
-            String callCenterCalls = gateway.makeRequest("callcenter/CallCenterPrem@xdp.broadsoft.com/calls"); 
+            String callCenterCalls = gateway.makeRequest("callcenter/CallCenterPrem@xdp.broadsoft.com/calls",
+                    BroadsoftGateway.REQUEST_METHOD_GET, null); 
             assertNotNull(callCenterCalls);
         }
         catch (IOException e)
