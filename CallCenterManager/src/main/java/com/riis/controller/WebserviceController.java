@@ -85,9 +85,10 @@ public class WebserviceController
     
 
     @RequestMapping(value = "webservices/callCenterSubscriptionCallback", method = RequestMethod.POST)
-    public void recieveCallCenterSubscriptionResponse(String XML) throws IOException
+    public String recieveCallCenterSubscriptionResponse(String XML) throws IOException
     {
         System.out.println("RecievedResponseString: "+ XML);
+        return "{'test':'HelloWorld}";
     }
     
     
@@ -99,7 +100,13 @@ public class WebserviceController
             gateway = new BroadsoftGateway();
             
         }
+        gateway.setProtocol("http");
+        gateway.setHostName("xsp2.xdp.broadsoft.com");
+        gateway.setActionPath("com.broadsoft.xsi-events/v2.0");
+        gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
+        gateway.setPassword("welcome1"); 
+
         gateway.subscribeAllCallCenters();
-        return "{'test':'HelloWorld}";
+        return "{'subscribed':'AllCallCenters'}";
     }
 }
