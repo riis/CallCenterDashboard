@@ -28,9 +28,8 @@ public class BroadsoftGateway
     private static final String AUTH_PREFIX_BASIC = "Basic ";
     private static final String PROPERTY_AUTHORIZATION = "Authorization";
     private static final String CALLBACK_ADDRESS = "ec2-54-205-41-129.compute-1.amazonaws.com:8080/" +
-    		"CallCenterManager/webservices/callcentersubscriptioncallback";
+    		"CallCenterManager/webservices/callCenterSubscriptionCallback";
     
-
     private String protocol;
     private String actionPath;
     private String hostName;
@@ -220,6 +219,7 @@ public class BroadsoftGateway
         List<CallCenter> allCallCenters = getAllCallCenters();
         for (CallCenter callCenter : allCallCenters)
         {
+            System.out.println("Subscribing to call center " + callCenter.getCallCenterId());
             subscribeCallCenter(callCenter);
         }
     }

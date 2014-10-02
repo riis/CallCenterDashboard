@@ -71,8 +71,7 @@ public class WebserviceController
     {
         if (gateway == null)
         {
-            gateway = new BroadsoftGateway();
-            
+            gateway = new BroadsoftGateway();           
         }
         gateway.setProtocol("http");
         gateway.setHostName("xsp2.xdp.broadsoft.com");
@@ -97,8 +96,7 @@ public class WebserviceController
     {
         if (gateway == null)
         {
-            gateway = new BroadsoftGateway();
-            
+            gateway = new BroadsoftGateway();           
         }
         gateway.setProtocol("http");
         gateway.setHostName("xsp2.xdp.broadsoft.com");
