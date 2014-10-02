@@ -92,6 +92,8 @@ public class WebserviceController
     {
         
         System.out.println("RecievedResponseString... :" + event.toString());
+        PusherGateway pusher = new PusherGateway();
+        pusher.pushEventNotification(event);
         return "OK";
     }
     

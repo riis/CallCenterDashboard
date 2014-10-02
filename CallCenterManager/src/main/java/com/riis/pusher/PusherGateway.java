@@ -3,6 +3,7 @@ package com.riis.pusher;
 import java.util.Collections;
 
 import com.pusher.rest.Pusher;
+import com.riis.model.Event;
 
 public class PusherGateway
 {
@@ -51,5 +52,11 @@ public class PusherGateway
     {
         Pusher pusher = new Pusher(appId, apiKey, apiSecret);
         pusher.trigger("channel-one", "test_event", Collections.singletonMap("pushTestNotification", "hello test world"));
+    }
+
+    public void pushEventNotification(Event event)
+    {
+        Pusher pusher = new Pusher(appId, apiKey, apiSecret);
+        pusher.trigger("channel-two", "event", Collections.singletonMap("event", event.toString()));
     }
 }
