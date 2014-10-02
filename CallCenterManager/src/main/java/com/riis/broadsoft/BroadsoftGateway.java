@@ -135,9 +135,7 @@ public class BroadsoftGateway
             {
                 urlConnection.setRequestProperty("Cookie", sessionCookie);
             }
-            setSessionCookie(urlConnection);
-            
-            //FIXME: added code to pass XML body - need to test
+
             if (body != null)
             {
                 urlConnection.setRequestProperty("Content-Length", "" + 
@@ -148,6 +146,8 @@ public class BroadsoftGateway
                wr.flush ();
                wr.close ();
             }
+
+            setSessionCookie(urlConnection);
             
             responseXML = getResponseXML(urlConnection);
         }
