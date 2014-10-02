@@ -241,7 +241,7 @@ public class BroadsoftGateway
         
         String requestString = "user/" + callCenterId;
         String CallCenterSubscriptionXML =  makeRequest(requestString, 
-                REQUEST_METHOD_POST, null);
+                REQUEST_METHOD_POST, body);
         System.out.println("CallCenterSubscription XML = " + CallCenterSubscriptionXML);
     }
     
