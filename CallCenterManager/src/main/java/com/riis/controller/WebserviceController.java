@@ -1,10 +1,12 @@
 package com.riis.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +15,7 @@ import com.riis.broadsoft.BroadsoftGateway;
 import com.riis.model.Agent;
 import com.riis.model.CallCenter;
 import com.riis.model.CallCenterAgentSummary;
+import com.riis.model.Event;
 import com.riis.pusher.PusherGateway;
 
 @Controller
@@ -84,10 +87,12 @@ public class WebserviceController
     
 
     @RequestMapping(value = "webservices/callCenterSubscriptionCallback", method = RequestMethod.POST)
-    public String recieveCallCenterSubscriptionResponse(String XML) throws IOException
+    @ResponseBody
+    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
     {
-        System.out.println("RecievedResponseString: "+ XML);
-        return "{'test':'HelloWorld}";
+        
+        System.out.println("RecievedResponseString... :" + event.toString());
+        return "OK";
     }
     
     
