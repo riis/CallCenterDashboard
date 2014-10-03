@@ -119,7 +119,7 @@ public class WebserviceController
     }
     
 
-    @RequestMapping(value = "webservices/callCenterSubscriptionCallback", method = RequestMethod.POST)
+    @RequestMapping(value = "/webservices/callCenterSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
 //    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
     public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, String event) throws IOException
@@ -142,7 +142,7 @@ public class WebserviceController
     }
     
     
-    @RequestMapping(value = "webservices/agentSubscriptionCallback", method = RequestMethod.POST)
+    @RequestMapping(value = "/webservices/agentSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
 //    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
     public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, String event) throws IOException
