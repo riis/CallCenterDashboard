@@ -46,8 +46,7 @@ public class WebserviceController
     {
         if (gateway == null)
         {
-            gateway = new BroadsoftGateway();
-            
+            gateway = new BroadsoftGateway();            
         }
         gateway.setProtocol(PROTOCOL);
         gateway.setHostName(HOST_NAME);
