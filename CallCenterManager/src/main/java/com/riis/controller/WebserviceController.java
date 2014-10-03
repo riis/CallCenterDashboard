@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -123,7 +124,7 @@ public class WebserviceController
     @RequestMapping(value = "/webservices/callCenterSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
 //    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
-    public String recieveCallCenterSubscriptionResponse(@RequestParam(required=false) String event) throws IOException
+    public String recieveCallCenterSubscriptionResponse(@RequestBody String event) throws IOException
     {        
         System.out.println("callCenterSubscriptionCallback called");
         System.out.println("Event String... :" + event);
@@ -146,7 +147,7 @@ public class WebserviceController
     @RequestMapping(value = "/webservices/agentSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
 //    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
-    public String recieveAgentSubscriptionResponse(@RequestParam(required=false) String event) throws IOException
+    public String recieveAgentSubscriptionResponse(@RequestBody String event) throws IOException
     {        
         System.out.println("agentSubscriptionCallback called");
         System.out.println("Event String... :" + event);
