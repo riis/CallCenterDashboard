@@ -28,10 +28,18 @@ public class WebserviceController
 //    private static final String AUTHENTICATION_USERNAME = "gnolanAdmin1@xdp.broadsoft.com";
 //    private static final String PASSWORD = "welcome1";
 //    private static final String SUPERVISOR_USERNAME = "gnolanUser1@xdp.broadsoft.com";
-    private static final String HOST_NAME = "portal1.ipitimi.net";
-    private static final String AUTHENTICATION_USERNAME = "ccruncherblue@nat.ipitimi.net";
-    private static final String PASSWORD = "cD889n9HuvNK";
-    private static final String SUPERVISOR_USERNAME = "100008@nat.ipitimi.net";
+    //CallCruncher
+//    private static final String HOST_NAME = "portal1.ipitimi.net";
+//    private static final String AUTHENTICATION_USERNAME = "ccruncherblue@nat.ipitimi.net";
+//    private static final String PASSWORD = "cD889n9HuvNK";
+//    private static final String SUPERVISOR_USERNAME = "100008@nat.ipitimi.net";
+    // Road Runner
+    private static final String HOST_NAME = "xsp2.telesphere.com";
+    private static final String AUTHENTICATION_USERNAME = "Admin_Joseph@voip.tnltd.net";
+    private static final String PASSWORD = "velvet0121";
+    private static final String SUPERVISOR_USERNAME = "6237422277@voip.tnltd.net";
+
+    
     private BroadsoftGateway gateway;
     
     private void setupGatewayForAction()
