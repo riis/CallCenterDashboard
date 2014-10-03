@@ -188,6 +188,7 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
             doc.getDocumentElement().normalize();
             if (doc.getDocumentElement().getNodeName() != "CallCenter")
             {
+                System.out.println("ERROR Parsing Agent XML: " + statusXML);
                 throw new Exception("Wrong Root Node: Expected CallCenter, received " + doc.getDocumentElement().getNodeName());
             }
             status = getNodeValueWithPath("/CallCenter/agentACDState");
