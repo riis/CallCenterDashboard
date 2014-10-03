@@ -5,6 +5,7 @@
 var Factories = angular.module('roadrunnerapp.factories', []);
 var Services = angular.module('roadrunnerapp.services', []);
 var Filters = angular.module('roadrunnerapp.filters', []);
+var Directives = angular.module('roadrunnerapp.directives', []);
 
 var roadrunnerapp = angular.module('roadrunnerapp', [
     'ngRoute',
@@ -13,8 +14,10 @@ var roadrunnerapp = angular.module('roadrunnerapp', [
     'roadrunnerapp.factories',
     'roadrunnerapp.services',
     'roadrunnerapp.filters',
+    'roadrunnerapp.directives',
     'ui.router',
-    'doowb.angular-pusher'
+    'doowb.angular-pusher',
+    'googlechart'
 ], function ($httpProvider) {
     // Use x-www-form-urlencoded Content-Type
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';

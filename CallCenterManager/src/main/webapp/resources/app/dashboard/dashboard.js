@@ -47,6 +47,26 @@ angular.module('roadrunner.dashboard', [
 		});
 		
 		
+		$scope.testItems = [{id: 4, name: 'test'},{id: 5, name: 'test5'},{id: 6, name: 'test6'}];
+		console.dir($scope.testItems);
+		
+		Pusher.subscribe('channel-two', 'agentEvent', function (item) {
+			console.log('ragentEvent...');
+			console.dir(item);
+			
+			$('body').append('<p>Received a agentEvent...</p>');
+			// an item was updated. find it in our list and update it.
+			for (var i = 0; i < $scope.testItems.length; i++) {
+				if ($scope.testItems[i].id === item.id) {
+					$scope.testItems[i] = item;
+					break;
+				}
+			}
+			
+			console.dir($scope.testItems);
+		});
+		
+		
 		// Start Loader...
 		startLoader('#agentSummary .panel-body');
 		//---------------------------------------------------------------------------
@@ -62,14 +82,49 @@ angular.module('roadrunner.dashboard', [
 		});
 		
 		
+
+		//---------------------------------------------------------------------------
+		// Calls In Queue
+		//---------------------------------------------------------------------------
+	    $scope.chartObject = {};
+	
+	    $scope.chartObject.data = {"cols": [
+	        {id: "t", label: "Call Center", type: "string"},
+	        {id: "s", label: "Calls In Queue", type: "number"}
+	    ], "rows": [
+	        {c: [
+	            {v: "Call Center 1"},
+	            {v: 3},
+	        ]},
+	        {c: [
+	            {v: "Call Center 2"},
+	            {v: 31}
+	        ]},
+	        {c: [
+	            {v: "Call Center 3"},
+	            {v: 1},
+	        ]},
+	        {c: [
+	            {v: "Call Center 4"},
+	            {v: 2},
+	        ]}
+	    ]};
+	
+	
+	    // $routeParams.chartType == BarChart or PieChart or ColumnChart...
+	    $scope.chartObject.type = 'BarChart';
+	    $scope.chartObject.options = {};
+
+		
+		
 		$scope.testItems = [{id: 4, name: 'test'},{id: 5, name: 'test5'},{id: 6, name: 'test6'}];
 		console.dir($scope.testItems);
 		
-		Pusher.subscribe('channel-one', 'test_event', function (item) {
-			console.log('recieved a new event...');
+		Pusher.subscribe('channel-two', 'callCenterEvent', function (item) {
+			console.log('recieved a new callCenterEvent...');
 			console.dir(item);
 			
-			$('body').append('<p>Received a new event...</p>');
+			$('body').append('<p>Received a new callCenterEvent...</p>');
 			// an item was updated. find it in our list and update it.
 			for (var i = 0; i < $scope.testItems.length; i++) {
 				if ($scope.testItems[i].id === item.id) {
@@ -80,48 +135,6 @@ angular.module('roadrunner.dashboard', [
 			
 			console.dir($scope.testItems);
 		});
-		
-		
-
-		//---------------------------------------------------------------------------
-		// Calls In Queue
-		//---------------------------------------------------------------------------
-	    $scope.chartObject = {};
-	
-	    $scope.onions = [
-	        {v: "Onions"},
-	        {v: 3},
-	    ];
-	
-	    $scope.chartObject.data = {"cols": [
-	        {id: "t", label: "Topping", type: "string"},
-	        {id: "s", label: "Slices", type: "number"}
-	    ], "rows": [
-	        {c: [
-	            {v: "Mushrooms"},
-	            {v: 3},
-	        ]},
-	        {c: $scope.onions},
-	        {c: [
-	            {v: "Olives"},
-	            {v: 31}
-	        ]},
-	        {c: [
-	            {v: "Zucchini"},
-	            {v: 1},
-	        ]},
-	        {c: [
-	            {v: "Pepperoni"},
-	            {v: 2},
-	        ]}
-	    ]};
-	
-	
-	    // $routeParams.chartType == BarChart or PieChart or ColumnChart...
-	    $scope.chartObject.type = $routeParams.chartType;
-	    $scope.chartObject.options = {
-	        'title': 'How Much Pizza I Ate Last Night'
-	    }
 		
 		
 	}
