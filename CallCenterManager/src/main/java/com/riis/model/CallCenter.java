@@ -130,6 +130,7 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
             doc.getDocumentElement().normalize();
             if (doc.getDocumentElement().getNodeName() != "CallCenters")
             {
+                System.out.println("ERROR - createListFromXMLString: " + broadsoftXML);
                 throw new Exception("Wrong Root Node: Expected CallCenters, received " + doc.getDocumentElement().getNodeName());
             }
 
