@@ -145,7 +145,7 @@ public class WebserviceController
     @RequestMapping(value = "/webservices/agentSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
 //    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
-    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, String event) throws IOException
+    public String recieveAgentSubscriptionResponse(String event) throws IOException
     {        
         System.out.println("agentSubscriptionCallback... :");
         System.out.println("Event String... :" + event.toString());
