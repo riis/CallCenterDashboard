@@ -62,6 +62,7 @@ public class WebserviceController
         gateway.setActionPath(EVENT_PATH);
         gateway.setAuthenticationUsername(AUTHENTICATION_USERNAME);
         gateway.setPassword(PASSWORD);
+        gateway.setSupervisorUsername(SUPERVISOR_USERNAME);
     }
     
     
