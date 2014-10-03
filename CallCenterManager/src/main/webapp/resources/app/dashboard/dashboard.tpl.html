@@ -4,7 +4,7 @@
 	}
 	#agents .agentGroups {
 		padding-left: 0;
-		padding-right: 0;
+		padding-right: 7px;
 	}
 	
 	#agents .panel-body {
@@ -63,12 +63,12 @@
 					<table class="table table-responsive table-condensed table-bordered">
 						<tr>
 							<th>Extension</th>
-							<th>Status</th>
+							<th class="status">Status</th>
 						</tr>
 						
 						<tr ng-repeat="agent in agentGroups">
 							<td>{{agent.extension}}</td>
-							<td>{{agent.status}}</td>
+							<td class="status">{{agent.status}}</td>
 						</tr>
 					</table>
 				</div>
