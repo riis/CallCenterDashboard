@@ -42,6 +42,7 @@
 	#agentSummary .callCenterName {
 		background-color: #B7DE82;
 		padding: 5px;
+		margin: 7px auto;
 	}
 </style>
 
@@ -85,7 +86,7 @@
 			Calls In Queue
 		</div>
 		<div class="panel-body">
-			Queue detail here
+			<div google-chart chart="chartObject" style="{{cssStyle}}"></div>
 		</div>
 	</div>
 </div>
@@ -100,7 +101,12 @@
 		<div class="panel-body">
 		
 			<div class="agentSummaryContainer" ng-repeat="data in callCenterAgentSummary">
-				<div class="callCenterName">{{data.callCenterName}}</div>
+				
+				<div class="row-fluid">
+					<div class="col-sm-12">
+						<div class="callCenterName">{{data.callCenterName}}</div>
+					</div>
+				</div>
 				<div class="row-fluid">
 					<div class="col-sm-3 onCall">
 						<div class="title">AGENTS ON CALL</div>

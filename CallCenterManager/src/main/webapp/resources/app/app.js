@@ -62,20 +62,18 @@ var roadrunnerapp = angular.module('roadrunnerapp', [
     };
 })
 
-.config(['PusherServiceProvider',
-	function(PusherServiceProvider) {
+.config(['PusherServiceProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider',
+	function(PusherServiceProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
 		PusherServiceProvider.setToken('da81ce797d453db253d1').setOptions({
 			
 		});
-	}
-	],
-	function myAppConfig($stateProvider, $urlRouterProvider, $httpProvider) {
+
     	$httpProvider.defaults.withCredentials = true;
 		$httpProvider.defaults.useXDomain = true;
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
 		$urlRouterProvider.otherwise('/dashboard');
-	}
+	}]
 )
 .run(function run() {})
 .controller('AppCtrl', function AppCtrl($rootScope, $scope, $location) {});
