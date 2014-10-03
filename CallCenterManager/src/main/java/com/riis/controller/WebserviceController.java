@@ -122,10 +122,10 @@ public class WebserviceController
     @RequestMapping(value = "/webservices/callCenterSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
 //    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
-    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, String event) throws IOException
+    public String recieveCallCenterSubscriptionResponse(String event) throws IOException
     {        
-        System.out.println("callCenterSubscriptionCallback... :");
-        System.out.println("Event String... :" + event.toString());
+        System.out.println("callCenterSubscriptionCallback called");
+        System.out.println("Event String... :" + event);
         PusherGateway pusher = new PusherGateway();
 //        pusher.pushCallCenterEventNotification(event);
         return "OK";
@@ -147,8 +147,8 @@ public class WebserviceController
 //    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
     public String recieveAgentSubscriptionResponse(String event) throws IOException
     {        
-        System.out.println("agentSubscriptionCallback... :");
-        System.out.println("Event String... :" + event.toString());
+        System.out.println("agentSubscriptionCallback called");
+        System.out.println("Event String... :" + event);
         PusherGateway pusher = new PusherGateway();
 //        pusher.pushAgentEventNotification(event);
         return "OK";
