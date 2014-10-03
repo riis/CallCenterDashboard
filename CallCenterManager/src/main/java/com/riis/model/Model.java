@@ -42,4 +42,11 @@ public class Model
     {
         this.agents = agents;
     }
+    
+    public void clearCache()
+    {
+        this.agents = null;
+        this.callCenters = null;
+        
+    }
 }

@@ -369,4 +369,9 @@ public class BroadsoftGateway
         }
         return ( responseDataBuilder.toString() );
     }
+    
+    public void clearCache()
+    {
+        model.clearCache();
+    }
 }
