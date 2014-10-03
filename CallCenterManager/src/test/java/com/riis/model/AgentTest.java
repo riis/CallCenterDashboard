@@ -107,7 +107,7 @@ public class AgentTest
         {
             docBuilderFactory = DocumentBuilderFactory.newInstance();
             docBuilder = docBuilderFactory.newDocumentBuilder();        
-            agent = new Agent();
+            agent = new Agent("@riis.com");
         }
         catch (Exception e)
         {

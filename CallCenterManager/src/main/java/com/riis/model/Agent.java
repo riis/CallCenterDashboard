@@ -41,6 +41,12 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
     private String callCenterId;
     @XmlElement(required=false)
     private Date statusChangedTimestamp;
+    private String domain;
+    
+    public Agent(String domain)
+    {
+        this.domain = domain;
+    }
     
     public String getAgentId()
     {
@@ -50,7 +56,14 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
     
     public void setAgentId(String agentId)
     {
-        this.agentId = agentId;
+        if (agentId.indexOf('@') == -1)
+        {
+            this.agentId = agentId + domain;
+        }
+        else
+        {
+            this.agentId = agentId;            
+        }
     }
     
     
@@ -164,7 +177,7 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
                 for (int j=0; j<agentsInCallCenter.getLength(); j++)
                 {
                     Element agentElement = (Element)agentsInCallCenter.item(j); 
-                    Agent newAgent = new Agent();
+                    Agent newAgent = new Agent(domain);
                     newAgent.setCallCenterId(callCenterId);
                     newAgent.readIdFromXMLNode(agentElement);
                     agents.add(newAgent);

@@ -39,6 +39,7 @@ public class BroadsoftGateway
     private String password;
     private String sessionCookie;
     private String supervisorUsername;
+    private String domain;
     
     private Model model = Model.getInstance();
     
@@ -86,6 +87,7 @@ public class BroadsoftGateway
 
     public void setAuthenticationUsername(String authenticationUsername)
     {
+        domain = authenticationUsername.substring(authenticationUsername.indexOf('@'));
         this.authenticationUsername = authenticationUsername;
     }
 
@@ -203,7 +205,7 @@ public class BroadsoftGateway
         {
             String agentXML =  makeRequest("user/" + getSupervisorUsername() + "/directories/Agents",
                     REQUEST_METHOD_GET, null);
-            List<Agent> allAgents = new Agent().createListFromXMLString(agentXML);
+            List<Agent> allAgents = new Agent(domain).createListFromXMLString(agentXML);
             for(Agent agent : allAgents)
             {
 //                String callCenterProfile = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/profile");            

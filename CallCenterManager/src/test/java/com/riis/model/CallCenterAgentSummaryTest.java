@@ -39,27 +39,27 @@ public class CallCenterAgentSummaryTest
             
             // Create Agents
             agentList = new ArrayList<Agent>();
-            Agent agentOne = new Agent();
+            Agent agentOne = new Agent("@riis.com");
             agentOne.setAgentId("agent1");
             agentOne.setCallCenterId("cc1");
             agentOne.setStatus(Agent.AGENT_AVAILABLE_STATUS);
             agentList.add(agentOne);
-            Agent agentTwo = new Agent();
+            Agent agentTwo = new Agent("@riis.com");
             agentTwo.setAgentId("agent2");
             agentTwo.setCallCenterId("cc1");
             agentTwo.setStatus(Agent.AGENT_ONCALL_STATUS);
             agentList.add(agentTwo);
-            Agent agentThree = new Agent();
+            Agent agentThree = new Agent("@riis.com");
             agentThree.setAgentId("agent3");
             agentThree.setCallCenterId("cc1");
             agentThree.setStatus(Agent.AGENT_SIGNOUT_STATUS);
             agentList.add(agentThree);
-            Agent agentFour = new Agent();
+            Agent agentFour = new Agent("@riis.com");
             agentFour.setAgentId("agent4");
             agentFour.setCallCenterId("cc2");
             agentFour.setStatus(Agent.AGENT_UNAVAILABLE_STATUS);
             agentList.add(agentFour);
-            Agent agentFive = new Agent();
+            Agent agentFive = new Agent("@riis.com");
             agentFive.setAgentId("agent5");
             agentFive.setCallCenterId("cc2");
             agentFive.setStatus(Agent.AGENT_UNAVAILABLE_STATUS);
