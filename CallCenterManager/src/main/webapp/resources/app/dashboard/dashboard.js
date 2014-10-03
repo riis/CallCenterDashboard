@@ -42,8 +42,10 @@ angular.module('roadrunner.dashboard', [
 			$scope.agents = response;
 
 			endLoader('#agents .panel-body');
-		}, function () {
+		}, function (error) {
 			// Error...
+			endLoader('#agents .panel-body');
+			$scope.agentsError = true;
 		});
 		
 		
@@ -77,8 +79,10 @@ angular.module('roadrunner.dashboard', [
 			$scope.callCenterAgentSummary = response;
 
 			endLoader('#agentSummary .panel-body');
-		}, function () {
+		}, function (error) {
 			// Error...
+			endLoader('#agentSummary .panel-body');
+			$scope.agentSummaryError = true;
 		});
 		
 		
