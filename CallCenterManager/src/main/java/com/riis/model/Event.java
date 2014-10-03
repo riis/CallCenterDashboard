@@ -7,21 +7,21 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="event")
+@XmlRootElement(name="Event")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Event
 {
-    @XmlElement(required=true)
+    @XmlElement(required=false)
+    String eventId;
+    @XmlElement(required=false)
     String sequenceNumber;
-    @XmlElement(required=true)
-    String subscriberId;
-    @XmlElement(required=true)
-    String applicationId;
-    @XmlElement(required=true)
+    @XmlElement(required=false)
+    String userId;
+    @XmlElement(required=false)
+    String externalApplicationId;
+    @XmlElement(required=false)
     String subscriptionId;
-    @XmlElement(required=true)
-    String targetId;
-    @XmlElement(required=true)
+    @XmlElement(required=false)
     List<EventData> eventData;
     
     public Event() 
@@ -29,17 +29,27 @@ public class Event
         super();
     }
 
-    public Event(String sequenceNumber, String subscriberId,
-            String applicationId, String subscriptionId, String targetId,
+    public Event(String eventId, String sequenceNumber, String userId,
+            String externalApplicationId, String subscriptionId,
             List<EventData> eventData) 
     {
         super();
+        this.eventId = eventId;
         this.sequenceNumber = sequenceNumber;
-        this.subscriberId = subscriberId;
-        this.applicationId = applicationId;
+        this.userId = userId;
+        this.externalApplicationId = externalApplicationId;
         this.subscriptionId = subscriptionId;
-        this.targetId = targetId;
         this.eventData = eventData;
+    }
+    
+    public String getEventIf() 
+    {
+        return eventId;
+    }
+    
+    public void setEventId(String eventId) 
+    {
+        this.eventId = eventId;
     }
     
     public String getSequenceNumber() 
@@ -52,24 +62,24 @@ public class Event
         this.sequenceNumber = sequenceNumber;
     }
     
-    public String getSubscriberId() 
+    public String getUserId() 
     {
-        return subscriberId;
+        return userId;
     }
     
-    public void setSubscriberId(String subscriberId) 
+    public void setUserId(String userId) 
     {
-        this.subscriberId = subscriberId;
+        this.userId = userId;
     }
     
-    public String getApplicationId() 
+    public String getExternalApplicationId() 
     {
-        return applicationId;
+        return externalApplicationId;
     }
     
-    public void setApplicationId(String applicationId) 
+    public void setExternalApplicationId(String externalApplicationId) 
     {
-        this.applicationId = applicationId;
+        this.externalApplicationId = externalApplicationId;
     }
     
     public String getSubscriptionId() 
@@ -80,16 +90,6 @@ public class Event
     public void setSubscriptionId(String subscriptionId) 
     {
         this.subscriptionId = subscriptionId;
-    }
-    
-    public String getTargetId() 
-    {
-        return targetId;
-    }
-    
-    public void setTargetId(String targetId) 
-    {
-        this.targetId = targetId;
     }
     
     public List<EventData> getEventData() 
@@ -105,9 +105,10 @@ public class Event
     public String toString()
     {
         StringBuffer buff = new StringBuffer("Event:\n");
+        buff.append("    eventId:" + eventId + "\n");
         buff.append("    sequenceNumber:" + sequenceNumber + "\n");
-        buff.append("    subscriberId:" + subscriberId + "\n");
-        buff.append("    applicationId:" + applicationId + "\n");
+        buff.append("    userId:" + userId + "\n");
+        buff.append("    externalApplicationId:" + externalApplicationId + "\n");
         buff.append("    subscriptionId:" + subscriptionId + "\n");
         if (eventData != null && eventData.size() > 0)
         {
