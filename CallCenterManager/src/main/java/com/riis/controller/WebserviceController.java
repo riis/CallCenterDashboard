@@ -84,6 +84,15 @@ public class WebserviceController
     }
 
 
+    @RequestMapping(value = "/webservices/clearCache", method = RequestMethod.GET)
+    @ResponseBody
+    public String clearCache()
+    {
+        gateway.clearCache();
+        return "{'clearCache':'Done'}";
+    }
+
+
     @RequestMapping(value = "/webservices/agentList", method = RequestMethod.GET)
     public @ResponseBody List<Agent> getAgentList() throws IOException
     {
@@ -116,7 +125,8 @@ public class WebserviceController
 //    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
     public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, String event) throws IOException
     {        
-        System.out.println("RecievedResponseString... :" + event.toString());
+        System.out.println("callCenterSubscriptionCallback... :");
+        System.out.println("Event String... :" + event.toString());
         PusherGateway pusher = new PusherGateway();
 //        pusher.pushCallCenterEventNotification(event);
         return "OK";
@@ -138,7 +148,8 @@ public class WebserviceController
 //    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
     public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, String event) throws IOException
     {        
-        System.out.println("RecievedResponseString... :" + event.toString());
+        System.out.println("agentSubscriptionCallback... :");
+        System.out.println("Event String... :" + event.toString());
         PusherGateway pusher = new PusherGateway();
 //        pusher.pushAgentEventNotification(event);
         return "OK";
