@@ -47,6 +47,7 @@ public class PusherGateway
     {
         this.apiSecret = apiSecret;
     }
+
     
     public void pushTestNotification()
     {
@@ -54,9 +55,17 @@ public class PusherGateway
         pusher.trigger("channel-one", "test_event", Collections.singletonMap("pushTestNotification", "hello test world"));
     }
 
-    public void pushEventNotification(Event event)
+    
+    public void pushCallCenterEventNotification(Event event)
     {
         Pusher pusher = new Pusher(appId, apiKey, apiSecret);
-        pusher.trigger("channel-two", "event", Collections.singletonMap("event", event.toString()));
+        pusher.trigger("channel-two", "callCenterEvent", Collections.singletonMap("callCenterEvent", event.toString()));
+    }
+
+    
+    public void pushAgentEventNotification(Event event)
+    {
+        Pusher pusher = new Pusher(appId, apiKey, apiSecret);
+        pusher.trigger("channel-three", "agentEvent", Collections.singletonMap("agentEvent", event.toString()));
     }
 }
