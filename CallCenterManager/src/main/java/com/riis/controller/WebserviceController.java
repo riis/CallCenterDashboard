@@ -106,20 +106,41 @@ public class WebserviceController
     @RequestMapping(value = "webservices/callCenterSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
     public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
-    {
-        
+    {        
         System.out.println("RecievedResponseString... :" + event.toString());
         PusherGateway pusher = new PusherGateway();
-        pusher.pushEventNotification(event);
+        pusher.pushCallCenterEventNotification(event);
         return "OK";
     }
     
     
     @RequestMapping(value = "/webservices/subscribeAllCallCenters", method = RequestMethod.GET)
+    @ResponseBody
     public String subscribeAllCallCenters() throws IOException
     {
         setupGatewayForEvent(); 
         gateway.subscribeAllCallCenters();
         return "{'subscribed':'AllCallCenters'}";
+    }
+    
+    
+    @RequestMapping(value = "webservices/agentSubscriptionCallback", method = RequestMethod.POST)
+    @ResponseBody
+    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
+    {        
+        System.out.println("RecievedResponseString... :" + event.toString());
+        PusherGateway pusher = new PusherGateway();
+        pusher.pushAgentEventNotification(event);
+        return "OK";
+    }
+    
+    
+    @RequestMapping(value = "/webservices/subscribeAllAgents", method = RequestMethod.GET)
+    @ResponseBody
+    public String subscribeAllAgents() throws IOException
+    {
+        setupGatewayForEvent(); 
+        gateway.subscribeAllAgents();
+        return "{'subscribed':'AllAgents'}";
     }
 }

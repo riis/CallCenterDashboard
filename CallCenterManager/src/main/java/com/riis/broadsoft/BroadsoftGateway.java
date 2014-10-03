@@ -27,8 +27,10 @@ public class BroadsoftGateway
     private static final String AUTH_TOKEN_SEPARATOR = ":";
     private static final String AUTH_PREFIX_BASIC = "Basic ";
     private static final String PROPERTY_AUTHORIZATION = "Authorization";
-    private static final String CALLBACK_ADDRESS = "ec2-54-205-41-129.compute-1.amazonaws.com:8080/" +
+    private static final String CALLBACK_CALLCENTER_ADDRESS = "ec2-54-205-41-129.compute-1.amazonaws.com:8080/" +
     		"CallCenterManager/webservices/callCenterSubscriptionCallback";
+    private static final String CALLBACK_AGENT_ADDRESS = "ec2-54-205-41-129.compute-1.amazonaws.com:8080/" +
+            "CallCenterManager/webservices/agentSubscriptionCallback";
     
     private String protocol;
     private String actionPath;
@@ -255,7 +257,7 @@ public class BroadsoftGateway
         		    "<targetId>" + callCenterId + "</targetId>" +
         		    "<event>Call Center Monitoring</event>" +
         		    "<httpContact> " +
-        		        "<uri>" + CALLBACK_ADDRESS + "</uri>" +
+        		        "<uri>" + CALLBACK_CALLCENTER_ADDRESS + "</uri>" +
         		    "</httpContact>" +
         		    "<applicationId>CallCenterDashboard</applicationId>" +
         		"</Subscription>";
@@ -265,6 +267,40 @@ public class BroadsoftGateway
                 REQUEST_METHOD_POST, body);
         System.out.println("CallCenterSubscription XML = " + CallCenterSubscriptionXML);
     }
+
+    
+    public void subscribeAllAgents() throws IOException
+    {
+        List<Agent> allAgents = getAllAgents();
+        for (Agent agent : allAgents)
+        {
+            System.out.println("Subscribing to call center " + agent.getCallCenterId());
+            subscribeAgent(agent);
+        }
+    }
+
+    
+    public void subscribeAgent(Agent agent) throws IOException
+    {
+        String agentId = agent.getAgentId();
+        String body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+                "<Subscription xmlns=\"http://schema.broadsoft.com/xsi\">" +
+                    "<subscriberId>" + authenticationUsername + "</subscriberId>" +
+                    "<targetIdType>User</targetIdType>" +
+                    "<targetId>" + agentId + "</targetId>" +
+                    "<event>Call Center Agent</event>" +
+                    "<httpContact> " +
+                        "<uri>" + CALLBACK_AGENT_ADDRESS + "</uri>" +
+                    "</httpContact>" +
+                    "<applicationId>CallCenterDashboard</applicationId>" +
+                "</Subscription>";
+        
+        String requestString = "user/" + agentId;
+        String CallCenterSubscriptionXML =  makeRequest(requestString, 
+                REQUEST_METHOD_POST, body);
+        System.out.println("CallCenterSubscription XML = " + CallCenterSubscriptionXML);
+    }
+
     
     private boolean checkConfiguration()
     {
