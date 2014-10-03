@@ -125,6 +125,7 @@ public class BroadsoftGatewayTest
             gateway.setActionPath("com.broadsoft.xsi-actions/v2.0");
             gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
             gateway.setPassword("welcome1"); 
+            gateway.setSupervisorUsername("gnolanUser1@xdp.broadsoft.com");
             List<CallCenter> allCallCenters = gateway.getAllCallCenters();
             assertEquals(3, allCallCenters.size());
             CallCenter premCallCenter = allCallCenters.get(0);
@@ -151,6 +152,7 @@ public class BroadsoftGatewayTest
             gateway.setActionPath("com.broadsoft.xsi-actions/v2.0");
             gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
             gateway.setPassword("welcome1"); 
+            gateway.setSupervisorUsername("gnolanUser1@xdp.broadsoft.com");
             List<Agent> allAgents = gateway.getAllAgents();
             assertEquals(2, allAgents.size());
             Agent gnolanUser2 = allAgents.get(0);
