@@ -55,6 +55,8 @@ angular.module('roadrunner.dashboard', [
 		Pusher.subscribe('channel-two', 'agentEvent', function (item) {
 			console.log('ragentEvent...');
 			console.dir(item);
+//			$('#'+item.agentId).find('.status').html(item.status);
+//			$('#'+item.agentId).find('.extension').html(item.extension);
 			
 			$('body').append('<p>Received a agentEvent...</p>');
 			// an item was updated. find it in our list and update it.

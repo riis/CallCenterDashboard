@@ -66,9 +66,9 @@
 							<th>Status</th>
 						</tr>
 						
-						<tr ng-repeat="agent in agentGroups">
-							<td>{{agent.extension}}</td>
-							<td>{{agent.status}}</td>
+						<tr ng-repeat="agent in agentGroups" id="{{agent.agentId}}">
+							<td class="extension">{{agent.extension}}</td>
+							<td class="status">{{agent.status}}</td>
 						</tr>
 					</table>
 				</div>
