@@ -36,6 +36,7 @@ public class BroadsoftGateway
     private String authenticationUsername;
     private String password;
     private String sessionCookie;
+    private String supervisorUsername;
     
     private Model model = Model.getInstance();
     
@@ -117,6 +118,19 @@ public class BroadsoftGateway
         }
     }
     
+
+    public String getSupervisorUsername()
+    {
+        return supervisorUsername;
+    }
+
+
+    public void setSupervisorUsername(String supervisorUsername)
+    {
+        this.supervisorUsername = supervisorUsername;
+    }
+
+
     public String makeRequest(String action, String requestMethod, String body) throws IOException
     {
         String responseXML = null;
@@ -164,7 +178,7 @@ public class BroadsoftGateway
     {
         if (model.getCallCenters() == null || model.getCallCenters().isEmpty())
         {
-            String CallCenterXML =  makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/CallCenters?user=Supervisor", 
+            String CallCenterXML =  makeRequest("user/" + getSupervisorUsername() + "/directories/CallCenters?user=Supervisor", 
                     REQUEST_METHOD_GET, null);
             List<CallCenter> allCallCenters = new CallCenter().createListFromXMLString(CallCenterXML);
             for(CallCenter callCenter : allCallCenters)
@@ -185,7 +199,7 @@ public class BroadsoftGateway
     {
         if (model.getAgents() == null)
         {
-            String agentXML =  makeRequest("user/gnolanUser1@xdp.broadsoft.com/directories/Agents",
+            String agentXML =  makeRequest("user/" + getSupervisorUsername() + "/directories/Agents",
                     REQUEST_METHOD_GET, null);
             List<Agent> allAgents = new Agent().createListFromXMLString(agentXML);
             for(Agent agent : allAgents)

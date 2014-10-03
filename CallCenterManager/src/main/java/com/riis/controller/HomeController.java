@@ -27,16 +27,17 @@ public class HomeController
 	    Map<String, Object> myModel = new HashMap<String, Object>();
 	    String now = (new Date()).toString();
 	    myModel.put("now", now);
-	    gateway = new BroadsoftGateway();
-        gateway.setProtocol("http");
-        gateway.setHostName("xsp2.xdp.broadsoft.com");
-        gateway.setActionPath("com.broadsoft.xsi-actions/v2.0");
-        gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
-        gateway.setPassword("welcome1"); 
-	    myModel.put("callcenters", gateway.getAllCallCenters());
-	    List<Agent> agents = gateway.getAllAgents();
-	    System.out.println("XXXX AgentId = " + agents.get(0).getAgentId() + " Agent Status = " + agents.get(0).getStatus());
-	    myModel.put("agents", gateway.getAllAgents());
+//	    gateway = new BroadsoftGateway();
+//        gateway.setProtocol("http");
+//        gateway.setHostName("xsp2.xdp.broadsoft.com");
+//        gateway.setActionPath("com.broadsoft.xsi-actions/v2.0");
+//        gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
+//        gateway.setPassword("welcome1"); 
+//        gateway.setSupervisorUsername("gnolanUser1@xdp.broadsoft.com"); 
+//	    myModel.put("callcenters", gateway.getAllCallCenters());
+//	    List<Agent> agents = gateway.getAllAgents();
+//	    System.out.println("XXXX AgentId = " + agents.get(0).getAgentId() + " Agent Status = " + agents.get(0).getStatus());
+//	    myModel.put("agents", gateway.getAllAgents());
 
         return new ModelAndView("home", "model", myModel);
 	}
@@ -47,16 +48,17 @@ public class HomeController
         Map<String, Object> myModel = new HashMap<String, Object>();
         String now = (new Date()).toString();
         myModel.put("now", now);
-        gateway = new BroadsoftGateway();
-        gateway.setProtocol("http");
-        gateway.setHostName("xsp2.xdp.broadsoft.com");
-        gateway.setActionPath("com.broadsoft.xsi-actions/v2.0");
-        gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
-        gateway.setPassword("welcome1"); 
-        myModel.put("callcenters", gateway.getAllCallCenters());
-        List<Agent> agents = gateway.getAllAgents();
-        System.out.println("XXXX AgentId = " + agents.get(0).getAgentId() + " Agent Status = " + agents.get(0).getStatus());
-        myModel.put("agents", gateway.getAllAgents());
+//        gateway = new BroadsoftGateway();
+//        gateway.setProtocol("http");
+//        gateway.setHostName("xsp2.xdp.broadsoft.com");
+//        gateway.setActionPath("com.broadsoft.xsi-actions/v2.0");
+//        gateway.setAuthenticationUsername("gnolanAdmin1@xdp.broadsoft.com");
+//        gateway.setPassword("welcome1"); 
+//        gateway.setSupervisorUsername("gnolanUser1@xdp.broadsoft.com"); 
+//        myModel.put("callcenters", gateway.getAllCallCenters());
+//        List<Agent> agents = gateway.getAllAgents();
+//        System.out.println("XXXX AgentId = " + agents.get(0).getAgentId() + " Agent Status = " + agents.get(0).getStatus());
+//        myModel.put("agents", gateway.getAllAgents());
 
         return new ModelAndView("paulstest", "model", myModel);
     }

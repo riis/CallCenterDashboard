@@ -145,6 +145,7 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
         catch (Exception e)
         {
             System.err.println("Error parsing XML from string! :" + e.getMessage());
+            System.err.println("XML string :" + broadsoftXML);
             e.printStackTrace();
         }
         return callCenters;
