@@ -17,7 +17,7 @@ import com.riis.broadsoft.BroadsoftGateway;
 import com.riis.model.Agent;
 import com.riis.model.CallCenter;
 import com.riis.model.CallCenterAgentSummary;
-import com.riis.model.Event;
+import com.riis.model.events.Event;
 import com.riis.pusher.PusherGateway;
 
 @Controller
@@ -124,7 +124,7 @@ public class WebserviceController
     @RequestMapping(value = "/webservices/callCenterSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
 //    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
-    public String recieveCallCenterSubscriptionResponse(@RequestBody Event event) throws IOException
+    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, @RequestBody Event event) throws IOException
     {        
         System.out.println("callCenterSubscriptionCallback called");
         System.out.println("Event String... :" + event);
@@ -147,7 +147,7 @@ public class WebserviceController
     @RequestMapping(value = "/webservices/agentSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
 //    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
-    public String recieveAgentSubscriptionResponse(@RequestBody Event event) throws IOException
+    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers,@RequestBody Event event) throws IOException
     {        
         System.out.println("agentSubscriptionCallback called");
         System.out.println("Event String... :" + event);

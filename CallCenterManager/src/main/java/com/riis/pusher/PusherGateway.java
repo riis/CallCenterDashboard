@@ -3,7 +3,7 @@ package com.riis.pusher;
 import java.util.Collections;
 
 import com.pusher.rest.Pusher;
-import com.riis.model.Event;
+import com.riis.model.events.Event;
 
 public class PusherGateway
 {

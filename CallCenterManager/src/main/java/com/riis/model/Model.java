@@ -46,7 +46,6 @@ public class Model
     public void clearCache()
     {
         this.agents = null;
-        this.callCenters = null;
-        
+        this.callCenters = null;   
     }
 }
