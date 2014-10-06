@@ -26,7 +26,6 @@ public abstract class AbstractXMLParser implements XMLParserContract
         try
         {
             docBuilderFactory = DocumentBuilderFactory.newInstance();
-            docBuilderFactory.setNamespaceAware(true);
             docBuilder = docBuilderFactory.newDocumentBuilder();        
             xPath = XPathFactory.newInstance().newXPath();            
         }
