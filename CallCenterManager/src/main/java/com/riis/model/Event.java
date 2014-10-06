@@ -179,7 +179,8 @@ public class Event  extends AbstractXMLParser implements XMLParserContract, Seri
                 System.out.println("ERROR - readAgentEventFromXMLString: " + agentEventXML);
                 throw new Exception("Wrong Root Node: Expected Event, received " + doc.getDocumentElement().getNodeName());
             }
-            eventId = getNodeValueWithPath("xsi:eventId");
+            
+            eventId = getNodeValueWithPathAndContext("eventId");
 //            sequenceNumber = getNodeValueWithPath("xsi:sequenceNumber");
 //            userId = getNodeValueWithPath("xsi:userId");
 //            externalApplicationId = getNodeValueWithPath("/xsi:Event/xsi:externalApplicationId");

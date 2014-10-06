@@ -1,11 +1,13 @@
 package com.riis.model;
 
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
+import org.springframework.util.xml.SimpleNamespaceContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -46,4 +48,13 @@ public abstract class AbstractXMLParser implements XMLParserContract
         return result;
     }
 
+    protected String getNodeValueWithPathAndContext(String path) throws Exception
+    {
+        SimpleNamespaceContext nsContext = new SimpleNamespaceContext();
+        nsContext.bindNamespaceUri("xsi", "http://schema.broadsoft.com/xsi");
+        xPath.setNamespaceContext(nsContext);
+        XPathExpression xPathExpression = xPath.compile(path);
+        String result = xPathExpression.evaluate(doc);
+        return result;
+    }
 }
