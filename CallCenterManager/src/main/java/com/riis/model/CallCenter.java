@@ -108,10 +108,13 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
     {
         try
         {
-            doc = docBuilder.parse(new InputSource(new StringReader(callCenterCalls)));
-            doc.getDocumentElement().normalize();
-            NodeList nodes = doc.getDocumentElement().getElementsByTagName("queueEntry");   
-            queueLength = nodes.getLength();
+            if (callCenterCalls != null && callCenterCalls.length()>1)
+            {
+                doc = docBuilder.parse(new InputSource(new StringReader(callCenterCalls)));
+                doc.getDocumentElement().normalize();
+                NodeList nodes = doc.getDocumentElement().getElementsByTagName("queueEntry");   
+                queueLength = nodes.getLength();                
+            }
         }
         catch (Exception e)
         {

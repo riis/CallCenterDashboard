@@ -1,5 +1,6 @@
 package com.riis.model.events;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,22 +11,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="agentStateInfo")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AgentStateInfo
+public class AgentStateInfo implements Serializable
 {
-//    <xsi:state>Available</xsi:state>
-//    <xsi:stateTimestamp>1412368999966</xsi:stateTimestamp>
-//    <xsi:signInTimestamp>1412365503440</xsi:signInTimestamp>
-//    <xsi:totalAvailableTime>2512</xsi:totalAvailableTime>
-//    <xsi:averageWrapUpTime>0</xsi:averageWrapUpTime>
-    @XmlElement(required=false)
+    private static final long serialVersionUID = -4753124477179510295L;
+
+    @XmlElement(required=true)
     String state;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     Date stateTimestamp;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     Date signInTimestamp;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     Long totalAvailableTime;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     Long averageWrapUpTime;
     
     public AgentStateInfo() 

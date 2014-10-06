@@ -1,5 +1,6 @@
 package com.riis.model.events;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,19 +11,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="Event")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Event
+public class Event implements Serializable
 {
-    @XmlElement(required=false)
+    private static final long serialVersionUID = 2014222924597455601L;
+
+    @XmlElement(required=true)
     String eventId;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     String sequenceNumber;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     String userId;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     String externalApplicationId;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     String subscriptionId;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
+    HTTPContact httpContact;
+    @XmlElement(required=true)
+    String targetId;
+    @XmlElement(required=true)
     List<EventData> eventData;
     
     public Event() 
@@ -31,8 +38,8 @@ public class Event
     }
 
     public Event(String eventId, String sequenceNumber, String userId,
-            String externalApplicationId, String subscriptionId,
-            List<EventData> eventData) 
+            String externalApplicationId, String subscriptionId, HTTPContact httpContact,
+            String targetId, List<EventData> eventData) 
     {
         super();
         this.eventId = eventId;
@@ -40,6 +47,8 @@ public class Event
         this.userId = userId;
         this.externalApplicationId = externalApplicationId;
         this.subscriptionId = subscriptionId;
+        this.httpContact = httpContact;
+        this.targetId = targetId;
         this.eventData = eventData;
     }
     
@@ -93,6 +102,26 @@ public class Event
         this.subscriptionId = subscriptionId;
     }
     
+    public HTTPContact getHttpContact()
+    {
+        return httpContact;
+    }
+
+    public void setHttpContact(HTTPContact httpContact)
+    {
+        this.httpContact = httpContact;
+    }
+
+    public String getTargetId()
+    {
+        return targetId;
+    }
+
+    public void setTargetId(String targetId)
+    {
+        this.targetId = targetId;
+    }
+
     public List<EventData> getEventData() 
     {
         return eventData;
