@@ -100,6 +100,7 @@ var roadrunnerapp = angular.module('roadrunnerapp', [
 
     })();
 
+    //$interval(function() { $scope.dateObj = new Date(); }, 65000);
     $scope.dateObj = new Date();
 });
 
