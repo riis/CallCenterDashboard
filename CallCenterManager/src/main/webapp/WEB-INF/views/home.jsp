@@ -33,6 +33,9 @@
         <!-- Filters -->
         <script src="<%=request.getContextPath()%>/resources/common/filter/partition/partitionFilter.js"></script>
 
+        <!-- Directives -->
+        <script src="<%=request.getContextPath()%>/resources/common/directive/highlighter/highlighterDirective.js"></script>
+
         
         <!-- CSS Files -->
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/css/bootstrap.css" />
