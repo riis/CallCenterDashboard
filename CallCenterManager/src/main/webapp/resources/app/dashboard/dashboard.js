@@ -55,6 +55,9 @@ angular.module('roadrunner.dashboard', [
 		Pusher.subscribe('channel-two', 'agentEvent', function (item) {
 			console.log('ragentEvent...');
 			console.dir(item);
+
+			$scope.dateObj = new Date();
+
 //			$('#'+item.agentId).find('.status').html(item.status);
 //			$('#'+item.agentId).find('.extension').html(item.extension);
 			
@@ -129,6 +132,8 @@ angular.module('roadrunner.dashboard', [
 		Pusher.subscribe('channel-two', 'callCenterEvent', function (item) {
 			console.log('recieved a new callCenterEvent...');
 			console.dir(item);
+
+			$scope.dateObj = new Date();
 			
 			$('body').append('<p>Received a new callCenterEvent...</p>');
 			// an item was updated. find it in our list and update it.

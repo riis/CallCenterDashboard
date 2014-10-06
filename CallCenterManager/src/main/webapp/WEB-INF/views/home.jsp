@@ -53,13 +53,13 @@
 				<div class="pull-right date-time">
 					
 					<div class="date-container">
-						<div class="day">Monday</div>
-						<div class="date">10 <span class="month">Feb</span></div>
+						<div class="day">{{dateObj.getDayName()}}</div>
+						<div class="date">{{dateObj.getDate()}} <span class="month">{{dateObj.getMonthName()}}</span></div>
 					</div>
 					
 					<div class="time-container">
-						<div class="am-pm">PM</div>
-						<div class="time">03:25</div>
+						<div class="am-pm">{{dateObj.getAMPM()}}</div>
+						<div class="time">{{dateObj.getHours() % 12 || 12}}:{{dateObj.getMinutesWithLeadingZero()}}</div>
 					</div>
 				</div>
 			</div>
