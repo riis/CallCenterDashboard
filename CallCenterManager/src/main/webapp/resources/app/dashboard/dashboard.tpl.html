@@ -66,9 +66,9 @@
 							<th class="status">Status</th>
 						</tr>
 						
-						<tr ng-repeat="agent in agentGroups" id="{{agent.agentId}}">
+						<tr ng-repeat="agent in agentGroups track by $index" id="{{agent.agentId}}">
 							<td class="extension">{{agent.extension}}</td>
-							<td class="status">{{agent.status}}</td>
+							<td highlighter="agent.status" class="status">{{agent.status}}</td>
 						</tr>
 					</table>
 				</div>

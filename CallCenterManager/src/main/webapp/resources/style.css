@@ -148,3 +148,7 @@ body {
     margin-left: 20px;
     margin-top: 15px;
 }
+
+.highlight {
+  background-color: yellow;
+}
