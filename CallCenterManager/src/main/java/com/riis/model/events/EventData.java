@@ -11,13 +11,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.riis.model.Call;
 
 
-@XmlRootElement(name = "eventData")
+@XmlRootElement(name = "xsi:eventData")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EventData implements Serializable
 {
     private static final long serialVersionUID = -8461126789610017352L;
 
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:agentStateInfo",required=true)
     List<AgentStateInfo> agentStateInfo;
         
     public EventData() 

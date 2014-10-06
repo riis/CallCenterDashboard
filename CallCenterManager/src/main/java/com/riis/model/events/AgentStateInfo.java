@@ -9,21 +9,21 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="agentStateInfo")
+@XmlRootElement(name="xsi:agentStateInfo")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AgentStateInfo implements Serializable
 {
     private static final long serialVersionUID = -4753124477179510295L;
 
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:state", required=true)
     String state;
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:stateTimestamp", required=true)
     Date stateTimestamp;
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:signInTimestamp", required=true)
     Date signInTimestamp;
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:totalAvailableTime", required=true)
     Long totalAvailableTime;
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:averageWrapUpTime", required=true)
     Long averageWrapUpTime;
     
     public AgentStateInfo() 

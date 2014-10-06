@@ -19,27 +19,27 @@ import com.riis.model.events.EventData;
 import com.riis.model.events.HTTPContact;
 
 
-@XmlRootElement(name="Event")
+@XmlRootElement(name="xsi:Event")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Event  extends AbstractXMLParser implements XMLParserContract, Serializable
 {
     private static final long serialVersionUID = 2014222924597455601L;
 
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:eventId", required=true)
     String eventId;
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:sequenceNumber", required=true)
     String sequenceNumber;
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:userId", required=true)
     String userId;
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:externalApplicationId", required=true)
     String externalApplicationId;
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:subscriptionId", required=true)
     String subscriptionId;
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:httpContact", required=true)
     HTTPContact httpContact;
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:targetId", required=true)
     String targetId;
-    @XmlElement(required=true)
+    @XmlElement(name="xsi:eventData", required=true)
     List<EventData> eventData;
     
     public Event() 
