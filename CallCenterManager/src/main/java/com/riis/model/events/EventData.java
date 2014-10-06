@@ -17,7 +17,7 @@ public class EventData implements Serializable
 {
     private static final long serialVersionUID = -8461126789610017352L;
 
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     List<AgentStateInfo> agentStateInfo;
         
     public EventData() 

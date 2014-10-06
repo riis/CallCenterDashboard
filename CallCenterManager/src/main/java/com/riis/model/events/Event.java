@@ -13,21 +13,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Event implements Serializable
 {
-    @XmlElement(required=false)
+    private static final long serialVersionUID = 2014222924597455601L;
+
+    @XmlElement(required=true)
     String eventId;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     String sequenceNumber;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     String userId;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     String externalApplicationId;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     String subscriptionId;
-    @XmlElement(required = false)
+    @XmlElement(required=true)
     HTTPContact httpContact;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     String targetId;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     List<EventData> eventData;
     
     public Event() 

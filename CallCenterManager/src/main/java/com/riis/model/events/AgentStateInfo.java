@@ -15,15 +15,15 @@ public class AgentStateInfo implements Serializable
 {
     private static final long serialVersionUID = -4753124477179510295L;
 
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     String state;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     Date stateTimestamp;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     Date signInTimestamp;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     Long totalAvailableTime;
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     Long averageWrapUpTime;
     
     public AgentStateInfo() 

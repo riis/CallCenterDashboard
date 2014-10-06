@@ -351,10 +351,13 @@ public class BroadsoftGateway
         StringBuilder responseDataBuilder = new StringBuilder();
         try
         {
-            bufferedReader  = new BufferedReader( new InputStreamReader( urlInputStream ) );
-            while( (responseData = bufferedReader.readLine()) != null ) 
+            if (urlInputStream != null)
             {
-                responseDataBuilder.append( responseData );
+                bufferedReader  = new BufferedReader( new InputStreamReader( urlInputStream ) );
+                while( (responseData = bufferedReader.readLine()) != null ) 
+                {
+                    responseDataBuilder.append( responseData );
+                }                
             }
         }         
         catch ( IOException e )

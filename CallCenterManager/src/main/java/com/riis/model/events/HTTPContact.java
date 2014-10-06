@@ -13,7 +13,7 @@ public class HTTPContact implements Serializable
 {
     private static final long serialVersionUID = 2524656448673086063L;
 
-    @XmlElement(required=false)
+    @XmlElement(required=true)
     String uri;
 
     public HTTPContact() 
