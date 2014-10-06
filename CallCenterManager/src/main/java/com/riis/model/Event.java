@@ -62,7 +62,7 @@ public class Event  extends AbstractXMLParser implements XMLParserContract, Seri
         this.eventData = eventData;
     }
     
-    public String getEventIf() 
+    public String getEventId() 
     {
         return eventId;
     }
@@ -174,25 +174,43 @@ public class Event  extends AbstractXMLParser implements XMLParserContract, Seri
         {
             Document doc = docBuilder.parse(new InputSource(new StringReader(agentEventXML)));
             doc.getDocumentElement().normalize();
-            if (doc.getDocumentElement().getNodeName() != "xsi:Event")
+            if (!"xsi:Event".equals(doc.getDocumentElement().getNodeName()))
             {
                 System.out.println("ERROR - readAgentEventFromXMLString: " + agentEventXML);
                 throw new Exception("Wrong Root Node: Expected Event, received " + doc.getDocumentElement().getNodeName());
             }
-            
-            eventId = getNodeValueWithPathAndContext("/Event/eventId");
-//            sequenceNumber = getNodeValueWithPath("xsi:sequenceNumber");
-//            userId = getNodeValueWithPath("xsi:userId");
-//            externalApplicationId = getNodeValueWithPath("/xsi:Event/xsi:externalApplicationId");
-//            subscriptionId = getNodeValueWithPath("/xsi:Event/xsi:subscriptionId");
+            NodeList nodelist = doc.getDocumentElement().getElementsByTagName("xsi:eventID");
+            eventId = getValueFromNode(nodelist);
+            System.out.println("EventId = " + eventId);
+            nodelist = doc.getDocumentElement().getElementsByTagName("xsi:sequenceNumber");
+            sequenceNumber = getValueFromNode(nodelist);
+            System.out.println("sequenceNumber = " + sequenceNumber);
+            nodelist = doc.getDocumentElement().getElementsByTagName("xsi:userId");
+            userId = getValueFromNode(nodelist);
+            System.out.println("userId = " + userId);
+            nodelist = doc.getDocumentElement().getElementsByTagName("xsi:externalApplicationId");
+            externalApplicationId = getValueFromNode(nodelist);
+            System.out.println("externalApplicationId = " + externalApplicationId);
+            nodelist = doc.getDocumentElement().getElementsByTagName("xsi:subscriptionId");
+            subscriptionId = getValueFromNode(nodelist);
+            System.out.println("subscriptionId = " + subscriptionId);
         }
         catch (Exception e)
         {
             System.err.println("Error parsing XML from string! :" + e.getMessage());
- //           System.err.println("XML string :" + agentEventXML);
             e.printStackTrace();
         }
     }
-// callCenterName = getNodeValueWithPath("/ACDProfile/serviceInstanceProfile/name");
-
+    
+    private String getValueFromNode(NodeList nodeList)
+    {
+        String retVal = null;
+        System.out.println("Nodelist.size = " + nodeList.getLength());
+        if(nodeList != null && nodeList.getLength() == 1)
+        {
+            retVal =  nodeList.item(0).getTextContent();
+        }
+        System.out.println("RetVal = " + retVal);
+        return retVal;
+    }
 }
