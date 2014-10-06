@@ -59,7 +59,7 @@
 			<div class="row-fluid">
 			
 				<!-- First Column of Agents -->
-				<div class="col-md-3 agentGroups" ng-repeat="agentGroups in agents | partition:15">
+				<div class="col-md-3 agentGroups" ng-repeat="agentGroups in agents | partition:15 track by $index">
 					<table class="table table-responsive table-condensed table-bordered">
 						<tr>
 							<th>Extension</th>

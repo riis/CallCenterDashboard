@@ -3,7 +3,6 @@ Directives.directive('highlighter', ['$timeout', function($timeout) {
     restrict: 'A',
     link: function(scope, element, attrs) {
       scope.$watch(attrs.highlighter, function (nv, ov) {
-        console.log("New Value:" + nv + " Old Value: " + ov);
         if (nv !== ov) {
           // apply class
           element.addClass('highlight');
