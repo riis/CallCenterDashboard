@@ -79,7 +79,29 @@ var roadrunnerapp = angular.module('roadrunnerapp', [
 	}]
 )
 .run(function run() {})
-.controller('AppCtrl', function AppCtrl($rootScope, $scope, $location) {});
+.controller('AppCtrl', function AppCtrl($rootScope, $scope, $location) {
+    (function() {
+
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+        Date.prototype.getMonthName = function() {
+            return months[ this.getMonth() ].substring(0,3);
+        };
+        Date.prototype.getDayName = function() {
+            return days[ this.getDay() ];
+        };
+        Date.prototype.getAMPM = function() {
+            return this.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$3");
+        };
+        Date.prototype.getMinutesWithLeadingZero = function() {
+            return ('0' + this.getMinutes()).slice(-2);
+        };
+
+    })();
+
+    $scope.dateObj = new Date();
+});
 
 
 angular.element(document).ready(function () {
