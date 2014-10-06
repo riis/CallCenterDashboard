@@ -17,7 +17,7 @@ import com.riis.broadsoft.BroadsoftGateway;
 import com.riis.model.Agent;
 import com.riis.model.CallCenter;
 import com.riis.model.CallCenterAgentSummary;
-import com.riis.model.events.Event;
+import com.riis.model.Event;
 import com.riis.pusher.PusherGateway;
 
 @Controller
