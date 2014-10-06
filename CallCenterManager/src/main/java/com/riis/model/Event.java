@@ -1,6 +1,7 @@
-package com.riis.model.events;
+package com.riis.model;
 
 import java.io.Serializable;
+import java.io.StringReader;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -8,10 +9,19 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
+import com.riis.model.events.EventData;
+import com.riis.model.events.HTTPContact;
+
 
 @XmlRootElement(name="Event")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Event implements Serializable
+public class Event  extends AbstractXMLParser implements XMLParserContract, Serializable
 {
     private static final long serialVersionUID = 2014222924597455601L;
 
@@ -150,4 +160,37 @@ public class Event implements Serializable
         }
         return buff.toString();
     }
+
+    @Override
+    public void readIdFromXMLNode(Node element)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+    
+    public void readAgentEventFromXMLString(String agentEventXML)
+    {
+        try
+        {
+            Document doc = docBuilder.parse(new InputSource(new StringReader(agentEventXML)));
+            doc.getDocumentElement().normalize();
+            if (doc.getDocumentElement().getNodeName() != "Event")
+            {
+                System.out.println("ERROR - readAgentEventFromXMLString: " + agentEventXML);
+                throw new Exception("Wrong Root Node: Expected Event, received " + doc.getDocumentElement().getNodeName());
+            }
+            eventId = getNodeValueWithPath("/Event/eventId");
+            sequenceNumber = getNodeValueWithPath("/Event/sequenceNumber");
+            userId = getNodeValueWithPath("/Event/userId");
+            externalApplicationId = getNodeValueWithPath("/Event/externalApplicationId");
+            subscriptionId = getNodeValueWithPath("/Event/subscriptionId");
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error parsing XML from string! :" + e.getMessage());
+            System.err.println("XML string :" + agentEventXML);
+            e.printStackTrace();
+        }
+    }
+
 }
