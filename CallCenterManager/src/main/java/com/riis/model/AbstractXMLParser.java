@@ -78,6 +78,8 @@ public abstract class AbstractXMLParser implements XMLParserContract
                 return null;
             }
         });
+        System.out.println("XPATH NAMESPACE CONTEXT = :" + xPath.getNamespaceContext());
+        System.out.println("XPATH NAMESPACE CONTEXT = :" + xPath.toString());
         XPathExpression xPathExpression = xPath.compile(path);
         String result = xPathExpression.evaluate(doc);
         return result;
