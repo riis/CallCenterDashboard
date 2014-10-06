@@ -22,6 +22,10 @@ public class Event
     String externalApplicationId;
     @XmlElement(required=false)
     String subscriptionId;
+    @XmlElement(required = false)
+    HTTPContact httpContact;
+    @XmlElement(required=false)
+    String targetId;
     @XmlElement(required=false)
     List<EventData> eventData;
     
@@ -31,8 +35,8 @@ public class Event
     }
 
     public Event(String eventId, String sequenceNumber, String userId,
-            String externalApplicationId, String subscriptionId,
-            List<EventData> eventData) 
+            String externalApplicationId, String subscriptionId, HTTPContact httpContact,
+            String targetId, List<EventData> eventData) 
     {
         super();
         this.eventId = eventId;
@@ -40,6 +44,8 @@ public class Event
         this.userId = userId;
         this.externalApplicationId = externalApplicationId;
         this.subscriptionId = subscriptionId;
+        this.httpContact = httpContact;
+        this.targetId = targetId;
         this.eventData = eventData;
     }
     
@@ -93,6 +99,26 @@ public class Event
         this.subscriptionId = subscriptionId;
     }
     
+    public HTTPContact getHttpContact()
+    {
+        return httpContact;
+    }
+
+    public void setHttpContact(HTTPContact httpContact)
+    {
+        this.httpContact = httpContact;
+    }
+
+    public String getTargetId()
+    {
+        return targetId;
+    }
+
+    public void setTargetId(String targetId)
+    {
+        this.targetId = targetId;
+    }
+
     public List<EventData> getEventData() 
     {
         return eventData;
