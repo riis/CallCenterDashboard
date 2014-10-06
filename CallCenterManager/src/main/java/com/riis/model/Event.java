@@ -179,18 +179,20 @@ public class Event  extends AbstractXMLParser implements XMLParserContract, Seri
                 System.out.println("ERROR - readAgentEventFromXMLString: " + agentEventXML);
                 throw new Exception("Wrong Root Node: Expected Event, received " + doc.getDocumentElement().getNodeName());
             }
-            eventId = getNodeValueWithPath("/xsi:Event/xsi:eventId");
-            sequenceNumber = getNodeValueWithPath("/xsi:Event/xsi:sequenceNumber");
-            userId = getNodeValueWithPath("/xsi:Event/xsi:userId");
-            externalApplicationId = getNodeValueWithPath("/xsi:Event/xsi:externalApplicationId");
-            subscriptionId = getNodeValueWithPath("/xsi:Event/xsi:subscriptionId");
+            
+            eventId = getNodeValueWithPathAndContext("/Event/eventId");
+//            sequenceNumber = getNodeValueWithPath("xsi:sequenceNumber");
+//            userId = getNodeValueWithPath("xsi:userId");
+//            externalApplicationId = getNodeValueWithPath("/xsi:Event/xsi:externalApplicationId");
+//            subscriptionId = getNodeValueWithPath("/xsi:Event/xsi:subscriptionId");
         }
         catch (Exception e)
         {
             System.err.println("Error parsing XML from string! :" + e.getMessage());
-            System.err.println("XML string :" + agentEventXML);
+ //           System.err.println("XML string :" + agentEventXML);
             e.printStackTrace();
         }
     }
+// callCenterName = getNodeValueWithPath("/ACDProfile/serviceInstanceProfile/name");
 
 }
