@@ -1,5 +1,7 @@
 package com.riis.model;
 
+import java.util.Iterator;
+
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -50,9 +52,32 @@ public abstract class AbstractXMLParser implements XMLParserContract
 
     protected String getNodeValueWithPathAndContext(String path) throws Exception
     {
-        SimpleNamespaceContext nsContext = new SimpleNamespaceContext();
-        nsContext.bindNamespaceUri("xsi", "http://schema.broadsoft.com/xsi");
-        xPath.setNamespaceContext(nsContext);
+//        SimpleNamespaceContext nsContext = new SimpleNamespaceContext();
+//        nsContext.bindNamespaceUri("xsi", "http://schema.broadsoft.com/xsi");
+        xPath.setNamespaceContext(new NamespaceContext() 
+        {
+            @Override
+            public Iterator getPrefixes(String arg0) 
+            {
+                return null;
+            }
+
+            @Override
+            public String getPrefix(String arg0) 
+            {
+                return null;
+            }
+
+            @Override
+            public String getNamespaceURI(String arg0) 
+            {
+                if("xsi".equals(arg0)) 
+                {
+                    return "http://schema.broadsoft.com/xsi";
+                }
+                return null;
+            }
+        });
         XPathExpression xPathExpression = xPath.compile(path);
         String result = xPathExpression.evaluate(doc);
         return result;
