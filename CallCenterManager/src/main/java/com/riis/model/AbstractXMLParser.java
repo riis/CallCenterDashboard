@@ -26,6 +26,7 @@ public abstract class AbstractXMLParser implements XMLParserContract
         try
         {
             docBuilderFactory = DocumentBuilderFactory.newInstance();
+            docBuilderFactory.setNamespaceAware(true);
             docBuilder = docBuilderFactory.newDocumentBuilder();        
             xPath = XPathFactory.newInstance().newXPath();            
         }
@@ -79,7 +80,7 @@ public abstract class AbstractXMLParser implements XMLParserContract
             }
         });
         System.out.println("XPATH NAMESPACE CONTEXT = :" + xPath.getNamespaceContext());
-        System.out.println("XPATH NAMESPACE CONTEXT = :" + xPath.toString());
+        System.out.println("XPATH toString = :" + xPath.toString());
         XPathExpression xPathExpression = xPath.compile(path);
         String result = xPathExpression.evaluate(doc);
         return result;
