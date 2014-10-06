@@ -147,12 +147,15 @@ public class WebserviceController
     @RequestMapping(value = "/webservices/agentSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
 //    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
-    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers,@RequestBody String event) throws IOException
+    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers,@RequestBody String eventXML) throws IOException
     {        
         System.out.println("agentSubscriptionCallback called");
-        System.out.println("Event String... :" + event);
+        System.out.println("Event String... :" + eventXML);
+        Event event = new Event();
+        event.readAgentEventFromXMLString(eventXML);
+        System.out.println("PARSED EVENT = " + event.toString());
         PusherGateway pusher = new PusherGateway();
-//        pusher.pushAgentEventNotification(event);
+        pusher.pushAgentEventNotification(event);
         return "OK";
     }
     
