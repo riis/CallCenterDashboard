@@ -1,5 +1,7 @@
 package com.riis.model.events;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -7,8 +9,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="httpContact")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class HTTPContact
+public class HTTPContact implements Serializable
 {
+    private static final long serialVersionUID = 2524656448673086063L;
+
     @XmlElement(required=false)
     String uri;
 

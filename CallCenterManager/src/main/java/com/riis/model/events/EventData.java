@@ -1,5 +1,6 @@
 package com.riis.model.events;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -12,8 +13,10 @@ import com.riis.model.Call;
 
 @XmlRootElement(name = "eventData")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class EventData 
+public class EventData implements Serializable
 {
+    private static final long serialVersionUID = -8461126789610017352L;
+
     @XmlElement(required=false)
     List<AgentStateInfo> agentStateInfo;
         

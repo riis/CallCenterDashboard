@@ -1,5 +1,6 @@
 package com.riis.model.events;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="Event")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Event
+public class Event implements Serializable
 {
     @XmlElement(required=false)
     String eventId;
