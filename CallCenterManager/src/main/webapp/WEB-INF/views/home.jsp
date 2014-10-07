@@ -32,6 +32,7 @@
         
         <!-- Filters -->
         <script src="<%=request.getContextPath()%>/resources/common/filter/partition/partitionFilter.js"></script>
+        <script src="<%=request.getContextPath()%>/resources/common/filter/status/statusFilter.js"></script>
 
         <!-- Directives -->
         <script src="<%=request.getContextPath()%>/resources/common/directive/highlighter/highlighterDirective.js"></script>
