@@ -66,7 +66,7 @@ public class PusherGateway
     public void pushAgentEventNotification(AgentUpdateEvent event)
     {
         Pusher pusher = new Pusher(appId, apiKey, apiSecret);
-        pusher.trigger("channel-three", "agentEvent", Collections.singletonMap("agentEvent", event.toString()));
+        pusher.trigger("channel-three", "agentEvent", Collections.singletonMap("agentEvent", event.toPusherJSONFormat()));
         System.out.println("PUSHER: Pushed agent event: " + event.toString());
     }
 }
