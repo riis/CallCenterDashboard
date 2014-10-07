@@ -3,7 +3,7 @@ package com.riis.pusher;
 import java.util.Collections;
 
 import com.pusher.rest.Pusher;
-import com.riis.model.Event;
+import com.riis.model.AgentUpdateEvent;
 
 public class PusherGateway
 {
@@ -56,14 +56,14 @@ public class PusherGateway
     }
 
     
-    public void pushCallCenterEventNotification(Event event)
+    public void pushCallCenterEventNotification(AgentUpdateEvent event)
     {
         Pusher pusher = new Pusher(appId, apiKey, apiSecret);
         pusher.trigger("channel-two", "callCenterEvent", Collections.singletonMap("callCenterEvent", event.toString()));
     }
 
     
-    public void pushAgentEventNotification(Event event)
+    public void pushAgentEventNotification(AgentUpdateEvent event)
     {
         Pusher pusher = new Pusher(appId, apiKey, apiSecret);
         pusher.trigger("channel-three", "agentEvent", Collections.singletonMap("agentEvent", event.toString()));
