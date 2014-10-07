@@ -67,8 +67,8 @@
 						</tr>
 						
 						<tr ng-repeat="agent in agentGroups track by $index" id="{{agent.agentId}}">
-							<td class="extension">{{agent.extension}}</td>
-							<td highlighter="agent.status" class="status"><img class="status-image" ng-src="./resources/assets/{{agent.status}}.png"></img></td>
+							<td highlighter="agent.status" class="extension">{{agent.extension}}</td>
+							<td class="status"><img class="status-image" ng-src="./resources/assets/{{agent.status}}.png"></img></td>
 						</tr>
 					</table>
 				</div>
