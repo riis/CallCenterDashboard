@@ -88,7 +88,7 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
         {
             if (NODE_NAME.equals(element.getNodeName()))
             {
-                callCenterId = element.getTextContent();                           
+                setCallCenterId(element.getTextContent());                           
             }
         }
         catch (Exception e)
