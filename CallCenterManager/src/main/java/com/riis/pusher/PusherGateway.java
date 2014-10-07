@@ -60,7 +60,7 @@ public class PusherGateway
     public void pushCallCenterEventNotification(CallCenterUpdateEvent event)
     {
         Pusher pusher = new Pusher(appId, apiKey, apiSecret);
-        pusher.trigger("channel-two", "callCenterEvent", Collections.singletonMap("callCenterEvent", event.toString()));
+        pusher.trigger("channel-two", "callCenterEvent", Collections.singletonMap("callCenterEvent", event.toPusherJSONFormat()));
     }
 
     
