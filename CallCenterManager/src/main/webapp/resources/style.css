@@ -152,3 +152,8 @@ body {
 .highlight {
   background-color: yellow;
 }
+
+.status-image {
+  width: 20px;
+  height: 22px;
+}
