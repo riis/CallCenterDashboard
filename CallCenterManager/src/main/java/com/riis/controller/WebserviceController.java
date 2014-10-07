@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.riis.broadsoft.BroadsoftGateway;
 import com.riis.model.Agent;
+import com.riis.model.AgentUpdateEvent;
 import com.riis.model.CallCenter;
 import com.riis.model.CallCenterAgentSummary;
-import com.riis.model.Event;
 import com.riis.pusher.PusherGateway;
 
 @Controller
@@ -151,7 +151,7 @@ public class WebserviceController
     {        
         System.out.println("agentSubscriptionCallback called");
         System.out.println("Event... :" + eventXML);
-        Event event = new Event();
+        AgentUpdateEvent event = new AgentUpdateEvent();
         event.readAgentEventFromXMLString(eventXML);
         System.out.println("PARSED EVENT = " + event.toString());
         PusherGateway pusher = new PusherGateway();
