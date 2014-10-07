@@ -28,11 +28,11 @@ public class CallCenterAgentSummaryTest
             summary = new CallCenterAgentSummary();
             // Create Call Centers
             callCenterList = new ArrayList<CallCenter>();
-            CallCenter callCenterOne = new CallCenter();
+            CallCenter callCenterOne = new CallCenter("@riis.com");
             callCenterOne.setCallCenterId("cc1");
             callCenterOne.setCallCenterName("callCenterOne");
             callCenterList.add(callCenterOne);
-            CallCenter callCenterTwo = new CallCenter();
+            CallCenter callCenterTwo = new CallCenter("@riis.com");
             callCenterTwo.setCallCenterId("cc2");
             callCenterTwo.setCallCenterName("callCenterTwo");
             callCenterList.add(callCenterTwo);
@@ -80,7 +80,7 @@ public class CallCenterAgentSummaryTest
         assertEquals(2, summaryList.size());
         //check counts are correct for first call center
         CallCenterAgentSummary cc1 = summaryList.get(0);
-        assertEquals("cc1", cc1.getCallCenterId());
+        assertEquals("cc1@riis.com", cc1.getCallCenterId());
         assertEquals("callCenterOne", cc1.getCallCenterName());
         assertEquals(1, cc1.getAgentsAvailableCount());
         assertEquals(1, cc1.getAgentsOnCallCount());
@@ -88,7 +88,7 @@ public class CallCenterAgentSummaryTest
         assertEquals(0, cc1.getAgentsAwayCount());
         //check counts are correct for second call center
         CallCenterAgentSummary cc2 = summaryList.get(1);
-        assertEquals("cc2", cc2.getCallCenterId());
+        assertEquals("cc2@riis.com", cc2.getCallCenterId());
         assertEquals("callCenterTwo", cc2.getCallCenterName());
         assertEquals(0, cc2.getAgentsAvailableCount());
         assertEquals(0, cc2.getAgentsOnCallCount());

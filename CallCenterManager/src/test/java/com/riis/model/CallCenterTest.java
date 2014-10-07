@@ -137,7 +137,7 @@ public class CallCenterTest
         {
             docBuilderFactory = DocumentBuilderFactory.newInstance();
             docBuilder = docBuilderFactory.newDocumentBuilder();        
-            callCenter = new CallCenter();
+            callCenter = new CallCenter("@riis.com");
         }
         catch (Exception e)
         {
