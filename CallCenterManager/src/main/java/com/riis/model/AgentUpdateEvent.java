@@ -135,7 +135,7 @@ public class AgentUpdateEvent  extends  SubscriptionUpdateEvent
         return buff.toString();
     }
     
-    public void readAgentEventFromXMLString(String agentEventXML)
+    public void readEventFromXMLString(String agentEventXML)
     {
         try
         {

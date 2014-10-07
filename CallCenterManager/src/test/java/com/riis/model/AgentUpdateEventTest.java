@@ -61,7 +61,7 @@ public class AgentUpdateEventTest
     @Test
     public void testReadEventFromXMLString() throws Exception
     {      
-        event.readAgentEventFromXMLString(AGENT_SUBSCRIPTION_EVENT_XML_RESULT);   
+        event.readEventFromXMLString(AGENT_SUBSCRIPTION_EVENT_XML_RESULT);   
         
         assertEquals("00fe5de6-a971-4215-986f-834f73623f05",event.getEventId());
         assertEquals("9",event.getSequenceNumber());
@@ -80,7 +80,7 @@ public class AgentUpdateEventTest
     @Test
     public void testReadSubscriptionTerminationEventFromXMLString() throws Exception
     {      
-        event.readAgentEventFromXMLString(AGENT_SUBSCRIPTION_TERMINATION_XML_RESULT);   
+        event.readEventFromXMLString(AGENT_SUBSCRIPTION_TERMINATION_XML_RESULT);   
         
         assertEquals("74113971-6bf3-49ad-8ffd-4bd3b209e4f7",event.getEventId());
         assertEquals("18",event.getSequenceNumber());

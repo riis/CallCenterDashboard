@@ -4,6 +4,7 @@ import java.util.Collections;
 
 import com.pusher.rest.Pusher;
 import com.riis.model.AgentUpdateEvent;
+import com.riis.model.CallCenterUpdateEvent;
 
 public class PusherGateway
 {
@@ -56,7 +57,7 @@ public class PusherGateway
     }
 
     
-    public void pushCallCenterEventNotification(AgentUpdateEvent event)
+    public void pushCallCenterEventNotification(CallCenterUpdateEvent event)
     {
         Pusher pusher = new Pusher(appId, apiKey, apiSecret);
         pusher.trigger("channel-two", "callCenterEvent", Collections.singletonMap("callCenterEvent", event.toString()));
