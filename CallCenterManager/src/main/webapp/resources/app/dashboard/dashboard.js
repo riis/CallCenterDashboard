@@ -104,18 +104,17 @@ angular.module('roadrunner.dashboard', [
 		//---------------------------------------------------------------------------
 		$scope.pendingCallCenterEvents = [];
 
-		setTimeout(function(){
-			var callCenters = agentsService.getCallCenters(function (response){
-				console.log('successding');
-				$scope.callCenters = response;
-				buildChartObjectData($scope.callCenters);
-				applyPendingCallCenterEvents();
+		var callCenters = agentsService.getCallCenters(function (response){
+			console.log('successding');
+			$scope.callCenters = response;
+			buildChartObjectData($scope.callCenters);
+			applyPendingCallCenterEvents();
 
-			}, function (error){
-				console.log('failing');
-				$scope.callCenterError = true;
-			});
-		}, 10000);
+		}, function (error){
+			console.log('failing');
+			$scope.callCenterError = true;
+		});
+		
 
 		$scope.chartObject = {};
 		// $routeParams.chartType == BarChart or PieChart or ColumnChart...
