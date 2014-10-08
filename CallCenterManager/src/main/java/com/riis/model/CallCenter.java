@@ -30,6 +30,8 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
     @XmlElement(required=false)
     private int queueLength;
     private String domain;
+    private String subscriptionId;
+    
 
     public CallCenter(String domain)
     {
@@ -82,6 +84,18 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
     }
     
     
+    public String getSubscriptionId()
+    {
+        return subscriptionId;
+    }
+
+    
+    public void setSubscriptionId(String subscriptionId)
+    {
+        this.subscriptionId = subscriptionId;
+    }
+
+
     public void readIdFromXMLNode(Node element)
     {
         try
@@ -169,6 +183,41 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
             e.printStackTrace();
         }
         return callCenters;
+    }
+
+    
+    public void parseSubscriptionXMLString(String callCenterSubscriptionXML)
+    {
+        
+        try
+        {
+            Document doc = docBuilder.parse(new InputSource(new StringReader(callCenterSubscriptionXML)));
+            doc.getDocumentElement().normalize();
+            if (doc.getDocumentElement().getNodeName() != "Subscription")
+            {
+                System.out.println("ERROR - parseSubscriptionXMLString: " + callCenterSubscriptionXML);
+                throw new Exception("Wrong Root Node: Expected Subscription, received " + doc.getDocumentElement().getNodeName());
+            }
+
+            NodeList nodelist = doc.getDocumentElement().getElementsByTagName("subscriptionId");
+            subscriptionId = getValueFromNode(nodelist);
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error parsing XML from string! :" + e.getMessage());
+            System.err.println("XML string :" + callCenterSubscriptionXML);
+            e.printStackTrace();
+        }
+    }
+    
+    protected String getValueFromNode(NodeList nodeList)
+    {
+        String retVal = null;
+        if(nodeList != null && nodeList.getLength() == 1)
+        {
+            retVal =  nodeList.item(0).getTextContent();
+        }
+        return retVal;
     }
 
 }

@@ -129,6 +129,11 @@ public class CallCenterTest
             "   </queueEntries>" +
             "</ACDQueue>";
     
+    static String CALL_CENTER_SUBSCRBED_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+    		"<Subscription xmlns=\"http://schema.broadsoft.com/xsi\">" +
+    		    "<subscriptionId>5ce0ca58-35f2-46e5-a60c-032a417137cf</subscriptionId>" +
+    		    "<expires>3600</expires>" +
+    		"</Subscription>";
     
     @Before
     public void setup()
@@ -191,4 +196,11 @@ public class CallCenterTest
         assertEquals("PremiumTwo@172.16.25.102",result.get(1).getCallCenterId());
     }
     
+
+    @Test
+    public void testCallCenterParseSubscriptionXMLL() throws Exception
+    {      
+        callCenter.parseSubscriptionXMLString(CALL_CENTER_SUBSCRBED_XML);   
+        assertEquals("5ce0ca58-35f2-46e5-a60c-032a417137cf", callCenter.getSubscriptionId());
+    }
 }
