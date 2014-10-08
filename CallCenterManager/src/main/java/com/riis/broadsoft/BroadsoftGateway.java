@@ -234,7 +234,6 @@ public class BroadsoftGateway
     {
         String refreshXML =  makeRequest("user/" + agent.getAgentId() + "/services/CallCenter",
                 REQUEST_METHOD_GET, null);
-        System.out.println("Agent = " + agent.getAgentId() + "AgentRefresh XML = " + refreshXML);
         agent.readStatusFromXMLString(refreshXML);
     }
     
@@ -267,6 +266,7 @@ public class BroadsoftGateway
         String requestString = "user/" + callCenterId;
         String callCenterSubscriptionXML =  makeRequest(requestString, 
                 REQUEST_METHOD_POST, body);
+        System.out.println("CallCenter Subscription Response = " + callCenterSubscriptionXML);
         callCenter.parseSubscriptionXMLString(callCenterSubscriptionXML);
     }
 

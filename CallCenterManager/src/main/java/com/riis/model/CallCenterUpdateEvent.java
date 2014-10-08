@@ -187,41 +187,33 @@ public class CallCenterUpdateEvent extends SubscriptionUpdateEvent
             String eventType = attributes.item(0).getTextContent();
             if ("xsi:CallCenterMonitoringEvent".equals(eventType))
             {
+                System.out.println("Reveiced CallCenter event");
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:averageHandlingTime");
                 averageHandlingTime = Integer.parseInt(getValueFromNode(nodelist));
-                System.out.println("averageHandlingTime ="+averageHandlingTime);
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:expectedWaitTime");
                 expectedWaitTime = Integer.parseInt(getValueFromNode(nodelist));
-                System.out.println("expectedWaitTime ="+expectedWaitTime);
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:averageSpeedOfAnswer");
                 averageSpeedOfAnswer = Integer.parseInt(getValueFromNode(nodelist));
-                System.out.println("averageSpeedOfAnswer ="+averageSpeedOfAnswer);
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:longestWaitTime");
                 longestWaitTime = Integer.parseInt(getValueFromNode(nodelist));
-                System.out.println("longestWaitTime ="+longestWaitTime);
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:numCallsInQueue");
                 numCallsInQueue = Integer.parseInt(getValueFromNode(nodelist));
-                System.out.println("numCallsInQueue ="+numCallsInQueue);
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:numAgentsAssigned");
                 numAgentsAssigned = Integer.parseInt(getValueFromNode(nodelist));
-                System.out.println("numAgentsAssigned ="+numAgentsAssigned);
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:numAgentsStaffed");
                 numAgentsStaffed = Integer.parseInt(getValueFromNode(nodelist));
-                System.out.println("numAgentsStaffed ="+numAgentsStaffed);
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:numStaffedAgentsIdle");
                 numStaffedAgentsIdle = Integer.parseInt(getValueFromNode(nodelist));
-                System.out.println("numStaffedAgentsIdle ="+numStaffedAgentsIdle);
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:numStaffedAgentsUnavailable");
                 numStaffedAgentsUnavailable = Integer.parseInt(getValueFromNode(nodelist));
-                System.out.println("numStaffedAgentsUnavailable ="+numStaffedAgentsUnavailable);
             }
             else if ("xsi:SubscriptionTerminatedEvent".equals(eventType))
             {
