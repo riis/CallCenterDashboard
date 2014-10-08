@@ -104,16 +104,18 @@ angular.module('roadrunner.dashboard', [
 		//---------------------------------------------------------------------------
 		$scope.pendingCallCenterEvents = [];
 
-		var callCenters = agentsService.getCallCenters(function (response){
-			console.log('successding');
-			$scope.callCenters = response;
-			buildChartObjectData($scope.callCenters);
-			applyPendingCallCenterEvents();
+		setTimeout(function(){
+			var callCenters = agentsService.getCallCenters(function (response){
+				console.log('successding');
+				$scope.callCenters = response;
+				buildChartObjectData($scope.callCenters);
+				applyPendingCallCenterEvents();
 
-		}, function (error){
-			console.log('failing');
-			$scope.callCenterError = true;
-		});
+			}, function (error){
+				console.log('failing');
+				$scope.callCenterError = true;
+			});
+		}, 10000);
 
 		$scope.chartObject = {};
 		// $routeParams.chartType == BarChart or PieChart or ColumnChart...
@@ -146,9 +148,9 @@ angular.module('roadrunner.dashboard', [
 		function updateCallsInQueue(eventData){
 			console.log('Updating calls in queue count');
 			
+			// find the call center index in the source array
 			var callCenterIndex = -1;
 			for( var i = 0; i < $scope.callCenters.length; i++){
-				console.log('In the loop ' + $scope.callCenters[i].callCenterId);
 				if($scope.callCenters[i].callCenterId == eventData.targetId){
 					callCenterIndex = i;
 					break;
@@ -160,14 +162,12 @@ angular.module('roadrunner.dashboard', [
 		}
 
 		function applyPendingCallCenterEvents(){
-			console.log('applying pending events');
 			for(var i = 0; i < $scope.pendingCallCenterEvents.length; i++){
 				updateCallsInQueue($scope.pendingCallCenterEvents[i]);
 			}
 			$scope.pendingCallCenterEvents = null;
 		}
 		
-		$scope.unhandledCallCenterEvents = [];
 		Pusher.subscribe('channel-two', 'callCenterEvent', function (item) {
 			console.log('recieved a new callCenterEvent...');
 			var eventData = JSON.parse(item.callCenterEvent);
@@ -175,8 +175,7 @@ angular.module('roadrunner.dashboard', [
 			if($scope.callCenters){
 				updateCallsInQueue(eventData);
 			}else{
-				console.log('Captured pending event');
-				pendingCallCenterEvents.push(eventData);
+				$scope.pendingCallCenterEvents.push(eventData);
 			}
 			
 			$scope.dateObj = new Date();
