@@ -90,8 +90,9 @@
 		<div class="panel-heading">
 			Calls In Queue
 		</div>
-		<div class="panel-body">
-			<div google-chart chart="chartObject" style="{{cssStyle}}"></div>
+		<div class="panel-body chart-panel">
+			<div google-chart chart="chartObject" style="width: 600px; height: 350px;"></div>
+			<!-- <div google-chart chart="chartObject" style="{{cssStyle}}"></div> -->
 		</div>
 	</div>
 </div>
@@ -116,19 +117,19 @@
 				</div>
 				<div class="row-fluid">
 					<div class="col-sm-3 onCall">
-						<div class="title">AGENTS ON CALL</div>
+						<div class="title">ON CALL</div>
 						<span class="badge badge-primary" ng-bind="agents | callcenter:data.callCenterId:'On-Call'"></span>
 					</div>
 					<div class="col-sm-3 available">
-						<div class="title">AGENTS AVAILABLE</div>
+						<div class="title">AVAILABLE</div>
 						<span class="badge badge-primary" ng-bind="agents | callcenter:data.callCenterId:'Available'"></span>
 					</div>
 					<div class="col-sm-3 away">
-						<div class="title">AGENTS AWAY</div>
+						<div class="title">AWAY</div>
 						<span class="badge badge-primary" ng-bind="agents | callcenter:data.callCenterId:'Unavailable'"></span>
 					</div>
 					<div class="col-sm-3 signedOut">
-						<div class="title">AGENTS SIGNED OUT</div>
+						<div class="title">SIGNED OUT</div>
 						<span class="badge badge-primary" ng-bind="agents | callcenter:data.callCenterId:'Sign-Out'"></span>
 					</div>
 				</div>
