@@ -64,12 +64,14 @@ angular.module('roadrunner.dashboard', [
 			if ($scope.agents) {
 				applyAgentUpdate(item);
 			} else {
+				console.log("Queueing Agent Update Event");
 				$scope.pendingAgentUpdates.push(item);
 			}
 
 		});
 
 		function applyAgentUpdate(item) {
+			console.log("Applying Agent Update Event");
 			for (var i = 0; i < $scope.agents.length; i++) {
 				if ($scope.agents[i].agentId === item.targetId) {
 					$scope.agents[i].status = item.state;
@@ -102,13 +104,16 @@ angular.module('roadrunner.dashboard', [
 		$scope.pendingCallCenterEvents = [];
 
 		var callCenters = agentsService.getCallCenters(function (response){
-			console.log('successding');
 			$scope.callCenters = response;
 			buildChartObjectData($scope.callCenters);
-			applyPendingCallCenterEvents();
+
+			for (var j = 0; j < $scope.pendingCallCenterEvents.length; j++) {
+				updateCallsInQueue($scopependingCallCenterEvents[j]);
+			}
+
+			$scope.pendingCallCenterEvents = null;
 
 		}, function (error){
-			console.log('failing');
 			$scope.callCenterError = true;
 		});
 		
@@ -142,8 +147,7 @@ angular.module('roadrunner.dashboard', [
 		}
 
 		function updateCallsInQueue(eventData){
-			console.log('Updating calls in queue count');
-			
+			console.log("Applying Call Center Event");
 			// find the call center index in the source array
 			var callCenterIndex = -1;
 			for( var i = 0; i < $scope.callCenters.length; i++){
@@ -156,21 +160,14 @@ angular.module('roadrunner.dashboard', [
 			// update the calls in queue value in chart array
 			$scope.chartRows[callCenterIndex].c[1].v = parseInt(eventData.numCallsInQueue);
 		}
-
-		function applyPendingCallCenterEvents(){
-			for(var i = 0; i < $scope.pendingCallCenterEvents.length; i++){
-				updateCallsInQueue($scope.pendingCallCenterEvents[i]);
-			}
-			$scope.pendingCallCenterEvents = null;
-		}
 		
 		Pusher.subscribe('channel-two', 'callCenterEvent', function (item) {
-			console.log('recieved a new callCenterEvent...');
 			var eventData = JSON.parse(item.callCenterEvent);
 			
-			if($scope.callCenters){
+			if($scope.callCenters) {
 				updateCallsInQueue(eventData);
 			}else{
+				console.log("Queueing Call Center Event");
 				$scope.pendingCallCenterEvents.push(eventData);
 			}
 			
