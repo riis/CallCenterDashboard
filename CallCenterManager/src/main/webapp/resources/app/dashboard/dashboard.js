@@ -30,6 +30,8 @@ angular.module('roadrunner.dashboard', [
 .controller('DashboardCtrl',
 	function DashboardController($rootScope, $scope, $location, $routeParams, agentsService, Pusher) {
 		$scope.pageTitle = 'Dashboard';
+
+		$scope.pendingAgentUpdates = [];
 		
 		// Start Loader...
 		startLoader('#agents .panel-body');
@@ -41,6 +43,12 @@ angular.module('roadrunner.dashboard', [
 			// Success...
 			$scope.agents = response;
 
+			for (var j = 0; j < $scope.pendingAgentUpdates.length; j++) {
+				applyAgentUpdate($scope.pendingAgentUpdates[j]);
+			}
+
+			$scope.pendingAgentUpdates = null;
+
 			endLoader('#agents .panel-body');
 		}, function (error) {
 			// Error...
@@ -48,37 +56,26 @@ angular.module('roadrunner.dashboard', [
 			$scope.agentsError = true;
 		});
 		
-		
-		$scope.testItems = [{id: 4, name: 'test'},{id: 5, name: 'test5'},{id: 6, name: 'test6'}];
-		console.dir($scope.testItems);
-		
 		Pusher.subscribe('channel-three', 'agentEvent', function (item) {
-			console.log('Received Agent Event: ');
-			//item = JSON.parse(item);
-			console.dir(item.agentEvent);
-			console.log(item.agentEvent.targetId);
-			
-			// console.log('Event ID:' + item.eventId);
-			// console.log('Target ID:' + item.targetId);
-			// console.log('Sequence Number:' + item.sequenceNumber);
-			
+			item = JSON.parse(item.agentEvent);
 
 			$scope.dateObj = new Date();
 
-//			$('#'+item.agentId).find('.status').html(item.status);
-//			$('#'+item.agentId).find('.extension').html(item.extension);
-			
-			$('body').append('<p>Received a agentEvent...</p>');
-			// an item was updated. find it in our list and update it.
-			for (var i = 0; i < $scope.testItems.length; i++) {
-				if ($scope.testItems[i].id === item.id) {
-					$scope.testItems[i] = item;
-					break;
+			if ($scope.agents) {
+				applyAgentUpdate(item);
+			} else {
+				$scope.pendingAgentUpdates.push(item);
+			}
+
+		});
+
+		function applyAgentUpdate(item) {
+			for (var i = 0; i < $scope.agents.length; i++) {
+				if ($scope.agents[i].agentId === item.targetId) {
+					$scope.agents[i].status = item.state;
 				}
 			}
-			
-			console.dir($scope.testItems);
-		});
+		}
 		
 		
 		// Start Loader...
