@@ -156,7 +156,7 @@ angular.module('roadrunner.dashboard', [
 			}
 
 			// update the calls in queue value in chart array
-			$scope.chartRows[callCenterIndex].c[1].v += parseInt(eventData.numCallsInQueue);
+			$scope.chartRows[callCenterIndex].c[1].v = parseInt(eventData.numCallsInQueue);
 		}
 
 		function applyPendingCallCenterEvents(){
