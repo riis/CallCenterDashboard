@@ -149,6 +149,7 @@ public class AgentUpdateEvent  extends  SubscriptionUpdateEvent
             String eventType = attributes.item(0).getTextContent();
             if ("xsi:AgentStateEvent".equals(eventType))
             {
+                System.out.println("Received Agent Event");
                nodelist = doc.getDocumentElement().getElementsByTagName("xsi:state");
                state = getValueFromNode(nodelist);
 
