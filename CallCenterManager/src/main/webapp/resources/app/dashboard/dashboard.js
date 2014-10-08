@@ -99,21 +99,25 @@ angular.module('roadrunner.dashboard', [
 		//---------------------------------------------------------------------------
 		// Calls In Queue
 		//---------------------------------------------------------------------------
+		$scope.pendingCallCenterEvents = [];
+
 		var callCenters = agentsService.getCallCenters(function (response){
 			console.log('successding');
 			$scope.callCenters = response;
 			buildChartObjectData($scope.callCenters);
+			applyPendingCallCenterEvents();
 
 		}, function (error){
 			console.log('failing');
 			$scope.callCenterError = true;
 		});
+		
 
 		$scope.chartObject = {};
 		// $routeParams.chartType == BarChart or PieChart or ColumnChart...
 	    $scope.chartObject.type = 'BarChart';
 	    $scope.chartObject.options = {};
-	    
+
 		function buildChartObjectData(callCenters){
 			$scope.chartCols = [
 		    	{id: "t", label: "Call Center", type: "string"},
@@ -138,26 +142,37 @@ angular.module('roadrunner.dashboard', [
 		}
 
 		function updateCallsInQueue(eventData){
-			var target = eventData.targetId.substr(0, eventData.targetId.indexOf('@'));
-			console.log('Our target is' + target);
+			console.log('Updating calls in queue count');
 			
-			// find call center index in the source array 
+			// find the call center index in the source array
 			var callCenterIndex = -1;
 			for( var i = 0; i < $scope.callCenters.length; i++){
-				if($scope.callCenters[i].callCenterId == target){
+				if($scope.callCenters[i].callCenterId == eventData.targetId){
 					callCenterIndex = i;
 					break;
 				}
 			}
 
 			// update the calls in queue value in chart array
-			$scope.chartRows[callCenterIndex].c[1].v += parseInt(eventData.numCallsInQueue);
+			$scope.chartRows[callCenterIndex].c[1].v = parseInt(eventData.numCallsInQueue);
 		}
-	
+
+		function applyPendingCallCenterEvents(){
+			for(var i = 0; i < $scope.pendingCallCenterEvents.length; i++){
+				updateCallsInQueue($scope.pendingCallCenterEvents[i]);
+			}
+			$scope.pendingCallCenterEvents = null;
+		}
+		
 		Pusher.subscribe('channel-two', 'callCenterEvent', function (item) {
 			console.log('recieved a new callCenterEvent...');
 			var eventData = JSON.parse(item.callCenterEvent);
-			updateCallsInQueue(eventData);
+			
+			if($scope.callCenters){
+				updateCallsInQueue(eventData);
+			}else{
+				$scope.pendingCallCenterEvents.push(eventData);
+			}
 			
 			$scope.dateObj = new Date();
 		});
