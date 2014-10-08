@@ -16,6 +16,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import com.riis.model.CallCenter;
+import com.riis.model.CallCenterUpdateEvent;
+
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.fail;
 
@@ -203,4 +205,14 @@ public class CallCenterTest
         callCenter.parseSubscriptionXMLString(CALL_CENTER_SUBSCRBED_XML);   
         assertEquals("5ce0ca58-35f2-46e5-a60c-032a417137cf", callCenter.getSubscriptionId());
     }
+    
+    @Test
+    public void testUpdateFromEvent() throws Exception
+    {      
+        CallCenterUpdateEvent event = new CallCenterUpdateEvent();
+        event.setNumCallsInQueue(10);
+        callCenter.updateFromEvent(event);
+        assertEquals(10, callCenter.getQueueLength());
+    }
+
 }

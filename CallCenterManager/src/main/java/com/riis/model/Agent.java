@@ -258,4 +258,9 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
             e.printStackTrace();
         }        
     }
+    
+    public void updateFromEvent(AgentUpdateEvent event)
+    {
+        status = event.getState();
+    }
 }

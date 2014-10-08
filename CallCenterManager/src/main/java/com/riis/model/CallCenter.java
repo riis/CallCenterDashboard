@@ -32,6 +32,8 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
     private String domain;
     private String subscriptionId;
     
+    private Model model;
+
 
     public CallCenter(String domain)
     {
@@ -109,8 +111,7 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
         {
             System.err.println("Error parsing XML from string! :" + e.getMessage());
             e.printStackTrace();                       
-        }
-        
+        }        
     }
     
     
@@ -187,8 +188,7 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
 
     
     public void parseSubscriptionXMLString(String callCenterSubscriptionXML)
-    {
-        
+    {        
         try
         {
             Document doc = docBuilder.parse(new InputSource(new StringReader(callCenterSubscriptionXML)));
@@ -210,14 +210,9 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
         }
     }
     
-    protected String getValueFromNode(NodeList nodeList)
+    public void updateFromEvent(CallCenterUpdateEvent event)
     {
-        String retVal = null;
-        if(nodeList != null && nodeList.getLength() == 1)
-        {
-            retVal =  nodeList.item(0).getTextContent();
-        }
-        return retVal;
+        queueLength = event.getNumCallsInQueue();
     }
 
 }

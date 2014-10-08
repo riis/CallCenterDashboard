@@ -378,4 +378,31 @@ public class BroadsoftGateway
     {
         model.clearCache();
     }
+    
+    public CallCenter findCallCenterBySubscriptionId(String subscriptionId)
+    {
+        List<CallCenter> callCenters = model.getCallCenters();
+        for(CallCenter callCenter : callCenters)
+        {
+            if (subscriptionId.equals(callCenter.getSubscriptionId()))
+            {
+                return callCenter;
+            }
+        }
+        return null;
+    }
+    
+    
+    public Agent findAgentBySubscriptionId(String subscriptionId)
+    {
+        List<Agent> agents = model.getAgents();
+        for(Agent agent : agents)
+        {
+            if (subscriptionId.equals(agent.getSubscriptionId()))
+            {
+                return agent;
+            }
+        }
+        return null;
+    }
 }
