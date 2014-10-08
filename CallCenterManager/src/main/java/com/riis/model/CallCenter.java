@@ -201,6 +201,7 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
 
             NodeList nodelist = doc.getDocumentElement().getElementsByTagName("subscriptionId");
             subscriptionId = getValueFromNode(nodelist);
+            System.out.println("Added SubscriptionId " + subscriptionId + " to callCenter" + callCenterName);
         }
         catch (Exception e)
         {
