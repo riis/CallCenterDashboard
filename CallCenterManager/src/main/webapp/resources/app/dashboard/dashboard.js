@@ -116,7 +116,7 @@ angular.module('roadrunner.dashboard', [
 		// $routeParams.chartType == BarChart or PieChart or ColumnChart...
 	    $scope.chartObject.type = 'BarChart';
 	    $scope.chartObject.options = {};
-	    
+
 		function buildChartObjectData(callCenters){
 			$scope.chartCols = [
 		    	{id: "t", label: "Call Center", type: "string"},
@@ -141,13 +141,12 @@ angular.module('roadrunner.dashboard', [
 		}
 
 		function updateCallsInQueue(eventData){
-			var target = eventData.targetId.substr(0, eventData.targetId.indexOf('@'));
-			console.log('Our target is' + target);
+			console.log('Updating calls in queue count');
 			
-			// find call center index in the source array 
 			var callCenterIndex = -1;
 			for( var i = 0; i < $scope.callCenters.length; i++){
-				if($scope.callCenters[i].callCenterId == target){
+				console.log('In the loop ' + $scope.callCenters[i].callCenterId);
+				if($scope.callCenters[i].callCenterId == eventData.targetId){
 					callCenterIndex = i;
 					break;
 				}
