@@ -116,19 +116,19 @@
 				<div class="row-fluid">
 					<div class="col-sm-3 onCall">
 						<div class="title">AGENTS ON CALL</div>
-						<span class="badge badge-primary">{{data.agentsOnCallCount}}</span>
+						<span class="badge badge-primary" ng-bind="agents | callcenter:data.callCenterId:'On-Call'"></span>
 					</div>
 					<div class="col-sm-3 available">
 						<div class="title">AGENTS AVAILABLE</div>
-						<span class="badge badge-primary">{{data.agentsAvailableCount}}</span>
+						<span class="badge badge-primary" ng-bind="agents | callcenter:data.callCenterId:'Available'"></span>
 					</div>
 					<div class="col-sm-3 away">
 						<div class="title">AGENTS AWAY</div>
-						<span class="badge badge-primary">{{data.agentsAwayCount}}</span>
+						<span class="badge badge-primary" ng-bind="agents | callcenter:data.callCenterId:'Unavailable'"></span>
 					</div>
 					<div class="col-sm-3 signedOut">
 						<div class="title">AGENTS SIGNED OUT</div>
-						<span class="badge badge-primary">{{data.agentsSignedOutCount}}</span>
+						<span class="badge badge-primary" ng-bind="agents | callcenter:data.callCenterId:'Sign-Out'"></span>
 					</div>
 				</div>
 			</div> <!-- .agentSummaryContainer -->

@@ -67,7 +67,7 @@ var roadrunnerapp = angular.module('roadrunnerapp', [
 
 .config(['PusherServiceProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider',
 	function(PusherServiceProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
-		PusherServiceProvider.setToken('da81ce797d453db253d1').setOptions({
+		PusherServiceProvider.setToken('9d930976a9ff60065e51').setOptions({
 			
 		});
 
