@@ -172,6 +172,10 @@ public class AgentUpdateEvent  extends  SubscriptionUpdateEvent
             {
                 System.out.println("SubscriptionTerminationEvent - re-subscribe here");
             }
+            else if ("xsi:AgentSubscriptionEvent".equals(eventType))
+            {
+                System.out.println("AgentSubscriptionEvent - subscribed");                
+            }
             else
             {
                 System.out.println("Unknown Event: "+ eventType);                

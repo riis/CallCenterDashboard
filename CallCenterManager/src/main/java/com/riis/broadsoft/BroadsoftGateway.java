@@ -299,6 +299,7 @@ public class BroadsoftGateway
         String requestString = "user/" + agentId;
         String agentSubscriptionXML =  makeRequest(requestString, 
                 REQUEST_METHOD_POST, body);
+        System.out.println("agentSubscriptionXML = " + agentSubscriptionXML);
         agent.parseSubscriptionXMLString(agentSubscriptionXML);
     }
 
