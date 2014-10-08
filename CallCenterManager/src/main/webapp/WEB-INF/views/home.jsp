@@ -53,19 +53,17 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">Call Center Activity</a>
 				</div>
-
 				<div class="pull-right date-time">
-					
 					<div class="date-container">
 						<div class="day">{{dateObj.getDayName()}}</div>
 						<div class="date">{{dateObj.getDate()}} <span class="month">{{dateObj.getMonthName()}}</span></div>
 					</div>
-					
 					<div class="time-container">
 						<div class="am-pm">{{dateObj.getAMPM()}}</div>
 						<div class="time">{{dateObj.getHours() % 12 || 12}}:{{dateObj.getMinutesWithLeadingZero()}}</div>
 					</div>
 				</div>
+                <div class="time-label pull-right">Last Updated</div>
 			</div>
 		</div>
 	    
