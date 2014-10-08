@@ -32,15 +32,15 @@ public class WebserviceController
 //    private static final String PASSWORD = "welcome1";
 //    private static final String SUPERVISOR_USERNAME = "gnolanUser1@xdp.broadsoft.com";
     //CallCruncher
-//    private static final String HOST_NAME = "portal1.ipitimi.net";
-//    private static final String AUTHENTICATION_USERNAME = "ccruncherblue@nat.ipitimi.net";
-//    private static final String PASSWORD = "cD889n9HuvNK";
-//    private static final String SUPERVISOR_USERNAME = "100008@nat.ipitimi.net";
+    private static final String HOST_NAME = "portal1.ipitimi.net";
+    private static final String AUTHENTICATION_USERNAME = "ccruncherblue@nat.ipitimi.net";
+    private static final String PASSWORD = "cD889n9HuvNK";
+    private static final String SUPERVISOR_USERNAME = "100008@nat.ipitimi.net";
     // Road Runner
-    private static final String HOST_NAME = "xsp2.telesphere.com";
-    private static final String AUTHENTICATION_USERNAME = "Admin_Joseph@voip.tnltd.net";
-    private static final String PASSWORD = "velvet0121";
-    private static final String SUPERVISOR_USERNAME = "6237422277@voip.tnltd.net";
+//    private static final String HOST_NAME = "xsp2.telesphere.com";
+//    private static final String AUTHENTICATION_USERNAME = "Admin_Joseph@voip.tnltd.net";
+//    private static final String PASSWORD = "velvet0121";
+//    private static final String SUPERVISOR_USERNAME = "6237422277@voip.tnltd.net";
 
     
     private BroadsoftGateway gateway;
@@ -124,14 +124,15 @@ public class WebserviceController
 
     @RequestMapping(value = "/webservices/callCenterSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
-//    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
     public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, @RequestBody String eventXML) throws IOException
     {        
-        System.out.println("callCenterSubscriptionCallback called");
-        System.out.println("Event String... :" + eventXML);
         CallCenterUpdateEvent event = new CallCenterUpdateEvent();
         event.readEventFromXMLString(eventXML);
-        System.out.println("PARSED EVENT = " + event.toString());
+        CallCenter callCenter = gateway.findCallCenterBySubscriptionId(event.getSubscriptionId());
+        if (callCenter != null)
+        {
+            callCenter.updateFromEvent(event);
+        }
         PusherGateway pusher = new PusherGateway();
         pusher.pushCallCenterEventNotification(event);
         return "OK";
@@ -150,14 +151,15 @@ public class WebserviceController
     
     @RequestMapping(value = "/webservices/agentSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
-//    public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
     public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers,@RequestBody String eventXML) throws IOException
     {        
-        System.out.println("agentSubscriptionCallback called");
-        System.out.println("Event... :" + eventXML);
         AgentUpdateEvent event = new AgentUpdateEvent();
         event.readEventFromXMLString(eventXML);
-        System.out.println("PARSED EVENT = " + event.toString());
+        Agent agent = gateway.findAgentBySubscriptionId(event.getSubscriptionId());
+        if (agent != null)
+        {
+            agent.updateFromEvent(event);
+        }
         PusherGateway pusher = new PusherGateway();
         pusher.pushAgentEventNotification(event);
         return "OK";

@@ -250,6 +250,7 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
 
             NodeList nodelist = doc.getDocumentElement().getElementsByTagName("subscriptionId");
             subscriptionId = getValueFromNode(nodelist);
+            System.out.println("Added subscription id " + subscriptionId + "To Agent " + name);
         }
         catch (Exception e)
         {
@@ -257,5 +258,10 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
             System.err.println("XML string :" + agentSubscriptionXML);
             e.printStackTrace();
         }        
+    }
+    
+    public void updateFromEvent(AgentUpdateEvent event)
+    {
+        status = event.getState();
     }
 }

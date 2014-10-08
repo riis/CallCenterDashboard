@@ -59,8 +59,6 @@ angular.module('roadrunner.dashboard', [
 		Pusher.subscribe('channel-three', 'agentEvent', function (item) {
 			item = JSON.parse(item.agentEvent);
 
-			$scope.dateObj = new Date();
-
 			if ($scope.agents) {
 				applyAgentUpdate(item);
 			} else {
@@ -75,6 +73,7 @@ angular.module('roadrunner.dashboard', [
 			for (var i = 0; i < $scope.agents.length; i++) {
 				if ($scope.agents[i].agentId === item.targetId) {
 					$scope.agents[i].status = item.state;
+					$scope.dateObj = new Date();
 				}
 			}
 		}
@@ -163,6 +162,7 @@ angular.module('roadrunner.dashboard', [
 					break;
 				}
 			}
+			$scope.dateObj = new Date();
 
 			// update the calls in queue value in chart array
 			$scope.chartRows[callCenterIndex].c[1].v = parseInt(eventData.numCallsInQueue);
@@ -177,8 +177,6 @@ angular.module('roadrunner.dashboard', [
 				console.log("Queueing Call Center Event");
 				$scope.pendingCallCenterEvents.push(eventData);
 			}
-			
-			$scope.dateObj = new Date();
 		});
 	}
 );

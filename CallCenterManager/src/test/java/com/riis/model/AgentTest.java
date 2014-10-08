@@ -15,6 +15,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import com.riis.model.Agent;
+import com.riis.model.AgentUpdateEvent;
+import com.riis.model.CallCenterUpdateEvent;
 
 
 public class AgentTest
@@ -185,4 +187,15 @@ public class AgentTest
         agent.parseSubscriptionXMLString(AGENT_SUBSCRIBED_XML);   
         assertEquals("e71fc027-5fea-4928-99ba-6cf793e69f18", agent.getSubscriptionId());
     }
+
+
+    @Test
+    public void testUpdateFromEventL()
+    {      
+        AgentUpdateEvent event = new AgentUpdateEvent();
+        event.setState("TEST_STATE");
+        agent.updateFromEvent(event);
+        assertEquals("TEST_STATE", agent.getStatus());
+    }
+
 }

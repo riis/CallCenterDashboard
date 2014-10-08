@@ -299,6 +299,7 @@ public class BroadsoftGateway
         String requestString = "user/" + agentId;
         String agentSubscriptionXML =  makeRequest(requestString, 
                 REQUEST_METHOD_POST, body);
+        System.out.println("agentSubscriptionXML = " + agentSubscriptionXML);
         agent.parseSubscriptionXMLString(agentSubscriptionXML);
     }
 
@@ -377,5 +378,32 @@ public class BroadsoftGateway
     public void clearCache()
     {
         model.clearCache();
+    }
+    
+    public CallCenter findCallCenterBySubscriptionId(String subscriptionId)
+    {
+        List<CallCenter> callCenters = model.getCallCenters();
+        for(CallCenter callCenter : callCenters)
+        {
+            if (subscriptionId.equals(callCenter.getSubscriptionId()))
+            {
+                return callCenter;
+            }
+        }
+        return null;
+    }
+    
+    
+    public Agent findAgentBySubscriptionId(String subscriptionId)
+    {
+        List<Agent> agents = model.getAgents();
+        for(Agent agent : agents)
+        {
+            if (subscriptionId.equals(agent.getSubscriptionId()))
+            {
+                return agent;
+            }
+        }
+        return null;
     }
 }

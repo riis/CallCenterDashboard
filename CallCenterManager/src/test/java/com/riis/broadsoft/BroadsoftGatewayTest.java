@@ -1,20 +1,61 @@
 import static junit.framework.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.riis.broadsoft.BroadsoftGateway;
 import com.riis.model.Agent;
 import com.riis.model.CallCenter;
+import com.riis.model.Model;
 
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertNotNull;
 
 
 public class BroadsoftGatewayTest
-{
+{    
+    @Before
+    public void setUp()
+    {
+        Model model = Model.getInstance();
+        
+        List<Agent> agents = new ArrayList<Agent>();
+        
+        Agent agentOne = new Agent("@riis.com");
+        agentOne.setName("AgentOne");
+        agentOne.setSubscriptionId("subscription1");
+        agents.add(agentOne);
+        
+        Agent agentTwo = new Agent("@riis.com");
+        agentTwo.setName("AgentTwo");
+        agentTwo.setSubscriptionId("subscription2");
+        agents.add(agentTwo);
+        
+        Agent agentThree = new Agent("@riis.com");
+        agentThree.setName("AgentThree");
+        agentThree.setSubscriptionId("subscription3");
+        agents.add(agentThree);
+        
+        List<CallCenter> callCenters = new ArrayList<CallCenter>();
+        
+        CallCenter callCenterOne = new CallCenter("@riis.com");
+        callCenterOne.setCallCenterName("CallCenterOne");
+        callCenterOne.setSubscriptionId("CallCenterSub1");
+        callCenters.add(callCenterOne);
+        
+        CallCenter callCenterTwo = new CallCenter("@riis.com");
+        callCenterTwo.setCallCenterName("CallCenterTwo");
+        callCenterTwo.setSubscriptionId("CallCenterSub2");
+        callCenters.add(callCenterTwo);        
+          
+        model.setAgents(agents);
+        model.setCallCenters(callCenters);
+    }
+
     @Test
     public void testCallWithNoConfiguration()
     {
@@ -171,4 +212,21 @@ public class BroadsoftGatewayTest
 //        }
     }
 
+//    @Test
+//    public void testFindAgentBySubscription()
+//    {
+//        BroadsoftGateway gateway = new BroadsoftGateway();
+//        Agent response = gateway.findAgentBySubscriptionId("Subscription2");
+//        assertNotNull(response);
+//        assertEquals("AgentTwo", response.getName());
+//    }
+
+//    @Test
+//    public void testFindCallCenterBySubscription()
+//    {
+//        BroadsoftGateway gateway = new BroadsoftGateway();
+//        CallCenter response = gateway.findCallCenterBySubscriptionId("CallCenterSub2");
+//        assertNotNull(response);
+//        assertEquals("CallCenterTwo", response.getCallCenterName());
+//    }
 }
