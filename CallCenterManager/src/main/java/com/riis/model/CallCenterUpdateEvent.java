@@ -168,7 +168,7 @@ public class CallCenterUpdateEvent extends SubscriptionUpdateEvent
         buff.append("\"sequenceNumber\":\"" + sequenceNumber + "\",");
         buff.append("\"subscriptionId\":\"" + subscriptionId + "\",");
         buff.append("\"targetId\":\"" + targetId + "\",");
-        buff.append("\"numCallsInQueue\":\"" + numCallsInQueue + "\",");            
+        buff.append("\"numCallsInQueue\":\"" + numCallsInQueue + "\"");            
         buff.append("}");
         return buff.toString();
     }
