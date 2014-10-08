@@ -52,9 +52,16 @@ angular.module('roadrunner.dashboard', [
 		$scope.testItems = [{id: 4, name: 'test'},{id: 5, name: 'test5'},{id: 6, name: 'test6'}];
 		console.dir($scope.testItems);
 		
-		Pusher.subscribe('channel-two', 'agentEvent', function (item) {
-			console.log('ragentEvent...');
-			console.dir(item);
+		Pusher.subscribe('channel-three', 'agentEvent', function (item) {
+			console.log('Received Agent Event: ');
+			//item = JSON.parse(item);
+			console.dir(item.agentEvent);
+			console.log(item.agentEvent.targetId);
+			
+			// console.log('Event ID:' + item.eventId);
+			// console.log('Target ID:' + item.targetId);
+			// console.log('Sequence Number:' + item.sequenceNumber);
+			
 
 			$scope.dateObj = new Date();
 
@@ -95,58 +102,67 @@ angular.module('roadrunner.dashboard', [
 		//---------------------------------------------------------------------------
 		// Calls In Queue
 		//---------------------------------------------------------------------------
-	    $scope.chartObject = {};
-	
-	    $scope.chartObject.data = {"cols": [
-	        {id: "t", label: "Call Center", type: "string"},
-	        {id: "s", label: "Calls In Queue", type: "number"}
-	    ], "rows": [
-	        {c: [
-	            {v: "Call Center 1"},
-	            {v: 3},
-	        ]},
-	        {c: [
-	            {v: "Call Center 2"},
-	            {v: 31}
-	        ]},
-	        {c: [
-	            {v: "Call Center 3"},
-	            {v: 1},
-	        ]},
-	        {c: [
-	            {v: "Call Center 4"},
-	            {v: 2},
-	        ]}
-	    ]};
-	
-	
-	    // $routeParams.chartType == BarChart or PieChart or ColumnChart...
+		var callCenters = agentsService.getCallCenters(function (response){
+			console.log('successding');
+			$scope.callCenters = response;
+			buildChartObjectData($scope.callCenters);
+
+		}, function (error){
+			console.log('failing');
+			$scope.callCenterError = true;
+		});
+
+		$scope.chartObject = {};
+		// $routeParams.chartType == BarChart or PieChart or ColumnChart...
 	    $scope.chartObject.type = 'BarChart';
 	    $scope.chartObject.options = {};
+	    
+		function buildChartObjectData(callCenters){
+			$scope.chartCols = [
+		    	{id: "t", label: "Call Center", type: "string"},
+		        {id: "s", label: "Calls In Queue", type: "number"}
+		    ];
+		    $scope.chartRows = [];
 
-		
-		
-		$scope.testItems = [{id: 4, name: 'test'},{id: 5, name: 'test5'},{id: 6, name: 'test6'}];
-		console.dir($scope.testItems);
-		
-		Pusher.subscribe('channel-two', 'callCenterEvent', function (item) {
-			console.log('recieved a new callCenterEvent...');
-			console.dir(item);
+		    callCenters.forEach(function(callCenter){
+		    	var tempItem = {};
+		    	tempItem.c = [];
+		    	tempItem.c.push({v: callCenter.callCenterName});
+		    	tempItem.c.push({v: callCenter.queueLength});
 
-			$scope.dateObj = new Date();
+		    	$scope.chartRows.push(tempItem);
+		    });
+
+
+		    $scope.chartObject.data = { 
+		    	'cols' : $scope.chartCols, 
+		    	'rows': $scope.chartRows
+		    };
+		}
+
+		function updateCallsInQueue(eventData){
+			var target = eventData.targetId.substr(0, eventData.targetId.indexOf('@'));
+			console.log('Our target is' + target);
 			
-			$('body').append('<p>Received a new callCenterEvent...</p>');
-			// an item was updated. find it in our list and update it.
-			for (var i = 0; i < $scope.testItems.length; i++) {
-				if ($scope.testItems[i].id === item.id) {
-					$scope.testItems[i] = item;
+			// find call center index in the source array 
+			var callCenterIndex = -1;
+			for( var i = 0; i < $scope.callCenters.length; i++){
+				if($scope.callCenters[i].callCenterId == target){
+					callCenterIndex = i;
 					break;
 				}
 			}
+
+			// update the calls in queue value in chart array
+			$scope.chartRows[callCenterIndex].c[1].v += parseInt(eventData.numCallsInQueue);
+		}
+	
+		Pusher.subscribe('channel-two', 'callCenterEvent', function (item) {
+			console.log('recieved a new callCenterEvent...');
+			var eventData = JSON.parse(item.callCenterEvent);
+			updateCallsInQueue(eventData);
 			
-			console.dir($scope.testItems);
+			$scope.dateObj = new Date();
 		});
-		
-		
 	}
 );

@@ -9,7 +9,14 @@ Services.service('agentsService', function ($http, agentsFactory) {
 		// Get the agents from the web service
 		$http.get('/CallCenterManager/webservices/agentList').success(successCallback).error(errorCallback);
 	}
-	
+
+	/**
+	 * Get Calls Center List..
+	 */
+	service.getCallCenters = function (successCallback, errorCallback) {
+		// Get the agents from the web service
+		$http.get('/CallCenterManager/webservices/callCenterList').success(successCallback).error(errorCallback);
+	}
 	
 	/**
 	 * Get the agent summary
