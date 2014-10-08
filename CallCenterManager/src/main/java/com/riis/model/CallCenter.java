@@ -29,6 +29,13 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
     private String callCenterName;
     @XmlElement(required=false)
     private int queueLength;
+    private String domain;
+
+    public CallCenter(String domain)
+    {
+        this.domain = domain;
+        System.out.println("CallCenter - set domain to " + this.domain);        
+    }
     
     public String getCallCenterId()
     {
@@ -38,7 +45,16 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
     
     public void setCallCenterId(String callCenterId)
     {
-        this.callCenterId = callCenterId;
+        if (callCenterId.indexOf('@') == -1)
+        {
+            this.callCenterId = callCenterId + domain;
+            System.out.println("Appended domain and Set Call Center Id to " + this.callCenterId);
+        }
+        else
+        {
+            this.callCenterId = callCenterId;            
+            System.out.println("Set Call Center Id to " + this.callCenterId);
+        }
     }
     
     
@@ -72,7 +88,7 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
         {
             if (NODE_NAME.equals(element.getNodeName()))
             {
-                callCenterId = element.getTextContent();                           
+                setCallCenterId(element.getTextContent());                           
             }
         }
         catch (Exception e)
@@ -141,7 +157,7 @@ public class CallCenter extends AbstractXMLParser implements XMLParserContract, 
             for (int i=0; i<nodes.getLength(); i++)
             {
                 Element element = (Element)nodes.item(i);
-                CallCenter callCenterToAdd = new CallCenter();
+                CallCenter callCenterToAdd = new CallCenter(domain);
                 callCenterToAdd.readIdFromXMLNode(element);
                 callCenters.add(callCenterToAdd);                 
             }

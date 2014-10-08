@@ -2,29 +2,16 @@ package com.riis.model;
 
 import java.io.Serializable;
 import java.io.StringReader;
-import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import com.riis.model.events.EventData;
-import com.riis.model.events.HTTPContact;
-
-
-@XmlRootElement(name="xsi:Event")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Event  extends AbstractXMLParser implements XMLParserContract, Serializable
+public class SubscriptionUpdateEvent extends AbstractXMLParser implements XMLParserContract, Serializable
 {
-    private static final long serialVersionUID = 2014222924597455601L;
-
     @XmlElement(name="xsi:eventId", required=true)
     String eventId;
     @XmlElement(name="xsi:sequenceNumber", required=true)
@@ -35,31 +22,23 @@ public class Event  extends AbstractXMLParser implements XMLParserContract, Seri
     String externalApplicationId;
     @XmlElement(name="xsi:subscriptionId", required=true)
     String subscriptionId;
-    @XmlElement(name="xsi:httpContact", required=true)
-    HTTPContact httpContact;
     @XmlElement(name="xsi:targetId", required=true)
     String targetId;
-    @XmlElement(name="xsi:eventData", required=true)
-    List<EventData> eventData;
-    
-    public Event() 
-    {
-        super();
-    }
 
-    public Event(String eventId, String sequenceNumber, String userId,
-            String externalApplicationId, String subscriptionId, HTTPContact httpContact,
-            String targetId, List<EventData> eventData) 
+    public SubscriptionUpdateEvent()
+    {    
+    }
+    
+    
+    public SubscriptionUpdateEvent(String eventId, String sequenceNumber, String userId,
+            String externalApplicationId, String subscriptionId, String targetId)
     {
-        super();
         this.eventId = eventId;
         this.sequenceNumber = sequenceNumber;
         this.userId = userId;
         this.externalApplicationId = externalApplicationId;
         this.subscriptionId = subscriptionId;
-        this.httpContact = httpContact;
         this.targetId = targetId;
-        this.eventData = eventData;
     }
     
     public String getEventId() 
@@ -112,16 +91,6 @@ public class Event  extends AbstractXMLParser implements XMLParserContract, Seri
         this.subscriptionId = subscriptionId;
     }
     
-    public HTTPContact getHttpContact()
-    {
-        return httpContact;
-    }
-
-    public void setHttpContact(HTTPContact httpContact)
-    {
-        this.httpContact = httpContact;
-    }
-
     public String getTargetId()
     {
         return targetId;
@@ -131,36 +100,7 @@ public class Event  extends AbstractXMLParser implements XMLParserContract, Seri
     {
         this.targetId = targetId;
     }
-
-    public List<EventData> getEventData() 
-    {
-        return eventData;
-    }
     
-    public void setEventData(List<EventData> eventData) 
-    {
-        this.eventData = eventData;
-    }
-    
-    public String toString()
-    {
-        StringBuffer buff = new StringBuffer("Event:\n");
-        buff.append("    eventId:" + eventId + "\n");
-        buff.append("    sequenceNumber:" + sequenceNumber + "\n");
-        buff.append("    userId:" + userId + "\n");
-        buff.append("    externalApplicationId:" + externalApplicationId + "\n");
-        buff.append("    subscriptionId:" + subscriptionId + "\n");
-        if (eventData != null && eventData.size() > 0)
-        {
-            buff.append("    eventData:" + eventData.toString() + "\n");            
-        }
-        else
-        {
-            buff.append("    eventData:NULL\n");
-        }
-        return buff.toString();
-    }
-
     @Override
     public void readIdFromXMLNode(Node element)
     {
@@ -168,49 +108,55 @@ public class Event  extends AbstractXMLParser implements XMLParserContract, Seri
         
     }
     
-    public void readAgentEventFromXMLString(String agentEventXML)
+    protected String getValueFromNode(NodeList nodeList)
+    {
+        String retVal = null;
+//        System.out.println("Nodelist.size = " + nodeList.getLength());
+        if(nodeList != null && nodeList.getLength() == 1)
+        {
+            retVal =  nodeList.item(0).getTextContent();
+        }
+//        System.out.println("RetVal = " + retVal);
+        return retVal;
+    }
+
+    public void readEventFromXMLString(String eventXML)
     {
         try
         {
-            Document doc = docBuilder.parse(new InputSource(new StringReader(agentEventXML)));
+            Document doc = docBuilder.parse(new InputSource(new StringReader(eventXML)));
             doc.getDocumentElement().normalize();
             if (!"xsi:Event".equals(doc.getDocumentElement().getNodeName()))
             {
-                System.out.println("ERROR - readAgentEventFromXMLString: " + agentEventXML);
+                System.out.println("ERROR - readEventFromXMLString: " + eventXML);
                 throw new Exception("Wrong Root Node: Expected Event, received " + doc.getDocumentElement().getNodeName());
             }
+            
             NodeList nodelist = doc.getDocumentElement().getElementsByTagName("xsi:eventID");
             eventId = getValueFromNode(nodelist);
-            System.out.println("EventId = " + eventId);
+            
             nodelist = doc.getDocumentElement().getElementsByTagName("xsi:sequenceNumber");
             sequenceNumber = getValueFromNode(nodelist);
-            System.out.println("sequenceNumber = " + sequenceNumber);
+            
             nodelist = doc.getDocumentElement().getElementsByTagName("xsi:userId");
             userId = getValueFromNode(nodelist);
-            System.out.println("userId = " + userId);
+            
             nodelist = doc.getDocumentElement().getElementsByTagName("xsi:externalApplicationId");
             externalApplicationId = getValueFromNode(nodelist);
-            System.out.println("externalApplicationId = " + externalApplicationId);
+            
             nodelist = doc.getDocumentElement().getElementsByTagName("xsi:subscriptionId");
             subscriptionId = getValueFromNode(nodelist);
-            System.out.println("subscriptionId = " + subscriptionId);
+            
+            nodelist = doc.getDocumentElement().getElementsByTagName("xsi:targetId");
+            targetId = getValueFromNode(nodelist);
         }
         catch (Exception e)
         {
             System.err.println("Error parsing XML from string! :" + e.getMessage());
             e.printStackTrace();
         }
+     
     }
-    
-    private String getValueFromNode(NodeList nodeList)
-    {
-        String retVal = null;
-        System.out.println("Nodelist.size = " + nodeList.getLength());
-        if(nodeList != null && nodeList.getLength() == 1)
-        {
-            retVal =  nodeList.item(0).getTextContent();
-        }
-        System.out.println("RetVal = " + retVal);
-        return retVal;
-    }
+
+
 }

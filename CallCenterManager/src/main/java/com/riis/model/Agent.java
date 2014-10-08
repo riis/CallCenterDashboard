@@ -49,6 +49,20 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
         System.out.println("Agent - set domain to " + this.domain);        
     }
     
+    private String appendDomain(String subject)
+    {
+        if (subject.indexOf('@') == -1)
+        {
+            System.out.println("Appended domain and Set Id to " + subject + domain);
+            return (subject + domain);
+        }
+        else
+        {
+            System.out.println("Set Id to " + subject);
+            return subject;            
+        }       
+    }
+    
     public String getAgentId()
     {
         return agentId;
@@ -57,16 +71,7 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
     
     public void setAgentId(String agentId)
     {
-        if (agentId.indexOf('@') == -1)
-        {
-            this.agentId = agentId + domain;
-            System.out.println("Appended domain and Set Agent Id to " + agentId);
-        }
-        else
-        {
-            this.agentId = agentId;            
-            System.out.println("Set Agent Id to " + agentId);
-        }
+        this.agentId = appendDomain(agentId);
     }
     
     
@@ -126,7 +131,7 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
     
     public void setCallCenterId(String callCenterId)
     {
-        this.callCenterId = callCenterId;
+        this.callCenterId = appendDomain(callCenterId);
     }
     
     

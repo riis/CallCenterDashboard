@@ -57,16 +57,21 @@
 			<div ng-if="agentsError">Error Occurred</div>
 			
 			<div class="row-fluid">
+				<select ng-model="filterStatus" ng-options="agent.status as agent.status for agent in agents | orderBy:'status' | unique:'status'">
+					<option value="">No Filter</option>
+				</select>
+			</div>
+			<div class="row-fluid">
 			
 				<!-- First Column of Agents -->
-				<div class="col-md-3 agentGroups" ng-repeat="agentGroups in agents | partition:15 track by $index">
+				<div class="col-md-3 agentGroups" ng-repeat="agentGroups in agents | unique:'agentId' | status:filterStatus | orderBy:'extension' | partition:15 track by $index">
 					<table class="table table-responsive table-condensed table-bordered">
 						<tr>
 							<th>Extension</th>
 							<th class="status">Status</th>
 						</tr>
 						
-						<tr ng-repeat="agent in agentGroups track by $index" id="{{agent.agentId}}">
+						<tr ng-repeat="agent in agentGroups track by agent.agentId" id="{{agent.agentId}}">
 							<td highlighter="agent.status" class="extension">{{agent.extension}}</td>
 							<td class="status"><img class="status-image" ng-src="./resources/assets/{{agent.status}}.png"></img></td>
 						</tr>

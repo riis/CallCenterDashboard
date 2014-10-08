@@ -184,7 +184,7 @@ public class BroadsoftGateway
         {
             String CallCenterXML =  makeRequest("user/" + getSupervisorUsername() + "/directories/CallCenters?user=Supervisor", 
                     REQUEST_METHOD_GET, null);
-            List<CallCenter> allCallCenters = new CallCenter().createListFromXMLString(CallCenterXML);
+            List<CallCenter> allCallCenters = new CallCenter(domain).createListFromXMLString(CallCenterXML);
             for(CallCenter callCenter : allCallCenters)
             {
                 String callCenterProfile = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/profile",

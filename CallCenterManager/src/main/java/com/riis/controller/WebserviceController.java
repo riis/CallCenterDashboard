@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.riis.broadsoft.BroadsoftGateway;
 import com.riis.model.Agent;
+import com.riis.model.AgentUpdateEvent;
 import com.riis.model.CallCenter;
 import com.riis.model.CallCenterAgentSummary;
-import com.riis.model.Event;
+import com.riis.model.CallCenterUpdateEvent;
 import com.riis.pusher.PusherGateway;
 
 @Controller
@@ -124,12 +125,15 @@ public class WebserviceController
     @RequestMapping(value = "/webservices/callCenterSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
 //    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, Event event) throws IOException
-    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, @RequestBody String event) throws IOException
+    public String recieveCallCenterSubscriptionResponse(@RequestHeader HttpHeaders headers, @RequestBody String eventXML) throws IOException
     {        
         System.out.println("callCenterSubscriptionCallback called");
-        System.out.println("Event String... :" + event);
+        System.out.println("Event String... :" + eventXML);
+        CallCenterUpdateEvent event = new CallCenterUpdateEvent();
+        event.readEventFromXMLString(eventXML);
+        System.out.println("PARSED EVENT = " + event.toString());
         PusherGateway pusher = new PusherGateway();
-//        pusher.pushCallCenterEventNotification(event);
+        pusher.pushCallCenterEventNotification(event);
         return "OK";
     }
     
@@ -151,8 +155,8 @@ public class WebserviceController
     {        
         System.out.println("agentSubscriptionCallback called");
         System.out.println("Event... :" + eventXML);
-        Event event = new Event();
-        event.readAgentEventFromXMLString(eventXML);
+        AgentUpdateEvent event = new AgentUpdateEvent();
+        event.readEventFromXMLString(eventXML);
         System.out.println("PARSED EVENT = " + event.toString());
         PusherGateway pusher = new PusherGateway();
         pusher.pushAgentEventNotification(event);
