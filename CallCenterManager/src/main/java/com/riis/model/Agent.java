@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -42,6 +43,8 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
     @XmlElement(required=false)
     private Date statusChangedTimestamp;
     private String domain;
+    private String subscriptionId;
+    
     
     public Agent(String domain)
     {
@@ -147,6 +150,18 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
     }
 
 
+    public String getSubscriptionId()
+    {
+        return subscriptionId;
+    }
+
+
+    public void setSubscriptionId(String subscriptionId)
+    {
+        this.subscriptionId = subscriptionId;
+    }
+
+
     public void readIdFromXMLNode(Node element)
     {
         try
@@ -163,8 +178,7 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
         {
             System.err.println("Error parsing XML from string! :" + e.getMessage());
             e.printStackTrace();                       
-        }
-        
+        }        
     }
 
 
@@ -219,5 +233,29 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
             System.err.println("Error parsing XML from string! :" + e.getMessage());
             e.printStackTrace();                       
         }
+    }
+
+
+    public void parseSubscriptionXMLString(String agentSubscriptionXML)
+    {
+        try
+        {
+            Document doc = docBuilder.parse(new InputSource(new StringReader(agentSubscriptionXML)));
+            doc.getDocumentElement().normalize();
+            if (doc.getDocumentElement().getNodeName() != "Subscription")
+            {
+                System.out.println("ERROR - parseSubscriptionXMLString: " + agentSubscriptionXML);
+                throw new Exception("Wrong Root Node: Expected Subscription, received " + doc.getDocumentElement().getNodeName());
+            }
+
+            NodeList nodelist = doc.getDocumentElement().getElementsByTagName("subscriptionId");
+            subscriptionId = getValueFromNode(nodelist);
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error parsing XML from string! :" + e.getMessage());
+            System.err.println("XML string :" + agentSubscriptionXML);
+            e.printStackTrace();
+        }        
     }
 }

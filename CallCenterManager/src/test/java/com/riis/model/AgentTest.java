@@ -98,6 +98,13 @@ public class AgentTest
     		"         </callCenterDetails>" +
     		"     </callCenterList>" +
     		"</CallCenter>";
+    
+    private static String AGENT_SUBSCRIBED_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+    		"<Subscription xmlns=\"http://schema.broadsoft.com/xsi\">" +
+    		    "<subscriptionId>e71fc027-5fea-4928-99ba-6cf793e69f18</subscriptionId>" +
+    		    "<expires>3600</expires>" +
+    		"</Subscription>";
+
     private Agent agent;
 
     @Before
@@ -170,4 +177,12 @@ public class AgentTest
         agent.readStatusFromXMLString(AGENT_REFRESH_XML);   
         assertEquals("Available", agent.getStatus());
     }    
+
+
+    @Test
+    public void testAgentParseSubscriptionXML() throws Exception
+    {      
+        agent.parseSubscriptionXMLString(AGENT_SUBSCRIBED_XML);   
+        assertEquals("e71fc027-5fea-4928-99ba-6cf793e69f18", agent.getSubscriptionId());
+    }
 }

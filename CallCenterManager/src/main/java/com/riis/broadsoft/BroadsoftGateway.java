@@ -265,9 +265,9 @@ public class BroadsoftGateway
         		"</Subscription>";
         
         String requestString = "user/" + callCenterId;
-        String CallCenterSubscriptionXML =  makeRequest(requestString, 
+        String callCenterSubscriptionXML =  makeRequest(requestString, 
                 REQUEST_METHOD_POST, body);
-        System.out.println("CallCenterSubscription XML = " + CallCenterSubscriptionXML);
+        callCenter.parseSubscriptionXMLString(callCenterSubscriptionXML);
     }
 
     
@@ -276,7 +276,6 @@ public class BroadsoftGateway
         List<Agent> allAgents = getAllAgents();
         for (Agent agent : allAgents)
         {
-            System.out.println("Subscribing to call center " + agent.getCallCenterId());
             subscribeAgent(agent);
         }
     }
@@ -298,9 +297,9 @@ public class BroadsoftGateway
                 "</Subscription>";
         
         String requestString = "user/" + agentId;
-        String CallCenterSubscriptionXML =  makeRequest(requestString, 
+        String agentSubscriptionXML =  makeRequest(requestString, 
                 REQUEST_METHOD_POST, body);
-        System.out.println("CallCenterSubscription XML = " + CallCenterSubscriptionXML);
+        agent.parseSubscriptionXMLString(agentSubscriptionXML);
     }
 
     

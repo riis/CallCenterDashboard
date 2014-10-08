@@ -108,17 +108,6 @@ public class SubscriptionUpdateEvent extends AbstractXMLParser implements XMLPar
         
     }
     
-    protected String getValueFromNode(NodeList nodeList)
-    {
-        String retVal = null;
-//        System.out.println("Nodelist.size = " + nodeList.getLength());
-        if(nodeList != null && nodeList.getLength() == 1)
-        {
-            retVal =  nodeList.item(0).getTextContent();
-        }
-//        System.out.println("RetVal = " + retVal);
-        return retVal;
-    }
 
     public void readEventFromXMLString(String eventXML)
     {

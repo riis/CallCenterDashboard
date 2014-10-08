@@ -51,3 +51,17 @@ Filters.filter('status', function() {
   };
   return filter;
 });
+
+Filters.filter('callcenter', function() {
+  var filter = function(arr, callCenter, theStatus) {
+    if (!arr || !callCenter || !theStatus) { return 0; }
+    var count = 0;
+    for (var i=0; i<arr.length; i++) {
+      if (arr[i].callCenterId == callCenter && arr[i].status == theStatus) {
+          count++;
+        }
+    }
+    return count;
+  };
+  return filter;
+});

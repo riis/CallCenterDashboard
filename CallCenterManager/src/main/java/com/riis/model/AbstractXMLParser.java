@@ -13,6 +13,7 @@ import javax.xml.xpath.XPathFactory;
 import org.springframework.util.xml.SimpleNamespaceContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public abstract class AbstractXMLParser implements XMLParserContract
 {
@@ -87,5 +88,15 @@ public abstract class AbstractXMLParser implements XMLParserContract
         Node widgetNode = (Node)xpath.evaluate(path, doc, XPathConstants.NODE);
         return widgetNode.getNodeName();
         
+    }
+    
+    protected String getValueFromNode(NodeList nodeList)
+    {
+        String retVal = null;
+        if(nodeList != null && nodeList.getLength() == 1)
+        {
+            retVal =  nodeList.item(0).getTextContent();
+        }
+        return retVal;
     }
 }
