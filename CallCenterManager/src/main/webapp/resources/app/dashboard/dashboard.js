@@ -102,8 +102,10 @@ angular.module('roadrunner.dashboard', [
 		//---------------------------------------------------------------------------
 		// Calls In Queue
 		//---------------------------------------------------------------------------
+		startLoader('#callsInQueue');
 		$scope.pendingCallCenterEvents = [];
-
+		$scope.callsInQueue = {};
+		$scope.callsInQueue.initialized = false;
 		var callCenters = agentsService.getCallCenters(function (response){
 			$scope.callCenters = response;
 			buildChartObjectData($scope.callCenters);
@@ -113,7 +115,8 @@ angular.module('roadrunner.dashboard', [
 			}
 
 			$scope.pendingCallCenterEvents = null;
-
+			$scope.callsInQueue.initialized = true;
+			endLoader('#callsInQueue');
 		}, function (error){
 			$scope.callCenterError = true;
 		});

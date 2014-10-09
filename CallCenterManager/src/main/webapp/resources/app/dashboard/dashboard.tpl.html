@@ -52,16 +52,22 @@
 		<div class="panel-heading">
 			Agents
 		</div>
-		<div class="panel-body">
-				
-			<div ng-if="agentsError">Error Occurred</div>
-			
-			<div class="row-fluid status-dropdown">
-				<label for="">Filter by Status: </label>
-				<select ng-model="filterStatus" ng-options="agent.status as agent.status for agent in agents | orderBy:'status' | unique:'status'">
-					<option value="">No Filter</option>
-				</select>
+		<div class="panel-body padding6">
+			<div class="row-fluid agents-head">
+				<div class="status-legends pull-left">
+					<span class="on-call">On Call</span>
+					<span class="available">Available</span>
+					<span class="away">Away</span>
+					<span class="signed-out">Signed Out</span>
+				</div>
+				<div class="status-dropdown pull-right">
+					<select ng-model="filterStatus" class="form-control"
+						ng-options="agent.status as agent.status for agent in agents | orderBy:'status' | unique:'status'">
+						<option value="">view by status</option>
+					</select>
+				</div>
 			</div>
+			<div ng-if="agentsError">Error Occurred</div>
 			<div class="row-fluid">
 			
 				<!-- First Column of Agents -->
@@ -90,7 +96,8 @@
 		<div class="panel-heading">
 			Calls In Queue
 		</div>
-		<div class="panel-body chart-panel">
+		<!-- <div ng-show="callsInQueue.initialized" class="panel-body chart-panel"> -->
+		<div ng-show="callsInQueue.initialized" class="panel-body chart-panel">
 			<div google-chart chart="chartObject" style="width: 600px; height: 350px;"></div>
 			<!-- <div google-chart chart="chartObject" style="{{cssStyle}}"></div> -->
 		</div>
