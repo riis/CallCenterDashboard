@@ -174,4 +174,14 @@ public class WebserviceController
         gateway.subscribeAllAgents();
         return "{'subscribed':'AllAgents'}";
     }
+
+
+    @RequestMapping(value = "/webservices/unsubscribeAllAgents", method = RequestMethod.GET)
+    @ResponseBody
+    public String unsubscribeAllAgents() throws IOException
+    {
+        setupGatewayForEvent(); 
+        gateway.unsubscribeAllAgents();
+        return "{'unsubscribed':'AllAgents'}";
+    }
 }
