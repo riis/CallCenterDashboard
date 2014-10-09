@@ -55,12 +55,12 @@
 				</div>
 				<div class="pull-right date-time">
 					<div class="date-container">
-						<div class="day">{{dateObj.getDayName()}}</div>
-						<div class="date">{{dateObj.getDate()}} <span class="month">{{dateObj.getMonthName()}}</span></div>
+						<div class="day" ng-bind="dateObj | date:'EEEE'"></div>
+						<div><span class="date" ng-bind="dateObj | date:'dd'"></span> <span class="month" ng-bind="dateObj | date:'MMM'"></span></div>
 					</div>
 					<div class="time-container">
-						<div class="am-pm">{{dateObj.getAMPM()}}</div>
-						<div class="time">{{dateObj.getHours() % 12 || 12}}:{{dateObj.getMinutesWithLeadingZero()}}</div>
+						<div class="am-pm" ng-bind="dateObj | date:'a'"></div>
+						<div class="time" ng-bind="dateObj | date:'h:mm'"></div>
 					</div>
 				</div>
                 <div class="time-label pull-right">Last Updated</div>

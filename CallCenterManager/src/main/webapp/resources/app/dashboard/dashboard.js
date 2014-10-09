@@ -70,6 +70,7 @@ angular.module('roadrunner.dashboard', [
 
 		function applyAgentUpdate(item) {
 			if (item.state) {
+				console.log(item.state);
 				var applied = false;
 				for (var i = 0; i < $scope.agents.length; i++) {
 					if ($scope.agents[i].agentId === item.targetId) {
