@@ -22,6 +22,7 @@ public class BroadsoftGateway
 {
     public static final String REQUEST_METHOD_GET = "GET";
     public static final String REQUEST_METHOD_POST = "POST";
+    public static final String REQUEST_METHOD_DELETE = "DELETE";
     private static final String PROTOCOL_SEPARATOR = "://";
     private static final String PATH_SEPARATOR = "/";
     private static final String AUTH_TOKEN_SEPARATOR = ":";
@@ -234,7 +235,6 @@ public class BroadsoftGateway
     {
         String refreshXML =  makeRequest("user/" + agent.getAgentId() + "/services/CallCenter",
                 REQUEST_METHOD_GET, null);
-        System.out.println("Agent = " + agent.getAgentId() + "AgentRefresh XML = " + refreshXML);
         agent.readStatusFromXMLString(refreshXML);
     }
     
@@ -267,6 +267,7 @@ public class BroadsoftGateway
         String requestString = "user/" + callCenterId;
         String callCenterSubscriptionXML =  makeRequest(requestString, 
                 REQUEST_METHOD_POST, body);
+        System.out.println("CallCenter Subscription Response = " + callCenterSubscriptionXML);
         callCenter.parseSubscriptionXMLString(callCenterSubscriptionXML);
     }
 
@@ -303,6 +304,26 @@ public class BroadsoftGateway
         agent.parseSubscriptionXMLString(agentSubscriptionXML);
     }
 
+
+    public void unsubscribeAllAgents() throws IOException
+    {
+        List<Agent> allAgents = getAllAgents();
+        for (Agent agent : allAgents)
+        {
+            subscribeAgent(agent);
+        }
+    }
+
+    
+    public void unsubscribeAgent(Agent agent) throws IOException
+    {
+        //http(s)://<host:port>/com.broadsoft.xsi- events/v2.0/subscription/<subscriptionid>
+        String unsubscribeResponseXML =  makeRequest("subscription/" + agent.getSubscriptionId(),
+                    REQUEST_METHOD_DELETE, null);
+        System.out.println("Unsubscribed Agent: " + agent.getName() + " Response = " + unsubscribeResponseXML);
+        //agent.readStatusFromXMLString(refreshXML);
+    }
+    
     
     private boolean checkConfiguration()
     {
