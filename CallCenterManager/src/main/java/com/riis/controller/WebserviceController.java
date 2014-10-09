@@ -128,13 +128,25 @@ public class WebserviceController
     {        
         CallCenterUpdateEvent event = new CallCenterUpdateEvent();
         event.readEventFromXMLString(eventXML);
+        String eventType = event.getEventType();
         CallCenter callCenter = gateway.findCallCenterBySubscriptionId(event.getSubscriptionId());
-        if (callCenter != null)
+        if (CallCenterUpdateEvent.CALL_CENTER_STATE_EVENT.equals(eventType) && callCenter != null)
         {
             callCenter.updateFromEvent(event);
+            PusherGateway pusher = new PusherGateway();
+            pusher.pushCallCenterEventNotification(event);
         }
-        PusherGateway pusher = new PusherGateway();
-        pusher.pushCallCenterEventNotification(event);
+        if (CallCenterUpdateEvent.CALL_CENTER_SUBSCRIPTION_TERMINATION_EVENT.equals(eventType) 
+                && callCenter != null)
+        {
+            System.out.println("Found subscription termination event for callCenter with Subscription Id - re-subscribing");
+            gateway.subscribeCallCenter(callCenter);
+        }
+        else
+        {
+            // agent Call center event - do nothing
+        }
+
         return "OK";
     }
     
@@ -149,14 +161,14 @@ public class WebserviceController
     }
     
     
-//    @RequestMapping(value = "/webservices/unsubscribeAllCallCenters", method = RequestMethod.GET)
-//    @ResponseBody
-//    public String unsubscribeAllCallCenters() throws IOException
-//    {
-//        setupGatewayForEvent(); 
-//        gateway.unsubscribeAllCallCenters();
-//        return "{'unsubscribed':'AllCallCenters'}";
-//    }
+    @RequestMapping(value = "/webservices/unsubscribeAllCallCenters", method = RequestMethod.GET)
+    @ResponseBody
+    public String unsubscribeAllCallCenters() throws IOException
+    {
+        setupGatewayForEvent(); 
+        gateway.unsubscribeAllCallCenters();
+        return "{'unsubscribed':'AllCallCenters'}";
+    }
     
     
     @RequestMapping(value = "/webservices/agentSubscriptionCallback", method = RequestMethod.POST)

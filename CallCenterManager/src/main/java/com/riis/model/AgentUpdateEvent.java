@@ -112,7 +112,7 @@ public class AgentUpdateEvent  extends  SubscriptionUpdateEvent
     }
 
     
-    // Only need getter for event type - it should be set automatically whe parsing an event
+    // Only need getter for event type - it should be set automatically when parsing an event
     public String getEventType()
     {
         return eventType;
@@ -186,7 +186,7 @@ public class AgentUpdateEvent  extends  SubscriptionUpdateEvent
             }
             else if (AGENT_SUBSCRIPTION_TERMINATION_EVENT.equals(eventType))
             {
-                System.out.println("SubscriptionTerminationEvent - re-subscribe here");
+                System.out.println("SubscriptionTerminationEvent - will re-subacribe in web-service endpoint");
             }
             else if (AGENT_SUBSCRIPTION_EVENT.equals(eventType))
             {

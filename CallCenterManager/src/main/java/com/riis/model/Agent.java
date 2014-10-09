@@ -247,7 +247,6 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
                 System.out.println("ERROR - parseSubscriptionXMLString: " + agentSubscriptionXML);
                 throw new Exception("Wrong Root Node: Expected Subscription, received " + doc.getDocumentElement().getNodeName());
             }
-
             NodeList nodelist = doc.getDocumentElement().getElementsByTagName("subscriptionId");
             subscriptionId = getValueFromNode(nodelist);
             System.out.println("Added subscription id " + subscriptionId + "To Agent " + name);

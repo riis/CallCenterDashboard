@@ -272,6 +272,37 @@ public class BroadsoftGateway
     }
 
     
+    public void unsubscribeAllCallCenters() throws IOException
+    {
+        List<CallCenter> allCallCenters = getAllCallCenters();
+        for (CallCenter callCenter : allCallCenters)
+        {
+            unsubscribeCallCenter(callCenter);
+        }
+    }
+
+    
+    public void unsubscribeCallCenter(CallCenter callCenter) throws IOException
+    {
+        //http(s)://<host:port>/com.broadsoft.xsi- events/v2.0/subscription/<subscriptionid>
+        String subscriptionId = callCenter.getSubscriptionId();
+        if (subscriptionId != null)
+        {
+            // must set subscription id to null to stop it from 
+            // re-subscribing once we receive a subscription termination event
+            callCenter.setSubscriptionId(null);
+            String unsubscribeResponseXML =  makeRequest("subscription/" + subscriptionId,
+                    REQUEST_METHOD_DELETE, null);
+            System.out.println("Unsubscribed CallCenter: " + callCenter.getCallCenterName() + " Response = " + unsubscribeResponseXML);          
+        }
+        else
+        {
+            System.out.println("CallCenter without subscriptionId :-(");
+        }
+        //agent.readStatusFromXMLString(refreshXML);
+    }
+    
+    
     public void subscribeAllAgents() throws IOException
     {
         List<Agent> allAgents = getAllAgents();

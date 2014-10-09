@@ -18,6 +18,10 @@ public class CallCenterUpdateEvent extends SubscriptionUpdateEvent
 {
     private static final long serialVersionUID = 5132003256033781959L;
 
+    public static final String CALL_CENTER_STATE_EVENT = "xsi:CallCenterMonitoringEvent";
+    public static final String CALL_CENTER_SUBSCRIPTION_TERMINATION_EVENT = "xsi:SubscriptionTerminatedEvent";
+    public static final String CALL_CENTER_UNKNOWN_EVENT = "UNKNOWN";
+
     int averageHandlingTime;
     int expectedWaitTime;
     int averageSpeedOfAnswer;
@@ -27,6 +31,8 @@ public class CallCenterUpdateEvent extends SubscriptionUpdateEvent
     int numAgentsStaffed;
     int numStaffedAgentsIdle;
     int numStaffedAgentsUnavailable;
+    
+    private String eventType;
     
     public CallCenterUpdateEvent() 
     {
@@ -141,6 +147,12 @@ public class CallCenterUpdateEvent extends SubscriptionUpdateEvent
         this.numStaffedAgentsUnavailable = numStaffedAgentsUnavailable;
     }
     
+    // Only need getter for event type - it should be set automatically when parsing an event
+    public String getEventType()
+    {
+        return eventType;
+    }
+
     public String toString()
     {
         StringBuffer buff = new StringBuffer("Event:\n");
@@ -184,8 +196,8 @@ public class CallCenterUpdateEvent extends SubscriptionUpdateEvent
             
             NodeList nodelist = doc.getDocumentElement().getElementsByTagName("xsi:eventData");
             NamedNodeMap attributes =  nodelist.item(0).getAttributes();
-            String eventType = attributes.item(0).getTextContent();
-            if ("xsi:CallCenterMonitoringEvent".equals(eventType))
+            eventType = attributes.item(0).getTextContent();
+            if (CallCenterUpdateEvent.CALL_CENTER_STATE_EVENT.equals(eventType))
             {
                 System.out.println("Reveiced CallCenter event");
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:averageHandlingTime");
@@ -215,13 +227,14 @@ public class CallCenterUpdateEvent extends SubscriptionUpdateEvent
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:numStaffedAgentsUnavailable");
                 numStaffedAgentsUnavailable = Integer.parseInt(getValueFromNode(nodelist));
             }
-            else if ("xsi:SubscriptionTerminatedEvent".equals(eventType))
+            else if (CallCenterUpdateEvent.CALL_CENTER_SUBSCRIPTION_TERMINATION_EVENT.equals(eventType))
             {
-                System.out.println("SubscriptionTerminationEvent - re-subscribe here");
+                System.out.println("SubscriptionTerminationEvent - will re-subscribe in web-service");
             }
             else
             {
-                System.out.println("Unknown Event: "+ eventType);                
+                System.out.println("Unknown Event: "+ eventType);   
+                eventType = CallCenterUpdateEvent.CALL_CENTER_UNKNOWN_EVENT; 
             }
              
          }
