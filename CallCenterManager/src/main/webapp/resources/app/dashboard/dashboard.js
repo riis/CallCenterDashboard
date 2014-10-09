@@ -69,11 +69,17 @@ angular.module('roadrunner.dashboard', [
 		});
 
 		function applyAgentUpdate(item) {
-			console.log("Applying Agent Update Event");
-			for (var i = 0; i < $scope.agents.length; i++) {
-				if ($scope.agents[i].agentId === item.targetId) {
-					$scope.agents[i].status = item.state;
-					$scope.dateObj = new Date();
+			if (item.state) {
+				var applied = false;
+				for (var i = 0; i < $scope.agents.length; i++) {
+					if ($scope.agents[i].agentId === item.targetId) {
+						if (!applied) {
+							console.log("Applying Agent Update Event");
+							applied = true;
+						}
+						$scope.agents[i].status = item.state;
+						$scope.dateObj = new Date();
+					}
 				}
 			}
 		}
@@ -181,8 +187,6 @@ angular.module('roadrunner.dashboard', [
 		}
 
 		function updateCallsInQueue(eventData){
-			console.log("Applying Call Center Event");
-			console.log(eventData.targetId);
 			// find the call center index in the source array
 			var callCenterIndex = -1;
 			for( var i = 0; i < $scope.callCenters.length; i++){
@@ -193,8 +197,12 @@ angular.module('roadrunner.dashboard', [
 			}
 			$scope.dateObj = new Date();
 
-			// update the calls in queue value in chart array
-			$scope.chartRows[callCenterIndex].c[1].v = parseInt(eventData.numCallsInQueue);
+			if (callCenterIndex >= 0) {
+				// update the calls in queue value in chart array
+				console.log("Applying Call Center Event");
+				console.log(eventData.targetId);
+				$scope.chartRows[callCenterIndex].c[1].v = parseInt(eventData.numCallsInQueue);
+			}
 		}
 		
 		Pusher.subscribe('channel-two', 'callCenterEvent', function (item) {

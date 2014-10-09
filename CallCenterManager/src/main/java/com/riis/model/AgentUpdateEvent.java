@@ -24,6 +24,11 @@ import org.xml.sax.InputSource;
 public class AgentUpdateEvent  extends  SubscriptionUpdateEvent
 {
     private static final long serialVersionUID = 2014222924597455601L;
+    
+    public static final String AGENT_STATE_EVENT = "xsi:AgentStateEvent";
+    public static final String AGENT_SUBSCRIPTION_TERMINATION_EVENT = "xsi:SubscriptionTerminatedEvent";
+    public static final String AGENT_SUBSCRIPTION_EVENT = "xsi:AgentSubscriptionEvent";
+    public static final String AGENT_UNKNOWN_EVENT = "UNKNOWN";
 
     @XmlElement(name="xsi:state", required=true)
     String state;
@@ -35,6 +40,8 @@ public class AgentUpdateEvent  extends  SubscriptionUpdateEvent
     Long totalAvailableTime;
     @XmlElement(name="xsi:averageWrapUpTime", required=true)
     Long averageWrapUpTime;
+
+    private String eventType;
     
     public AgentUpdateEvent() 
     {
@@ -103,7 +110,15 @@ public class AgentUpdateEvent  extends  SubscriptionUpdateEvent
     {
         this.averageWrapUpTime = averageWrapUpTime;
     }
+
     
+    // Only need getter for event type - it should be set automatically whe parsing an event
+    public String getEventType()
+    {
+        return eventType;
+    }
+
+
     public String toString()
     {
         StringBuffer buff = new StringBuffer("Event:\n");
@@ -146,40 +161,41 @@ public class AgentUpdateEvent  extends  SubscriptionUpdateEvent
             
             NodeList nodelist = doc.getDocumentElement().getElementsByTagName("xsi:eventData");
             NamedNodeMap attributes =  nodelist.item(0).getAttributes();
-            String eventType = attributes.item(0).getTextContent();
-            if ("xsi:AgentStateEvent".equals(eventType))
-            {
-                System.out.println("Received Agent Event");
-               nodelist = doc.getDocumentElement().getElementsByTagName("xsi:state");
-               state = getValueFromNode(nodelist);
-
-               nodelist = doc.getDocumentElement().getElementsByTagName("xsi:stateTimestamp");
-               Date tmpStateTimestamp = new Date();
-               tmpStateTimestamp.setTime(Long.parseLong(getValueFromNode(nodelist)));
-               setStateTimestamp(tmpStateTimestamp);
-
-               nodelist = doc.getDocumentElement().getElementsByTagName("xsi:signInTimestamp");
-               Date tmpSignIntimestamp = new Date();
-               tmpSignIntimestamp.setTime(Long.parseLong(getValueFromNode(nodelist)));
-               setSignInTimestamp(tmpSignIntimestamp);
-
-               nodelist = doc.getDocumentElement().getElementsByTagName("xsi:totalAvailableTime");
-               totalAvailableTime = Long.parseLong(getValueFromNode(nodelist));
-
-               nodelist = doc.getDocumentElement().getElementsByTagName("xsi:averageWrapUpTime");
-               averageWrapUpTime = Long.parseLong(getValueFromNode(nodelist));  
+            eventType = attributes.item(0).getTextContent();
+            if (AGENT_STATE_EVENT.equals(eventType))
+            {                
+                System.out.println("Received Agent State Event");                
+                nodelist = doc.getDocumentElement().getElementsByTagName("xsi:state");
+                state = getValueFromNode(nodelist);
+    
+                nodelist = doc.getDocumentElement().getElementsByTagName("xsi:stateTimestamp");
+                Date tmpStateTimestamp = new Date();
+                tmpStateTimestamp.setTime(Long.parseLong(getValueFromNode(nodelist)));
+                setStateTimestamp(tmpStateTimestamp);
+    
+                nodelist = doc.getDocumentElement().getElementsByTagName("xsi:signInTimestamp");
+                Date tmpSignIntimestamp = new Date();
+                tmpSignIntimestamp.setTime(Long.parseLong(getValueFromNode(nodelist)));
+                setSignInTimestamp(tmpSignIntimestamp);
+    
+                nodelist = doc.getDocumentElement().getElementsByTagName("xsi:totalAvailableTime");
+                totalAvailableTime = Long.parseLong(getValueFromNode(nodelist));
+    
+                nodelist = doc.getDocumentElement().getElementsByTagName("xsi:averageWrapUpTime");
+                averageWrapUpTime = Long.parseLong(getValueFromNode(nodelist));  
             }
-            else if ("xsi:SubscriptionTerminatedEvent".equals(eventType))
+            else if (AGENT_SUBSCRIPTION_TERMINATION_EVENT.equals(eventType))
             {
                 System.out.println("SubscriptionTerminationEvent - re-subscribe here");
             }
-            else if ("xsi:AgentSubscriptionEvent".equals(eventType))
+            else if (AGENT_SUBSCRIPTION_EVENT.equals(eventType))
             {
                 System.out.println("AgentSubscriptionEvent - subscribed");                
             }
             else
             {
-                System.out.println("Unknown Event: "+ eventType);                
+                System.out.println("Unknown Event: "+ eventType);  
+                eventType = AGENT_SUBSCRIPTION_EVENT;
             }
              
          }

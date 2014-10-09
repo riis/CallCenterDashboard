@@ -165,14 +165,29 @@ public class WebserviceController
     {        
         AgentUpdateEvent event = new AgentUpdateEvent();
         event.readEventFromXMLString(eventXML);
+        String eventType = event.getEventType();
         Agent agent = gateway.findAgentBySubscriptionId(event.getSubscriptionId());
-        if (agent != null)
+        if (AgentUpdateEvent.AGENT_STATE_EVENT.equals(eventType) && agent != null)
         {
             agent.updateFromEvent(event);
+            PusherGateway pusher = new PusherGateway();
+            pusher.pushAgentEventNotification(event);
         }
-        PusherGateway pusher = new PusherGateway();
-        pusher.pushAgentEventNotification(event);
-        return "OK";
+        if (AgentUpdateEvent.AGENT_SUBSCRIPTION_TERMINATION_EVENT.equals(eventType) && agent != null)
+        {
+            System.out.println("Found subscription termination event for agent with Subscription Id - re-subscribing");
+            gateway.subscribeAgent(agent);
+        }
+        if (AgentUpdateEvent.AGENT_SUBSCRIPTION_EVENT.equals(eventType))
+        {
+            // No need to do anything here ???
+            System.out.println("Found agent subscription event in callback");
+        }
+        else
+        {
+            // agent unknown event - do nothing
+        }
+        return "OK";            
     }
     
     
