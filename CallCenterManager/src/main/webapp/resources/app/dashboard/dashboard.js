@@ -133,8 +133,34 @@ angular.module('roadrunner.dashboard', [
 	    $scope.chartObject.options = {
 	    	width: '100%',
 	    	height: '100%',
+	    	backgroundColor: 'white',
 	    	hAxis : {
-	    		viewWindowMode : 'pretty'
+	    		viewWindowMode : 'explicit',
+	    		maxValue : 6,
+	    		viewWindow : {
+	    			min : 0
+	    		},
+	    		gridlines : {
+	    			color: 'white'
+	    		},
+	    		baselineColor : '#d3d2d0'
+
+	    	},
+	    	chartArea : {
+	    		backgroundColor : 'white',
+	    		left: 150,
+	    		top : 50,
+	    	},
+	    	colors: ['#c1e88f'],
+	    	vAxis : {
+	    		textPosition : 'out',
+	    		textStyle : {
+	    			color : 'black',
+	    			fontSize : 12
+	    		}
+	    	},
+	    	legend : {
+	    		position: 'none'
 	    	}
 	    };
 
