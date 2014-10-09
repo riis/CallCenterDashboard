@@ -169,8 +169,10 @@ angular.module('roadrunner.dashboard', [
 			}
 			$scope.dateObj = new Date();
 
-			// update the calls in queue value in chart array
-			$scope.chartRows[callCenterIndex].c[1].v = parseInt(eventData.numCallsInQueue);
+			if (callCenterIndex >= 0) {
+				// update the calls in queue value in chart array
+				$scope.chartRows[callCenterIndex].c[1].v = parseInt(eventData.numCallsInQueue);
+			}
 		}
 		
 		Pusher.subscribe('channel-two', 'callCenterEvent', function (item) {
