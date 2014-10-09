@@ -79,7 +79,8 @@ angular.module('roadrunner.dashboard', [
 							applied = true;
 						}
 						$scope.agents[i].status = item.state;
-						$scope.dateObj = new Date();
+
+						$rootScope.dateObj = new Date();
 					}
 				}
 			}
@@ -196,7 +197,8 @@ angular.module('roadrunner.dashboard', [
 					break;
 				}
 			}
-			$scope.dateObj = new Date();
+			
+			$rootScope.dateObj = new Date();
 
 			if (callCenterIndex >= 0) {
 				// update the calls in queue value in chart array
