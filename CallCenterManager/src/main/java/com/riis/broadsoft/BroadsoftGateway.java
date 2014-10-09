@@ -318,9 +318,20 @@ public class BroadsoftGateway
     public void unsubscribeAgent(Agent agent) throws IOException
     {
         //http(s)://<host:port>/com.broadsoft.xsi- events/v2.0/subscription/<subscriptionid>
-        String unsubscribeResponseXML =  makeRequest("subscription/" + agent.getSubscriptionId(),
+        String subscriptionId = agent.getSubscriptionId();
+        if (subscriptionId != null)
+        {
+            // must set subscription id to null to stop it from 
+            // re-subscribing once we receive a subscription termination event
+            agent.setSubscriptionId(null);
+            String unsubscribeResponseXML =  makeRequest("subscription/" + subscriptionId,
                     REQUEST_METHOD_DELETE, null);
-        System.out.println("Unsubscribed Agent: " + agent.getName() + " Response = " + unsubscribeResponseXML);
+            System.out.println("Unsubscribed Agent: " + agent.getName() + " Response = " + unsubscribeResponseXML);          
+        }
+        else
+        {
+            System.out.println("Agent without subscriptionId :-(");
+        }
         //agent.readStatusFromXMLString(refreshXML);
     }
     
