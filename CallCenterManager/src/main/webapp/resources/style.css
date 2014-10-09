@@ -75,7 +75,7 @@ body {
     padding-right: 20px;
 }
 .chart-panel{
-  height: 400px;
+  -height: 400px;
 }
 /*
  * Sidebar
@@ -168,6 +168,45 @@ body {
 }
 
 .status-dropdown{
-  padding: 5px 15px;
+  padding: 0 15px;
   text-align: right;
+}
+.status-dropdown select{
+  display: inline-block;
+  padding: 3px 12px;
+  height: 26px;
+  font-size: 0.9em;
+}
+
+.status-legends{
+  padding-left: 40px;
+}
+.status-legends span{
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 40px;
+  margin-right: 20px;
+  color: #B3B3B3;
+}
+    .status-legends .on-call{
+        background: url(assets/On-Call.png) no-repeat left center;
+        background-size: 20px 21px;
+    }
+    .status-legends .available{
+        background: url(assets/Available.png) no-repeat left center;
+        background-size: 20px 21px;
+    }
+    .status-legends .away{
+        background: url(assets/Unavailable.png) no-repeat left center;
+        background-size: 20px 21px;
+    }
+    .status-legends .signed-out{
+        background: url(assets/Sign-Out.png) no-repeat left center;
+        background-size: 20px 21px;
+    }
+
+.agents-head{
+  height: 30px;
+  padding-bottom: 8px;
 }
