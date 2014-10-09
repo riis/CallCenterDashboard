@@ -167,6 +167,7 @@ public class AgentUpdateEvent  extends  SubscriptionUpdateEvent
                 System.out.println("Received Agent State Event");                
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:state");
                 state = getValueFromNode(nodelist);
+                System.out.println("XXXX: Set agent state to " + state );
     
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:stateTimestamp");
                 String nodeValue = getValueFromNode(nodelist);
