@@ -57,7 +57,7 @@
 				<div class="status-legends pull-left">
 					<span class="on-call">On Call</span>
 					<span class="available">Available</span>
-					<span class="away">Away</span>
+					<span class="unavailable">Unavailable</span>
 					<span class="signed-out">Signed Out</span>
 				</div>
 				<div class="status-dropdown pull-right">
@@ -132,7 +132,7 @@
 						<span class="badge badge-primary" ng-bind="agents | callcenter:data.callCenterId:'Available'"></span>
 					</div>
 					<div class="col-sm-3 away">
-						<div class="title">AWAY</div>
+						<div class="title">UNAVAILABLE</div>
 						<span class="badge badge-primary" ng-bind="agents | callcenter:data.callCenterId:'Unavailable'"></span>
 					</div>
 					<div class="col-sm-3 signedOut">

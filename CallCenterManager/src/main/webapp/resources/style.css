@@ -211,7 +211,7 @@ body {
         background: url(assets/Available.png) no-repeat left center;
         background-size: 20px 21px;
     }
-    .status-legends .away{
+    .status-legends .unavailable{
         background: url(assets/Unavailable.png) no-repeat left center;
         background-size: 20px 21px;
     }
