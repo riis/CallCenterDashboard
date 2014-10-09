@@ -310,7 +310,7 @@ public class BroadsoftGateway
         List<Agent> allAgents = getAllAgents();
         for (Agent agent : allAgents)
         {
-            subscribeAgent(agent);
+            unsubscribeAgent(agent);
         }
     }
 

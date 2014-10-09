@@ -149,6 +149,16 @@ public class WebserviceController
     }
     
     
+//    @RequestMapping(value = "/webservices/unsubscribeAllCallCenters", method = RequestMethod.GET)
+//    @ResponseBody
+//    public String unsubscribeAllCallCenters() throws IOException
+//    {
+//        setupGatewayForEvent(); 
+//        gateway.unsubscribeAllCallCenters();
+//        return "{'unsubscribed':'AllCallCenters'}";
+//    }
+    
+    
     @RequestMapping(value = "/webservices/agentSubscriptionCallback", method = RequestMethod.POST)
     @ResponseBody
     public String recieveAgentSubscriptionResponse(@RequestHeader HttpHeaders headers,@RequestBody String eventXML) throws IOException
