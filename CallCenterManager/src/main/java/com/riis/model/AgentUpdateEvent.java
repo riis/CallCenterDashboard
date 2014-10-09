@@ -169,20 +169,37 @@ public class AgentUpdateEvent  extends  SubscriptionUpdateEvent
                 state = getValueFromNode(nodelist);
     
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:stateTimestamp");
-                Date tmpStateTimestamp = new Date();
-                tmpStateTimestamp.setTime(Long.parseLong(getValueFromNode(nodelist)));
-                setStateTimestamp(tmpStateTimestamp);
+                String nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    Date tmpStateTimestamp = new Date();
+                    tmpStateTimestamp.setTime(Long.parseLong(nodeValue));
+                    setStateTimestamp(tmpStateTimestamp);                    
+                }
     
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:signInTimestamp");
-                Date tmpSignIntimestamp = new Date();
-                tmpSignIntimestamp.setTime(Long.parseLong(getValueFromNode(nodelist)));
-                setSignInTimestamp(tmpSignIntimestamp);
+                nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    Date tmpSignIntimestamp = new Date();
+                    tmpSignIntimestamp.setTime(Long.parseLong(nodeValue));
+                    setSignInTimestamp(tmpSignIntimestamp);
+                    
+                }
     
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:totalAvailableTime");
-                totalAvailableTime = Long.parseLong(getValueFromNode(nodelist));
+                nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    totalAvailableTime = Long.parseLong(nodeValue);                    
+                }
     
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:averageWrapUpTime");
-                averageWrapUpTime = Long.parseLong(getValueFromNode(nodelist));  
+                nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    averageWrapUpTime = Long.parseLong(getValueFromNode(nodelist));  
+                }
             }
             else if (AGENT_SUBSCRIPTION_TERMINATION_EVENT.equals(eventType))
             {

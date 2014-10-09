@@ -199,33 +199,69 @@ public class CallCenterUpdateEvent extends SubscriptionUpdateEvent
             eventType = attributes.item(0).getTextContent();
             if (CallCenterUpdateEvent.CALL_CENTER_STATE_EVENT.equals(eventType))
             {
-                System.out.println("Reveiced CallCenter event");
+                System.out.println("Reveiced CallCenter state update event");
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:averageHandlingTime");
-                averageHandlingTime = Integer.parseInt(getValueFromNode(nodelist));
+                String nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    averageHandlingTime = Integer.parseInt(nodeValue);                    
+                }
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:expectedWaitTime");
-                expectedWaitTime = Integer.parseInt(getValueFromNode(nodelist));
+                nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    expectedWaitTime = Integer.parseInt(nodeValue);                    
+                }
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:averageSpeedOfAnswer");
-                averageSpeedOfAnswer = Integer.parseInt(getValueFromNode(nodelist));
+                nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    averageSpeedOfAnswer = Integer.parseInt(nodeValue);                       
+                }
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:longestWaitTime");
-                longestWaitTime = Integer.parseInt(getValueFromNode(nodelist));
+                nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    longestWaitTime = Integer.parseInt(nodeValue);                     
+                }
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:numCallsInQueue");
-                numCallsInQueue = Integer.parseInt(getValueFromNode(nodelist));
+                nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    numCallsInQueue = Integer.parseInt(nodeValue);                       
+                }
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:numAgentsAssigned");
-                numAgentsAssigned = Integer.parseInt(getValueFromNode(nodelist));
+                nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    numAgentsAssigned = Integer.parseInt(nodeValue);                       
+                }
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:numAgentsStaffed");
-                numAgentsStaffed = Integer.parseInt(getValueFromNode(nodelist));
+                nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    numAgentsStaffed = Integer.parseInt(nodeValue);                       
+                }
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:numStaffedAgentsIdle");
-                numStaffedAgentsIdle = Integer.parseInt(getValueFromNode(nodelist));
+                nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    numStaffedAgentsIdle = Integer.parseInt(nodeValue);                       
+                }
 
                 nodelist = doc.getDocumentElement().getElementsByTagName("xsi:numStaffedAgentsUnavailable");
-                numStaffedAgentsUnavailable = Integer.parseInt(getValueFromNode(nodelist));
+                nodeValue = getValueFromNode(nodelist);
+                if (nodeValue != null)
+                {
+                    numStaffedAgentsUnavailable = Integer.parseInt(nodeValue);                       
+                }
             }
             else if (CallCenterUpdateEvent.CALL_CENTER_SUBSCRIPTION_TERMINATION_EVENT.equals(eventType))
             {
