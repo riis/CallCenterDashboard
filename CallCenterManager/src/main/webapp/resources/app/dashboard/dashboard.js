@@ -69,11 +69,13 @@ angular.module('roadrunner.dashboard', [
 		});
 
 		function applyAgentUpdate(item) {
-			console.log("Applying Agent Update Event");
-			for (var i = 0; i < $scope.agents.length; i++) {
-				if ($scope.agents[i].agentId === item.targetId) {
-					$scope.agents[i].status = item.state;
-					$scope.dateObj = new Date();
+			if (item.state) {
+				console.log("Applying Agent Update Event");
+				for (var i = 0; i < $scope.agents.length; i++) {
+					if ($scope.agents[i].agentId === item.targetId) {
+						$scope.agents[i].status = item.state;
+						$scope.dateObj = new Date();
+					}
 				}
 			}
 		}
