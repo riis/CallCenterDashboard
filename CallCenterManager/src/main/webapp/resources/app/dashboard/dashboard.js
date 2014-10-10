@@ -152,7 +152,7 @@ angular.module('roadrunner.dashboard', [
 	    		left: 150,
 	    		top : 50,
 	    	},
-	    	colors: ['#c1e88f'],
+	    	colors: ['#4762b3'],
 	    	vAxis : {
 	    		textPosition : 'out',
 	    		textStyle : {

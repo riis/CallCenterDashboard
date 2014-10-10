@@ -119,12 +119,18 @@ body {
   margin-top: 0;
 }
 
+.header{
+  background-color: #b71928;
+}
 #agents, #agentSummary, #callsInQueue{
   border-radius: 10px;
 }
 #agents .panel-heading, #agentSummary .panel-heading, #callsInQueue .panel-heading{
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+}
+.panel-heading{
+  background-color: #b71928 !important;
 }
 .padding6{
   padding-left: 6px !important;
@@ -159,7 +165,8 @@ body {
 }
 
 .panel-default .panel-body table th {
-  background-color: #B5DC8C;
+  background-color: #4762b3;
+  color: #fff;
 }
 
 .panel-default .panel-body table {

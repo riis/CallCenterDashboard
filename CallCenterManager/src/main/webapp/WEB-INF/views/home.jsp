@@ -49,7 +49,7 @@
     <body ng-controller="AppCtrl">
     
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="container-fluid drop-shadow">
+			<div class="container-fluid header drop-shadow">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">Call Center Activity</a>
 				</div>
