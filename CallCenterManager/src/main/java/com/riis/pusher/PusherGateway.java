@@ -13,10 +13,14 @@ public class PusherGateway
 //    private String appId = "91457";
 //    private String apiKey = "da81ce797d453db253d1";
 //    private String apiSecret = "1b3278510bc037b2db85";
-    // RIIS account
-    private String appId = "92249";
-    private String apiKey = "9d930976a9ff60065e51";
-    private String apiSecret = "364b063ffcfb715049cf";
+    // RIIS account - Call Center Dashboard app
+//    private String appId = "92249";
+//    private String apiKey = "9d930976a9ff60065e51";
+//    private String apiSecret = "364b063ffcfb715049cf";
+    // RIIS account - Call Center Dashboard - Call Cruncher app
+    private String appId = "92686";
+    private String apiKey = "ab287cb02c4199354de2";
+    private String apiSecret = "b1ce8468fd1ca1eab4a2";
 
     
     

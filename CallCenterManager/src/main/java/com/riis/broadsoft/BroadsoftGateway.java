@@ -29,10 +29,9 @@ public class BroadsoftGateway
     private static final String AUTH_PREFIX_BASIC = "Basic ";
     private static final String PROPERTY_AUTHORIZATION = "Authorization";
     private static final String CALLBACK_CALLCENTER_ADDRESS = "ec2-54-205-41-129.compute-1.amazonaws.com:8080/" +
-    		"CallCenterManager/webservices/callCenterSubscriptionCallback";
+    		"CallCenterManager-CallCruncher/webservices/callCenterSubscriptionCallback";
     private static final String CALLBACK_AGENT_ADDRESS = "ec2-54-205-41-129.compute-1.amazonaws.com:8080/" +
-            "CallCenterManager/webservices/agentSubscriptionCallback";
-    
+            "CallCenterManager-CallCruncher/webservices/agentSubscriptionCallback";
     private String protocol;
     private String actionPath;
     private String hostName;
