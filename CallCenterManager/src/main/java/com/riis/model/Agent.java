@@ -259,8 +259,38 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
         }        
     }
     
+    
     public void updateFromEvent(AgentUpdateEvent event)
     {
         status = event.getState();
     }
+    
+    
+    public void parseCallsFromXML(String callsXML)
+    {
+        System.out.println("Calls XML = " + callsXML);
+        try
+        {
+            doc = docBuilder.parse(new InputSource(new StringReader(callsXML)));
+            doc.getDocumentElement().normalize();
+//            if (doc.getDocumentElement().getNodeName() != "CallCenter")
+//            {
+//                System.out.println("ERROR Parsing Agent XML: " + statusXML);
+//                throw new Exception("Wrong Root Node: Expected CallCenter, received " + doc.getDocumentElement().getNodeName());
+//            }
+            NodeList nodelist = doc.getDocumentElement().getElementsByTagName("Calls");
+            if (nodelist.getLength() > 0)
+            {
+                setStatus(Agent.AGENT_ONCALL_STATUS);
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error parsing XML from string! :" + e.getMessage());
+            e.printStackTrace();                       
+        }
+    }
+
+
+
 }

@@ -219,6 +219,15 @@ public class BroadsoftGateway
         return model.getAgents();
     }
     
+
+    public void getAgentCalls(Agent agent) throws IOException
+    {
+        String callsXML =  makeRequest("user/" + agent.getAgentId() + "/calls",
+                REQUEST_METHOD_GET, null);
+        System.out.println("ZZZZ - CALLS XML = " + callsXML);
+        agent.parseCallsFromXML(callsXML);        
+    }
+
     
     public List<CallCenterAgentSummary> getAllCallCenterAgentSummary() throws IOException
     {
