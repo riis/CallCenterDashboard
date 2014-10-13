@@ -23,6 +23,8 @@ import com.riis.pusher.PusherGateway;
 @Controller
 public class WebserviceController
 {
+    static boolean initialized = false;
+    
     private static final String PROTOCOL = "http";
 //    private static final String HOST_NAME = "xsp2.xdp.broadsoft.com";
     private static final String ACTION_PATH = "com.broadsoft.xsi-actions/v2.0";    
@@ -97,6 +99,10 @@ public class WebserviceController
     @RequestMapping(value = "/webservices/agentList", method = RequestMethod.GET)
     public @ResponseBody List<Agent> getAgentList() throws IOException
     {
+        if (!initialized)
+        {
+            initialize();
+        }
         setupGatewayForAction(); 
         List<Agent> agentList = gateway.getAllAgents();
         return agentList;
@@ -106,6 +112,10 @@ public class WebserviceController
     @RequestMapping(value = "/webservices/callCenterList", method = RequestMethod.GET)
     public @ResponseBody List<CallCenter> getCallCenterList() throws IOException
     {
+        if (!initialized)
+        {
+            initialize();
+        }
         setupGatewayForAction(); 
         List<CallCenter> callCenterList = gateway.getAllCallCenters();
         return callCenterList;
@@ -115,6 +125,10 @@ public class WebserviceController
     @RequestMapping(value = "/webservices/callCenterAgentSummary", method = RequestMethod.GET)
     public @ResponseBody List<CallCenterAgentSummary> getCallCenterAgentSummary() throws IOException
     {
+        if (!initialized)
+        {
+            initialize();
+        }
         setupGatewayForAction(); 
         List<CallCenterAgentSummary> callCenterAgentSummaryList = gateway.getAllCallCenterAgentSummary();
         return callCenterAgentSummaryList;
@@ -228,4 +242,37 @@ public class WebserviceController
         gateway.unsubscribeAllAgents();
         return "{'unsubscribed':'AllAgents'}";
     }
+    
+    
+    @RequestMapping(value = "/webservices/initialize", method = RequestMethod.GET)
+    @ResponseBody
+    public String initialize() throws IOException
+    {
+        if( initialized == false)
+        {
+            setupGatewayForAction(); 
+            gateway.getAllAgents();
+            gateway.getAllCallCenters();
+            setupGatewayForEvent(); 
+            gateway.subscribeAllCallCenters();
+            gateway.subscribeAllAgents();
+            initialized = true;
+        }
+        return "{'initialize':'true'}";
+    }
+
+    @RequestMapping(value = "/webservices/uninitialize", method = RequestMethod.GET)
+    @ResponseBody
+    public String uninitialize() throws IOException
+    {
+        if( initialized == true)
+        {
+            unsubscribeAllAgents();
+            unsubscribeAllCallCenters();
+            gateway.clearCache();
+            initialized = false;
+        }
+        return "{'initialize':'false'}";
+    }
+
 }
