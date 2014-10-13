@@ -213,6 +213,10 @@ public class BroadsoftGateway
 //                String callCenterCalls = makeRequest("callcenter/" + callCenter.getCallCenterId() + "/calls"); 
 //                callCenter.readQueueLengthFromXMLString(callCenterCalls);
                 refreshAgentStatus(agent);
+                if (agent.getStatus() != null && (! (Agent.AGENT_SIGNOUT_STATUS.equals(agent.getStatus()) )))
+                {
+                    getAgentCalls(agent);                    
+                }
             }
             model.setAgents(allAgents);
         }
