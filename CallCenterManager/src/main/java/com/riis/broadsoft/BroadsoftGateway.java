@@ -224,7 +224,6 @@ public class BroadsoftGateway
     {
         String callsXML =  makeRequest("user/" + agent.getAgentId() + "/calls",
                 REQUEST_METHOD_GET, null);
-        System.out.println("ZZZZ - CALLS XML = " + callsXML);
         agent.parseCallsFromXML(callsXML);        
     }
 
@@ -476,5 +475,28 @@ public class BroadsoftGateway
             }
         }
         return null;
+    }
+    
+    public void initialise() throws IOException
+    {
+        if (!model.isInitialized())
+        {
+            getAllAgents();
+            getAllCallCenters();
+            subscribeAllCallCenters();
+            subscribeAllAgents();
+            model.setInitialized(true);            
+        }
+    }
+    
+    public void uninitialise() throws IOException
+    {
+        if (model.isInitialized())
+        {
+            unsubscribeAllAgents();
+            unsubscribeAllCallCenters();
+            model.clearCache();
+            model.setInitialized(false);            
+        }
     }
 }

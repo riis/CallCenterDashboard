@@ -56,6 +56,15 @@ public class WebserviceController
         gateway.setAuthenticationUsername(AUTHENTICATION_USERNAME);
         gateway.setPassword(PASSWORD);
         gateway.setSupervisorUsername(SUPERVISOR_USERNAME);
+        try
+        {
+            gateway.initialise();            
+        }
+        catch (IOException e)
+        {
+            System.out.println("Unable to initialise Broadsoft gateway");
+            e.printStackTrace();
+        }
     }
 
 
@@ -228,4 +237,20 @@ public class WebserviceController
         gateway.unsubscribeAllAgents();
         return "{'unsubscribed':'AllAgents'}";
     }
+
+
+    @RequestMapping(value = "/webservices/initialize", method = RequestMethod.GET)
+    @ResponseBody
+    public String initialize() throws IOException
+    {
+        return "{'initialize':'true'}";
+    }
+
+    @RequestMapping(value = "/webservices/uninitialize", method = RequestMethod.GET)
+    @ResponseBody
+    public String uninitialize() throws IOException
+    {
+        return "{'initialize':'false'}";
+    }
+
 }
