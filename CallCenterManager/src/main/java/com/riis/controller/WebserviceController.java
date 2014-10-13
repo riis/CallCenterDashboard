@@ -243,6 +243,7 @@ public class WebserviceController
     @ResponseBody
     public String initialize() throws IOException
     {
+        gateway.initialise();
         return "{'initialize':'true'}";
     }
 
@@ -250,6 +251,7 @@ public class WebserviceController
     @ResponseBody
     public String uninitialize() throws IOException
     {
+        gateway.uninitialise();
         return "{'initialize':'false'}";
     }
 
