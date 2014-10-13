@@ -281,7 +281,12 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
             NodeList nodelist = doc.getDocumentElement().getElementsByTagName("call");
             if (nodelist.getLength() > 0)
             {
+                System.out.println("Set Agent call status to On-Call");
                 setStatus(Agent.AGENT_ONCALL_STATUS);
+            }
+            else
+            {
+                System.out.println("No Calls found");
             }
         }
         catch (Exception e)
