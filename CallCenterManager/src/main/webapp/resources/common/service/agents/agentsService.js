@@ -7,7 +7,7 @@ Services.service('agentsService', function ($http, agentsFactory) {
 	 */
 	service.getAgents = function (successCallback, errorCallback) {
 		// Get the agents from the web service
-		$http.get('/CallCenterManager/webservices/agentList').success(successCallback).error(errorCallback);
+		$http.get('/CallCenterManager-CallCruncher/webservices/agentList').success(successCallback).error(errorCallback);
 	}
 
 	/**
@@ -15,7 +15,7 @@ Services.service('agentsService', function ($http, agentsFactory) {
 	 */
 	service.getCallCenters = function (successCallback, errorCallback) {
 		// Get the agents from the web service
-		$http.get('/CallCenterManager/webservices/callCenterList').success(successCallback).error(errorCallback);
+		$http.get('/CallCenterManager-CallCruncher/webservices/callCenterList').success(successCallback).error(errorCallback);
 	}
 	
 	/**
@@ -23,7 +23,7 @@ Services.service('agentsService', function ($http, agentsFactory) {
 	 */
 	service.getAgentSummary = function (successCallback, errorCallback) {
 		// Get the agents from the web service
-		$http.get('/CallCenterManager/webservices/callCenterAgentSummary').success(successCallback).error(errorCallback);
+		$http.get('/CallCenterManager-CallCruncher/webservices/callCenterAgentSummary').success(successCallback).error(errorCallback);
 	}
 	return service;
 });
