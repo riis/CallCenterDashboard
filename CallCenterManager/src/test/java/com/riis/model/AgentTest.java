@@ -107,6 +107,17 @@ public class AgentTest
     		    "<expires>3600</expires>" +
     		"</Subscription>";
 
+    
+    private static String AGENT_CALLS_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+    		"<Calls xmlns=\"http://schema.broadsoft.com/xsi\">" +
+    		    "<call inConference=\"false\">" +
+    		        "<callId>callhalf-722:0</callId>" +
+    		        "<uri>/v2.0/user/negi001@172.16.25.102/calls/callhalf-722:0</uri>" +
+    		    "</call>" +
+    		"</Calls>";
+    
+    private static String AGENT_CALLS_NO_CALL_XML = "<Calls xmlns=\"http://schema.broadsoft.com/xsi\"/>";
+
     private Agent agent;
 
     @Before
@@ -190,7 +201,7 @@ public class AgentTest
 
 
     @Test
-    public void testUpdateFromEventL()
+    public void testUpdateFromEvent()
     {      
         AgentUpdateEvent event = new AgentUpdateEvent();
         event.setState("TEST_STATE");
@@ -198,4 +209,19 @@ public class AgentTest
         assertEquals("TEST_STATE", agent.getStatus());
     }
 
+    @Test
+    public void testParseCallsFromXML()
+    {      
+        agent.setStatus("TEST_STATE");
+        agent.parseCallsFromXML(AGENT_CALLS_XML);
+        assertEquals(Agent.AGENT_ONCALL_STATUS, agent.getStatus());
+    }
+
+    @Test
+    public void testParseCallsNoCallFromXML()
+    {      
+        agent.setStatus("TEST_STATE");
+        agent.parseCallsFromXML(AGENT_CALLS_NO_CALL_XML);
+        assertEquals("TEST_STATE", agent.getStatus());
+    }
 }

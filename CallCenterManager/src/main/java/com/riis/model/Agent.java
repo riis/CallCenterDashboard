@@ -273,12 +273,12 @@ public class Agent extends AbstractXMLParser implements XMLParserContract, Seria
         {
             doc = docBuilder.parse(new InputSource(new StringReader(callsXML)));
             doc.getDocumentElement().normalize();
-//            if (doc.getDocumentElement().getNodeName() != "CallCenter")
-//            {
-//                System.out.println("ERROR Parsing Agent XML: " + statusXML);
-//                throw new Exception("Wrong Root Node: Expected CallCenter, received " + doc.getDocumentElement().getNodeName());
-//            }
-            NodeList nodelist = doc.getDocumentElement().getElementsByTagName("Calls");
+            if (doc.getDocumentElement().getNodeName() != "Calls")
+            {
+                System.out.println("ERROR Parsing Agent XML: " + callsXML);
+                throw new Exception("Wrong Root Node: Expected Calls, received " + doc.getDocumentElement().getNodeName());
+            }
+            NodeList nodelist = doc.getDocumentElement().getElementsByTagName("call");
             if (nodelist.getLength() > 0)
             {
                 setStatus(Agent.AGENT_ONCALL_STATUS);
