@@ -181,6 +181,14 @@ public class WebserviceController
         if (AgentUpdateEvent.AGENT_STATE_EVENT.equals(eventType) && agent != null)
         {
             agent.updateFromEvent(event);
+
+            // find out if agent is on a call
+            if (agent.getStatus() != null && (! "Sign-Out".equals(agent.getStatus())))
+            {
+                setupGatewayForAction(); 
+                gateway.getAgentCalls(agent);
+            }
+            
             PusherGateway pusher = new PusherGateway();
             pusher.pushAgentEventNotification(event);
         }
