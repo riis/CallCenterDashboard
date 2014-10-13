@@ -27,16 +27,19 @@ public class BroadsoftGatewayTest
         
         Agent agentOne = new Agent("@riis.com");
         agentOne.setName("AgentOne");
+        agentOne.setCallCenterId("CCOne");
         agentOne.setSubscriptionId("subscription1");
         agents.add(agentOne);
         
         Agent agentTwo = new Agent("@riis.com");
         agentTwo.setName("AgentTwo");
+        agentTwo.setCallCenterId("CCOne");
         agentTwo.setSubscriptionId("subscription2");
         agents.add(agentTwo);
         
         Agent agentThree = new Agent("@riis.com");
         agentThree.setName("AgentThree");
+        agentThree.setCallCenterId("CCTwo");
         agentThree.setSubscriptionId("subscription3");
         agents.add(agentThree);
         
@@ -44,11 +47,13 @@ public class BroadsoftGatewayTest
         
         CallCenter callCenterOne = new CallCenter("@riis.com");
         callCenterOne.setCallCenterName("CallCenterOne");
+        callCenterOne.setCallCenterId("CCOne");
         callCenterOne.setSubscriptionId("CallCenterSub1");
         callCenters.add(callCenterOne);
         
         CallCenter callCenterTwo = new CallCenter("@riis.com");
         callCenterTwo.setCallCenterName("CallCenterTwo");
+        callCenterTwo.setCallCenterId("CCTwo");
         callCenterTwo.setSubscriptionId("CallCenterSub2");
         callCenters.add(callCenterTwo);        
           
