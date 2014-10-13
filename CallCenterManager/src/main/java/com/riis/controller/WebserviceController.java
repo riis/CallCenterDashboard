@@ -206,6 +206,11 @@ public class WebserviceController
             {
                 setupGatewayForAction(); 
                 gateway.getAgentCalls(agent);
+                if (agent.getStatus() != event.getState())
+                {
+                    // agent was updated to On-Call - so update event
+                    event.setState(agent.getStatus());
+                }
             }
             System.out.println("Agent status set to " + agent.getStatus());
             PusherGateway pusher = new PusherGateway();
