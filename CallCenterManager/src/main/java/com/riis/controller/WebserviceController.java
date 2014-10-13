@@ -248,7 +248,7 @@ public class WebserviceController
     @ResponseBody
     public String initialize() throws IOException
     {
-        if( initialized = false)
+        if( initialized == false)
         {
             setupGatewayForAction(); 
             gateway.getAllAgents();
@@ -265,7 +265,7 @@ public class WebserviceController
     @ResponseBody
     public String uninitialize() throws IOException
     {
-        if( initialized = true)
+        if( initialized == true)
         {
             unsubscribeAllAgents();
             unsubscribeAllCallCenters();
