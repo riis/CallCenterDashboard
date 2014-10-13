@@ -8,7 +8,6 @@ public class Model
 {
     private static Model instance = null;
     
-    private boolean initialized = false;
     private List<CallCenter> callCenters;
     private List<Agent> agents;
     
@@ -25,16 +24,6 @@ public class Model
         return instance;
     }
     
-    public boolean isInitialized()
-    {
-        return initialized;
-    }
-
-    public void setInitialized(boolean initialized)
-    {
-        this.initialized = initialized;
-    }
-
     public List<CallCenter> getCallCenters()
     {
         return callCenters;

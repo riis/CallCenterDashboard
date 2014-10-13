@@ -477,26 +477,4 @@ public class BroadsoftGateway
         return null;
     }
     
-    public void initialise() throws IOException
-    {
-        if (!model.isInitialized())
-        {
-            getAllAgents();
-            getAllCallCenters();
-            subscribeAllCallCenters();
-            subscribeAllAgents();
-            model.setInitialized(true);            
-        }
-    }
-    
-    public void uninitialise() throws IOException
-    {
-        if (model.isInitialized())
-        {
-            unsubscribeAllAgents();
-            unsubscribeAllCallCenters();
-            model.clearCache();
-            model.setInitialized(false);            
-        }
-    }
 }
