@@ -250,10 +250,12 @@ public class WebserviceController
     {
         if( initialized = false)
         {
-            getAgentList();
-            getCallCenterList();
-            subscribeAllCallCenters();
-            subscribeAllAgents();
+            setupGatewayForAction(); 
+            gateway.getAllAgents();
+            gateway.getAllCallCenters();
+            setupGatewayForEvent(); 
+            gateway.subscribeAllCallCenters();
+            gateway.subscribeAllAgents();
             initialized = true;
         }
         return "{'initialize':'true'}";
