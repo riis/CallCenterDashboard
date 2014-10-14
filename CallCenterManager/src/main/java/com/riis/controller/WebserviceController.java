@@ -200,17 +200,20 @@ public class WebserviceController
         if (AgentUpdateEvent.AGENT_STATE_EVENT.equals(eventType) && agent != null)
         {
             agent.updateFromEvent(event);
-            
-         // find out if agent is on a call
-            if (agent.getStatus() != null && (! (Agent.AGENT_SIGNOUT_STATUS.equals(agent.getStatus()) )))
+            // find out if agent is on a call
+            if (event.getState() != null && (! (Agent.AGENT_SIGNOUT_STATUS.equals(event.getState()) )))
             {
                 setupGatewayForAction(); 
                 gateway.getAgentCalls(agent);
-                if (agent.getStatus() != event.getState())
-                {
-                    // agent was updated to On-Call - so update event
-                    event.setState(agent.getStatus());
-                }
+                String status = agent.getStatus();
+                // agent may  updated to On-Call - so update event
+                event.setState(agent.getStatus());
+            }
+            // update all agents to keep them in sync across call centers
+            List<Agent> agents = gateway.findAgentsByAgentId(agent.getAgentId());
+            for (Agent currentAgent : agents)
+            {
+                currentAgent.setStatus(event.getState());
             }
             System.out.println("Agent status set to " + agent.getStatus());
             PusherGateway pusher = new PusherGateway();
