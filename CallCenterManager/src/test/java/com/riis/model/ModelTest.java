@@ -3,6 +3,7 @@ import static junit.framework.Assert.assertEquals;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -31,6 +32,7 @@ public class ModelTest
         agentOne.setCallCenterId("CCOne");
         agentOne.setSubscriptionId("subscription1");
         agentOne.setStatus(Agent.AGENT_ONCALL_STATUS);
+        agentOne.setStatusChangedTimestamp(new Date(3000));
         agents.add(agentOne);
         
         Agent agentTwo = new Agent("@riis.com");
@@ -39,6 +41,7 @@ public class ModelTest
         agentTwo.setCallCenterId("CCOne");
         agentTwo.setSubscriptionId("subscription2");
         agentTwo.setStatus(Agent.AGENT_AVAILABLE_STATUS);
+        agentTwo.setStatusChangedTimestamp(new Date(2000));
         agents.add(agentTwo);
         
         Agent agentThree = new Agent("@riis.com");
@@ -47,6 +50,7 @@ public class ModelTest
         agentThree.setCallCenterId("CCTwo");
         agentThree.setSubscriptionId("subscription3");
         agentThree.setStatus(Agent.AGENT_AVAILABLE_STATUS);
+        agentThree.setStatusChangedTimestamp(new Date(1000));
         agents.add(agentThree);
         
         List<CallCenter> callCenters = new ArrayList<CallCenter>();

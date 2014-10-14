@@ -172,12 +172,13 @@ public class Model
                 }
                 else if (priorityStatus != currentAgent.getStatus())
                 {
+                    applyUpdate = true;
                     if ( agentStatusTimestamp == null || 
                             ( currentAgent.getStatusChangedTimestamp() != null 
                                 && agentStatusTimestamp.before(currentAgent.getStatusChangedTimestamp())))
                     {
-                        applyUpdate = true;
-                        priorityStatus = prioritizeStatus(priorityStatus, currentAgent.getStatus()); 
+//                        priorityStatus = prioritizeStatus(priorityStatus, currentAgent.getStatus()); 
+                        priorityStatus = currentAgent.getStatus(); 
                         agentStatusTimestamp = currentAgent.getStatusChangedTimestamp();
                         System.out.println("found agent with another status,  priorityStatus : " + priorityStatus);
                     }
@@ -193,7 +194,7 @@ public class Model
                 for (Agent currentAgent : agentsWithId)
                 {
                     currentAgent.setStatus(priorityStatus);
-                    currentAgent.setStatusChangedTimestamp(agentStatusTimestamp);
+//                    currentAgent.setStatusChangedTimestamp(agentStatusTimestamp);
                     System.out.println("applying priorityStatus : " + priorityStatus + " to agent " + currentAgent.getName());
 
                 }
