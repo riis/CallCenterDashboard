@@ -1,6 +1,7 @@
 package com.riis.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 // Singleton class to store CallCenter and Agent info
@@ -156,6 +157,7 @@ public class Model
         for (String currentId : agentIds)
         {
             String priorityStatus = null;
+            Date agentStatusTimestamp = null;
             boolean applyUpdate = false;
 
             List<Agent> agentsWithId = findAgentsByAgentId(currentId);
@@ -165,13 +167,20 @@ public class Model
                 {
                     // first status so nothing to update
                     priorityStatus = currentAgent.getStatus();
+                    agentStatusTimestamp = currentAgent.getStatusChangedTimestamp();
                     System.out.println("First setting of priorityStatus : " + priorityStatus);
                 }
                 else if (priorityStatus != currentAgent.getStatus())
                 {
-                    applyUpdate = true;
-                    priorityStatus = prioritizeStatus(priorityStatus, currentAgent.getStatus());  
-                    System.out.println("found agent with another status,  priorityStatus : " + priorityStatus);
+                    if ( agentStatusTimestamp == null || 
+                            ( currentAgent.getStatusChangedTimestamp() != null 
+                                && agentStatusTimestamp.before(currentAgent.getStatusChangedTimestamp())))
+                    {
+                        applyUpdate = true;
+                        priorityStatus = prioritizeStatus(priorityStatus, currentAgent.getStatus()); 
+                        agentStatusTimestamp = currentAgent.getStatusChangedTimestamp();
+                        System.out.println("found agent with another status,  priorityStatus : " + priorityStatus);
+                    }
 
                 }
                 else
@@ -184,6 +193,7 @@ public class Model
                 for (Agent currentAgent : agentsWithId)
                 {
                     currentAgent.setStatus(priorityStatus);
+                    currentAgent.setStatusChangedTimestamp(agentStatusTimestamp);
                     System.out.println("applying priorityStatus : " + priorityStatus + " to agent " + currentAgent.getName());
 
                 }
