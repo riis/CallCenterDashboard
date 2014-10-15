@@ -3,6 +3,8 @@ package com.riis.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -157,7 +159,8 @@ public class WebserviceController
         if (CallCenterUpdateEvent.CALL_CENTER_SUBSCRIPTION_TERMINATION_EVENT.equals(eventType) 
                 && callCenter != null)
         {
-            System.out.println("Found subscription termination event for callCenter with Subscription Id - re-subscribing");
+            System.out.println("Found subscription termination event for callCenter with Subscription Id : " + callCenter.getSubscriptionId() + " - re-subscribing");
+            setupGatewayForEvent();
             gateway.subscribeCallCenter(callCenter);
         }
         else
@@ -221,7 +224,8 @@ public class WebserviceController
         }
         if (AgentUpdateEvent.AGENT_SUBSCRIPTION_TERMINATION_EVENT.equals(eventType) && agent != null)
         {
-            System.out.println("Found subscription termination event for agent with Subscription Id - re-subscribing");
+            System.out.println("Found subscription termination event for agent with Subscription Id : " + agent.getSubscriptionId() + " - re-subscribing");
+            setupGatewayForEvent();
             gateway.subscribeAgent(agent);
         }
         if (AgentUpdateEvent.AGENT_SUBSCRIPTION_EVENT.equals(eventType))
@@ -288,4 +292,18 @@ public class WebserviceController
         return "{'initialize':'false'}";
     }
 
+    @PostConstruct
+    public void init()
+    {
+        System.out.println("Called @PostConstruct init method");
+        try
+        {
+            initialize();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Exception caught during @PostConstruct init methos");
+            e.printStackTrace();
+        }
+    }
 }
