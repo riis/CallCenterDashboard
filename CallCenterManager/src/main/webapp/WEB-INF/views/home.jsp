@@ -42,6 +42,7 @@
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/css/bootstrap-theme.css" />
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/bower_components/components-font-awesome/css/font-awesome.min.css" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
         
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/style.css" />
         
@@ -49,11 +50,18 @@
     <body ng-controller="AppCtrl">
     
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="container-fluid header drop-shadow">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Call Center Activity</a>
-				</div>
-				<div class="pull-right date-time">
+			<div class="container-fluid header">
+				<div class="time" >
+                    Updated:{{ dateObj | date:'h:mm'}}&nbsp;{{ dateObj | date:'a'}}
+                </div>
+                <div class="date">
+                    <div class="day">{{dateObj | date:'EEE'}}</div>
+                    <div class="month">{{ dateObj | date:'MMM' }}</div>
+                    <div class="day-number">{{ dateObj | date:'dd' }}</div>
+                </div>
+				<a href="#">Call Center Activity</a>
+				
+               <!--  <div class="pull-right date-time">
 					<div class="date-container">
 						<div class="day" ng-bind="dateObj | date:'EEEE'"></div>
 						<div><span class="date" ng-bind="dateObj | date:'dd'"></span> <span class="month" ng-bind="dateObj | date:'MMM'"></span></div>
@@ -63,7 +71,7 @@
 						<div class="time" ng-bind="dateObj | date:'h:mm'"></div>
 					</div>
 				</div>
-                <div class="time-label pull-right">Last Updated</div>
+                <div class="time-label pull-right">Last Updated</div> -->
 			</div>
 		</div>
 	    

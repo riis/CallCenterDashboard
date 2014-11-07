@@ -1,233 +1,239 @@
-/*
- * Base structure
- */
-
-/* Move down content because we have a fixed navbar that is 50px tall */
+/************************************************************************
+  -- HEADER
+  -- GENERAL
+  -- AGENTS & AGENTS SUMMARY
+  -- -- Filters
+  -- -- Agents
+  -- -- Agents Summary
+************************************************************************/
 body {
-  padding-top: 50px;
-  background-color: #e3e3e3;
+    padding-top: 106px; /* Move down content because we have a fixed navbar that is 106px tall */
+    background-color: #eaedf1;
+    font-family: 'Open Sans';
+    font-weight: 300;
 }
 
-.drop-shadow{
-  -moz-box-shadow:    3px 3px 5px 6px #ccc;
-  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
-  box-shadow: 0px 0px 40px 6px #7e8a96;
-}
-/*
- * Global add-ons
- */
-
-.sub-header {
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-/*
- * Top navigation
- * Hide default border to remove 1px line.
- */
 .navbar-fixed-top {
-  border: 0;
-  color: white;
-  background-color: #153F5F;
-  background-image: none;
+    border: 0;
+    color: white;
+    background-color: #153F5F;
+    background-image: none;
 }
 
-.navbar-brand {
-    color: white !important;
-    font-size: 1.8em;
-}
-
-.navbar .date-time {
-  float: right;
-}
-.navbar .date-time > div {
-  padding: 5px 10px;
-}
-
-.navbar .date-time .date-container {
-  float: left;
-}
-
-.navbar .date-time .time-container {
-  float: right;
-}
-
-.navbar .date-time .day {
-    font-size: .8em;
-}
-
-.navbar .date-time .date {
-    font-size: 1.4em;
-}
-
-.navbar .date-time .month {
-    font-size: 0.5em;
-}
-
-.navbar .date-time .am-pm {
-    font-size: 0.8em;
-    text-align: right;
-}
-.navbar .date-time .time {
-    font-size: 1.4em;
-}
-.time-label{
-    height: 53px;
-    line-height: 53px;
-    font-size: 1.8em;
-    font-weight: normal;
-    padding-right: 20px;
-}
-.chart-panel{
-  -height: 400px;
-}
-/*
- * Sidebar
- */
-
-/* Hide for mobile, show later */
-.sidebar {
-  display: none;
-}
-@media (min-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 51px;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    display: block;
-    padding: 20px;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
-    border-right: 1px solid #eee;
-  }
-}
-
-/*
- * Main content
- */
-
-@media (min-width: 768px) {
-  .main {
-
-  }
-}
-.main .page-header {
-  margin-top: 0;
-}
-
+/************************************************************************
+  HEADER
+************************************************************************/
 .header{
-  background-color: #b71928;
+    position: relative;
+    padding: 0 28px;
+    height: 90px;
+    line-height: 90px;
+    text-align: center;
+    background-color: #f9fafc;
+    border-bottom: 2px solid #1bbae1;
+    color: #8f8f8f;
+    font-family: 'Open Sans', sans-serif;
 }
-#agents, #agentSummary, #callsInQueue{
-  border-radius: 10px;
-}
-#agents .panel-heading, #agentSummary .panel-heading, #callsInQueue .panel-heading{
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-}
-.panel-heading{
-  background-color: #b71928 !important;
-}
-.padding6{
-  padding-left: 6px !important;
-}
-/*
- * Placeholder dashboard ideas
- */
+    .header a{
+        display: inline-block;
+        height: 100%;
+        color: #1bbae1;
+        font-size: 2.6em;
+        text-decoration: none;
 
-.placeholders {
-  margin-bottom: 30px;
-  text-align: center;
-}
-.placeholders h4 {
-  margin-bottom: 0;
-}
-.placeholder {
-  margin-bottom: 20px;
-}
-.placeholder img {
-  display: inline-block;
-  border-radius: 50%;
-}
+    }
+    .time, .date{
+        display: block;
+        position: absolute;
+        top: 0;
+    }
+    .time{
+        left: 28px;
+        font-size: 1.8em;
+    }
+    .date{
+        right: 28px; top: 24px;
+        width: 120px; height: 50px;
+    }
+    .day, .month, .day-number{
+        display: block; position: absolute; top: 0;
+        text-align: center;
+    }
+    .day, .month{
+        height: 25px; line-height: 25px;
+        font-size: 1.6em;
+        left: 0;
+        width: 50px;
+    }
+    .date .day{
+       top: 0;
+    }
+    .date .month{
+        top: 22px;
+    }
+    .date .day-number{
+        display: block;
+        position: absolute; top: 0; right: 0;
+        width: 70px; height: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 4.5em;
+        color: #1bbae1;
+    }
 
-.panel-default .panel-body .table-bordered,
-.panel-default .panel-body .table-bordered td {
+/************************************************************************
+  General
+************************************************************************/
 
-}
 .panel-default .panel-heading {
-  background-color: #153f5f;
-  color: white;
-  background-image: none;
+    color: #394a73;
+    font-size: 1.1em;
+    font-weight: bold;
+    background-color: #f9fafc;
+    background-image: none;
 }
-
-.panel-default .panel-body table th {
-  background-color: #4762b3;
-  color: #fff;
+.LP30{
+    padding-left:  30px;
 }
-
-.panel-default .panel-body table {
-    font-size: 0.8em;
-}
-
 .panel-default .panel-body .fa-spin {
     font-size: 1.8em;
     margin-left: 20px;
     margin-top: 15px;
 }
-
 .highlight {
-  background-color: #FCFCB4;
+    background-color: #FCFCB4;
 }
 
-.status-image {
-  width: 20px;
-  height: 22px;
-}
+/************************************************************************
+  -- Agents & Agents Summary
+  -- -- Filters
+  -- -- Agents
+  -- -- Agents Summary
+************************************************************************/
 
-.status-dropdown{
-  padding: 0 15px;
-  text-align: right;
+.filters-wrapper{
+    height: 35px;
+    padding-bottom: 5px;
 }
-.status-dropdown select{
-  display: inline-block;
-  padding: 3px 12px;
-  height: 26px;
-  font-size: 0.9em;
+.filters{
+    position: relative;
+    height: 28px;
+    background-color: #6ad2eb;
+    border-radius: 5px;
+    overflow: hidden;
+    border: solid 1px #1bbae1;
 }
-
-.status-legends{
-  padding-left: 40px;
-}
-.status-legends span{
-  display: inline-block;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 40px;
-  margin-right: 20px;
-  color: #B3B3B3;
-}
-    .status-legends .on-call{
-        background: url(assets/On-Call.png) no-repeat left center;
-        background-size: 20px 21px;
+    .filters a{
+        display: block;
+        width: 88px;
+        line-height: 28px;
+        text-align: center;
+        float: left;
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.8em;
+        font-weight: 400;
+        border-right: solid 1px #1bbae1;
     }
-    .status-legends .available{
-        background: url(assets/Available.png) no-repeat left center;
-        background-size: 20px 21px;
-    }
-    .status-legends .unavailable{
-        background: url(assets/Unavailable.png) no-repeat left center;
-        background-size: 20px 21px;
-    }
-    .status-legends .signed-out{
-        background: url(assets/Sign-Out.png) no-repeat left center;
-        background-size: 20px 21px;
+    .filters a:last-child{
+        border-right: none;
     }
 
-.agents-head{
-  height: 30px;
-  padding-bottom: 8px;
+    .filters a.active, .filters a:hover{
+        background-color: #1bbae1;
+    }
+
+
+#agents, #agentSummary, #callsInQueue{
+    border: solid 1px #dbe1e8;
 }
+#agents {
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+    #agents .agentGroups {
+      padding-left: 0;
+      padding-right: 7px;
+    }
+    #agents .panel-body {
+      padding: 8px 0 8px 6px;
+    }
+    .status-image {
+        width: 98px;
+        height: 27px;
+    }
+    .panel-default .panel-body table {
+        color: #575757;
+        font-size: 0.8em;
+        font-weight: 400;
+        border: none;
+    }
+    .panel-default .panel-body table th {
+        border-top: none;
+        border-bottom: solid 2px #e8ecf3;
+    }
+
+    .panel-default .panel-body table tr{
+        border-bottom: solid 1px #e8ecf3;
+    }
+    .panel-default .panel-body table tr:nth-child(odd){
+        background-color: #fafafc;
+    }
+    .panel-default .panel-body table td{
+        padding: 0;
+        height: 20px; min-height: 20px;
+        border: none;
+    }
+    /* had to add div inside table cells to control height */
+    .panel-default .panel-body table td div{
+        height: 35px; overflow: auto;
+        line-height: 35px;
+    }
+
+#agents-summary .col-sm-3, #agents-summary .col-sm-9{
+    padding-right: 0;
+    padding-left: 0;
+}
+    #agents-summary .panel-body{
+        padding: 15px 0;
+    }
+    .summary-labels, .summary-row{
+        height: 44px;
+        line-height: 44px;
+        text-align: center;
+    }
+    .summary-labels{
+        border-bottom: solid 2px #d9d9d9;
+    }
+    .summary-row{
+        border-bottom: solid 1px #d9d9d9;
+    }
+    .callcenter-title{
+        text-align: left;
+        padding-left: 15px !important;
+    }
+
+    .summary-row .on-call,
+    .summary-row .available,
+    .summary-row .unavailable,
+    .summary-row .signed-out{
+        display: inline-block;
+        width: 36px; height: 36px;
+        line-height: 36px;
+        text-align: center;
+        border-radius: 50%;
+        color: #fff;
+        font-weight: bold;
+    }
+    .summary-row .on-call{
+        background-color: #1dc3e5;
+    }
+    .summary-row .available{
+        background-color: #2dcb74; 
+    }
+    .summary-row .unavailable{
+        background-color: #fc604f;
+    }
+    .summary-row .signed-out{
+        background-color: #a2a2a2;
+    }

@@ -30,7 +30,12 @@ angular.module('roadrunner.dashboard', [
 .controller('DashboardCtrl',
 	function DashboardController($rootScope, $scope, $location, $routeParams, agentsService, Pusher) {
 		$scope.pageTitle = 'Dashboard';
-
+		$scope.agentsFilter = '';
+		$scope.filterAgents = function(filter) {
+			console.log('Reached');
+			console.log(filter);
+			$scope.agentsFilter = filter;
+		}
 		$scope.pendingAgentUpdates = [];
 		
 		// Start Loader...
@@ -152,7 +157,7 @@ angular.module('roadrunner.dashboard', [
 	    		left: 150,
 	    		top : 50,
 	    	},
-	    	colors: ['#4762b3'],
+	    	colors: ['#cdacdc'],
 	    	vAxis : {
 	    		textPosition : 'out',
 	    		textStyle : {
